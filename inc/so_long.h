@@ -1,23 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 17:13:10 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/05/05 17:13:11 by tsomchan         ###   ########.fr       */
+/*   Created: 2024/05/05 17:29:56 by tsomchan          #+#    #+#             */
+/*   Updated: 2024/05/05 17:29:57 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#ifndef SO_LONG_H
+# define SO_LONG_H
 
-int	main(void)
-{
-	void	*mlx;
-	void	*mlx_win;
+# include "mlx.h"
 
-	mlx = mlx_init();
-	mlx_win = mlx_new_window(mlx, 1920, 1080, "so_long");
-	mlx_loop(mlx);
-}
+#endif

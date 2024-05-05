@@ -13,12 +13,13 @@
 NAME	=	so_long
 
 INC_PTH	=	inc/
-INC		=	$(addprefix $(INC_PTH), so_long.h)
+INC		=	
 
-MLX_PTH	=	mlx/
+MLX_PTH	=	mlx
+MLX		=	$(MLX_PTH)/libmlx.a
 
 SRC_PTH	=	src/
-SRC		=	color.c util.c
+SRC		=	main.c
 
 OBJ_PTH	=	obj/
 OBJ		=	$(SRC:%.c=$(OBJ_PTH)%.o)
@@ -26,25 +27,30 @@ OBJ		=	$(SRC:%.c=$(OBJ_PTH)%.o)
 BONUS_PTH	=	bonus/
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror
+#CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -f
 RM_RF	= 	rm -rf
 
-MLXFLAGS	=	-L$(MLX_PTH) -lmlx -lXext -lX11 -lm -lz
+#MLXFLAGS	=	-L$(MLX_PTH) -l$(MLX_PTH) -L/usr/lib -I$(MLX_PTH) -lXext -lX11 -lm -lz
+MLXFLAGS	=	-L$(MLX_PTH) -L/usr/lib -I$(MLX_PTH) -lXext -lX11 -lm -lz
+#MLXFLAGS	=	-L$(MLX_PTH) -lmlx -lXext -lX11 -lm -lz
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -I$(MLX_PTH) $(MLXFLAGS) -o $@
+$(NAME): $(OBJ) mlx
+	$(CC) $(CFLAGS) $(OBJ) $(MLXFLAGS) -o $@
 	@echo "$(D_GREEN)$@ compiled$(NC)"
 
 $(OBJ_PTH)%.o: $(SRC_PTH)%.c Makefile | $(OBJ_PTH)
-	$(CC) $(CFLAGS) -I$(INC_PTH) -I$(MLX_PTH) -03 -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INC_PTH) -I$(MLX_PTH) -O3 -c $< -o $@
 	@echo "$(D_GREEN)compiled $<$(NC)"
 
 $(OBJ_PTH):
 	mkdir -p $(OBJ_PTH)
 	@echo "$(D_GREEN)compiled $@$(NC)"
+
+mlx:
+	make -C ${MLX_PTH}
 
 clean:
 	$(RM) $(OBJ)
@@ -52,6 +58,7 @@ clean:
 	@echo "$(D_YELLOW)removed object files$(NC)"
 
 fclean: clean
+	make clean -C $(MLX_PTH)
 	$(RM) $(NAME)
 	@echo "$(D_YELLOW)removed $(NAME)$(NC)"
 
