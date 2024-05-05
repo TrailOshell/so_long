@@ -1,2 +1,4 @@
 *.o
 *obj/
+*so_long
+mlx/*libmlx*.a
