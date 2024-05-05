@@ -15,7 +15,6 @@ NAME	=	so_long
 INC_PTH	=	inc/
 INC		=	so_long.h
 
-
 SRC_PTH	=	src/
 SRC		=	main.c
 

@@ -15,4 +15,12 @@
 
 # include "mlx.h"
 
+typedef struct s_data
+{
+	void		*mlx_ptr;
+	void		*win_ptr;
+	//void		*textures[5];
+	//t_map		*map;
+}	t_data;
+
 #endif
