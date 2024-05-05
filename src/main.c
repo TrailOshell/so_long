@@ -35,12 +35,12 @@ int	main(void)
 	data.mlx_ptr = mlx_init();
 	if (!data.mlx_ptr)
 		return (1);
-	data.win_ptr = mlx_new_window(data.mlx_ptr, 600, 400, "so_long");
+	data.win_ptr = mlx_new_window(data.mlx_ptr, 1920, 1080, "so_long");
 	if (!data.win_ptr)
 		return (free(data.mlx_ptr), 1);
-	mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &on_keypress, &data);
-	mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask,
-		&on_destroy, &data);
+	//mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &on_keypress, &data);
+	//mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask,
+	//	&on_destroy, &data);
 	mlx_loop(data.mlx_ptr);
 	return (0);
 }
