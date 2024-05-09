@@ -23,6 +23,10 @@ OBJ		=	$(SRC:%.c=$(OBJ_PTH)%.o)
 
 BONUS_PTH	=	bonus/
 
+# get_next_line
+GNL_PTH	=	gnl/
+GNL		=	$(GNL_PTH)get_next_line.a
+
 CC		=	cc
 #CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -f
@@ -33,18 +37,22 @@ MLX			=	$(MLX_PTH)/libmlx.a
 MLX_FLAGS	=	-L$(MLX_PTH) -l$(MLX_PTH) -L/usr/lib -I$(MLX_PTH) -lXext -lX11 -lm -lz
 MLX_INC		=	-I/usr/include -I$(MLX_PTH) -O3
 
-all: $(MLX) $(NAME)
+all: $(MLX) $(GNL) $(NAME)
 
 $(OBJ_PTH)%.o: $(SRC_PTH)%.c Makefile | $(OBJ_PTH)
 	$(CC) $(CFLAGS) -I$(INC_PTH) $(MLX_INC) -c $< -o $@
 	@echo "$(D_GREEN)compiled $<$(NC)"
 
 $(NAME): $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) -o $@ $(MLX_FLAGS)
+	$(CC) $(CFLAGS) $(OBJ) $(GNL) -o $@ $(MLX_FLAGS)
 	@echo "$(D_GREEN)compiled $@$(NC)"
 
 $(OBJ_PTH):
 	mkdir -p $(OBJ_PTH)
+	@echo "$(D_GREEN)compiled $@$(NC)"
+
+$(GNL):
+	make -C ${GNL_PTH}
 	@echo "$(D_GREEN)compiled $@$(NC)"
 
 $(MLX):
