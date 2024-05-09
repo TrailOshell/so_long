@@ -23,14 +23,21 @@
 # include "mlx.h"
 //# include "get_next_line.h"
 
+typedef struct s_node
+{
+	t_node	next;
+	char	*line;
+}	t_node;
+
 typedef struct s_map
 {
-	int	n_row;
-	int	n_col;
-	int	n_exit;
-	int	n_player;
-	int	n_collect;
-	int	n_enemy;
+	int		n_row;
+	int		n_col;
+	int		n_exit;
+	int		n_player;
+	int		n_collect;
+	int		n_enemy;
+	char	**grid;
 }	t_map;
 
 typedef struct s_err
@@ -47,8 +54,30 @@ typedef struct s_data
 	void		*win_ptr;
 	//void		*textures[5];
 	t_map		*map;
+	t_node		*node;
+	t_player	*player;
+	t_exit		*exit;
+	t_collect	*collect;
 }	t_data;
 
+typedef struct s_player
+{
+	int	x;
+	int	y;
+}	t_player;
+
+typedef struct s_exit
+{
+	int	x;
+	int	y;
+}	t_exit;
+
+typedef struct s_collect
+{
+	int			x;
+	int			y;
+	t_collect	next;
+}	t_collect;
 
 //	X11 events 
 # define KEYPRESS			2
@@ -70,7 +99,14 @@ typedef struct s_data
 
 // util.c
 size_t	sl_strlen(char *s);
+char	*sl_strdup(char *s);
 int		sl_strrncmp(const char *s1, const char *s2, size_t n);
+char	*sl_strjoin(char const *s1, char const *s2);
 
+// error.c
+void	error_and_exit(void);
+
+// map.c
+int		read_map(int argc, char **argv, t_data *data);
 
 #endif

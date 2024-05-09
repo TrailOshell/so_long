@@ -12,6 +12,16 @@
 
 #include "so_long.h"
 
+void	start_data(t_data *data)
+{
+	data->mlx_ptr = mlx_init();
+	data->map->n_col = 0;
+	data->map->n_row = 0;
+	data->player = malloc(sizeof(t_player));
+	data->exit = malloc(sizeof(t_exit));
+	//data->collect = malloc(sizeof(t_collect));
+}
+
 int	on_destroy(t_data *data)
 {
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
@@ -32,34 +42,11 @@ int	on_keypress(int keysym, t_data *data)
 	return (0);
 }
 
-void	error_and_exit(void)
-{
-	write(1, "Error\n", 6);
-	exit(0);
-}
-
-int	read_map(int argc, char **argv, t_data *data)
-{
-	char	*line;
-	int		fd;
-
-	if (argc != 2)
-		error_and_exit();
-	fd = open(argv[1], O_RDONLY);
-	if (fd < 0) 
-		error_and_exit();
-	if (sl_strrncmp(argv[1], ".ber", 4))
-		error_and_exit();
-	//line = malloc(BUFFER_SIZE + 1);
-	//while (fd)
-	//	line = get_next_line(fd);
-}
-
 int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-	data->mlx_ptr = mlx_init();
+	start_data(data);
 	if (!data->mlx_ptr)
 		return (1);
 	read_map(argc, argv, data);

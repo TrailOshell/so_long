@@ -22,6 +22,22 @@ size_t	sl_strlen(char *s)
 	return (0);
 }
 
+char	*sl_strdup(char *s)
+{
+	char	*dup;
+	int		i;
+
+	dup = malloc(sizeof(char) * sl_strlen(s) + 1);
+	i = 0;
+	while (s[i])
+	{
+		dup[i] = s[i];
+		i++;
+	}
+	dup[i] = '\0';
+	return (dup);
+}
+
 int	sl_strrncmp(const char *s1, const char *s2, size_t n)
 {
 	while (s1)
@@ -45,3 +61,25 @@ int	sl_strrncmp(const char *s1, const char *s2, size_t n)
 		if (s1[len1] != s2[len2])
 			return (s1[len1] - s2[len2]);
 */
+
+char	*sl_strjoin(char const *s1, char const *s2)
+{
+	char	*ptr;
+	size_t	size1;
+	size_t	size2;
+	int		i;
+
+	if (!s1 || !s2)
+		return (0);
+	size1 = sl_strlen(s1);
+	size2 = sl_strlen(s2);
+	ptr = malloc(sizeof(char) * (size1 + size2 + 1));
+	if (!ptr)
+		return (0);
+	i = 0;
+	while (*s1)
+		ptr[i++] = *(s1++);
+	while (*s2)
+		ptr[i++] = *(s1++);
+	return (ptr);
+}
