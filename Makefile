@@ -26,6 +26,7 @@ BONUS_PTH	=	bonus/
 # get_next_line
 GNL_PTH	=	gnl/
 GNL		=	$(GNL_PTH)get_next_line.a
+GNL_INC	=	$(GNL_PTH)get_next_line.h
 
 CC		=	cc
 #CFLAGS	=	-Wall -Wextra -Werror
@@ -40,7 +41,7 @@ MLX_INC		=	-I/usr/include -I$(MLX_PTH) -O3
 all: $(MLX) $(GNL) $(NAME)
 
 $(OBJ_PTH)%.o: $(SRC_PTH)%.c Makefile | $(OBJ_PTH)
-	$(CC) $(CFLAGS) -I$(INC_PTH) $(MLX_INC) -c $< -o $@
+	$(CC) $(CFLAGS) -I$(INC_PTH) -I$(GNL_INC) $(MLX_INC) -c $< -o $@
 	@echo "$(D_GREEN)compiled $<$(NC)"
 
 $(NAME): $(OBJ)

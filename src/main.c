@@ -32,13 +32,37 @@ int	on_keypress(int keysym, t_data *data)
 	return (0);
 }
 
-int	main(void)
+void	error_and_exit(void)
+{
+	write(1, "Error\n", 6);
+	exit(0);
+}
+
+int	read_map(int argc, char **argv, t_data *data)
+{
+	char	*line;
+	int		fd;
+
+	if (argc != 2)
+		error_and_exit();
+	fd = open(argv[1], O_RDONLY);
+	if (fd < 0) 
+		error_and_exit();
+	if (sl_strrncmp(argv[1], ".ber", 4))
+		error_and_exit();
+	//line = malloc(BUFFER_SIZE + 1);
+	//while (fd)
+	//	line = get_next_line(fd);
+}
+
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 
 	data->mlx_ptr = mlx_init();
 	if (!data->mlx_ptr)
 		return (1);
+	read_map(argc, argv, data);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, 1920, 1080, "so_long");
 	if (!data->win_ptr)
 		return (free(data->mlx_ptr), 1);

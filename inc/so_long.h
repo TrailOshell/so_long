@@ -15,23 +15,30 @@
 
 # include <stdio.h>
 
+# include <unistd.h>
 # include <stdlib.h>
+# include <fcntl.h>
+# include <string.h>
 
 # include "mlx.h"
+//# include "get_next_line.h"
 
 typedef struct s_map
 {
 	int	n_row;
 	int	n_col;
 	int	n_exit;
-	int	n_collect;
 	int	n_player;
+	int	n_collect;
 	int	n_enemy;
 }	t_map;
 
 typedef struct s_err
 {
 	int	err_borders;
+	int	err_exit;
+	int	err_player;
+	int	err_collect;
 }	t_err;
 
 typedef struct s_data
@@ -60,5 +67,10 @@ typedef struct s_data
 # define KEY_DOWN  			65364 
 # define KEY_Q				113
 # define KEY_ESC			65307
+
+// util.c
+size_t	sl_strlen(char *s);
+int		sl_strrncmp(const char *s1, const char *s2, size_t n);
+
 
 #endif
