@@ -23,25 +23,28 @@ int	on_destroy(t_data *data)
 
 int	on_keypress(int keysym, t_data *data)
 {
-	(void)data;
-	printf("Pressed key: %d\\n", keysym);
+	//if (keysym == KEY_UP || keysym == KEY_W)
+	//if (keysym == KEY_LEFT || keysym == KEY_A)
+	//if (keysym == KEY_RIGHT || keysym == KEY_D)
+	//if (keysym == KEY_DOWN || keysym == KEY_S)
+	if (keysym == KEY_Q || keysym == KEY_ESC)
+		exit(0);
 	return (0);
 }
 
 int	main(void)
 {
-	t_data	data;
+	t_data	*data;
 
-	data.mlx_ptr = mlx_init();
-	if (!data.mlx_ptr)
+	data->mlx_ptr = mlx_init();
+	if (!data->mlx_ptr)
 		return (1);
-	data.win_ptr = mlx_new_window(data.mlx_ptr, 1920, 1080, "so_long");
-	if (!data.win_ptr)
-		return (free(data.mlx_ptr), 1);
-	//mlx_hook(data.win_ptr, KeyRelease, KeyReleaseMask, &on_keypress, &data);
-	//mlx_hook(data.win_ptr, DestroyNotify, StructureNotifyMask,
-	//	&on_destroy, &data);
-	mlx_loop(data.mlx_ptr);
+	data->win_ptr = mlx_new_window(data->mlx_ptr, 1920, 1080, "so_long");
+	if (!data->win_ptr)
+		return (free(data->mlx_ptr), 1);
+	mlx_hook(data->win_ptr, KEYPRESS, (1L << 0), &on_keypress, data);
+	mlx_hook(data->win_ptr, DESTROYNOTIFY, (1L << 2), &on_destroy, data);
+	mlx_loop(data->mlx_ptr);
 	return (0);
 }
 
