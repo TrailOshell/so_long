@@ -41,8 +41,9 @@ int	check_map_col(t_data *data, int len)
 
 int	check_map_row(char *line, int len)
 {
-	if (line[0] != 1 || line [len] != 1)
+	if (line[0] != 1 || line[len -1 ] != 1)
 		return (0);
+	printf("n\n");
 	while (line)
 		if (isvalidchar((*line)++) == 0)
 			return (0);
@@ -137,11 +138,11 @@ int	count_valid_char(t_data *data, char **grid, t_map *map)
 	return (1);
 }
 
-int	check_clear_path(data, grid)
-{
+//int	check_clear_path(data, grid)
+//{
 
-	return (1);
-}
+//	return (1);
+//}
 
 int	check_layout(t_data *data, char **grid)
 {
@@ -154,8 +155,8 @@ int	check_layout(t_data *data, char **grid)
 		error_and_exit();
 	if (count_valid_char(data, grid, data->map) == 0)
 		error_and_exit();
-	if (check_clear_path(data, grid) == 0);
-		error_and_exit();
+	//if (check_clear_path(data, grid) == 0);
+	//	error_and_exit();
 	return (1);
 }
 
@@ -190,30 +191,34 @@ void	set_layout(t_data *data, char ***grid, t_node *node)
 	data->map->grid[data->map->n_row][x] = '\0';
 */
 
-int	read_map(int argc, char **argv, t_data *data)
+int	read_map(char **argv, t_data *data)
 {
 	char	*line;
 	int		len;
 	int		fd;
 
-	if (argc != 2)
-		error_and_exit();
+	printf("open(argv[1], O_RDONLY) = \"%s\"\n", argv[1]);
 	fd = open(argv[1], O_RDONLY);
+	printf("fd = %d\n", fd);
 	if (fd < 0)
 		error_and_exit();
 	if (sl_strrncmp(argv[1], ".ber", 4))
 		error_and_exit();
-	while (line)
+	while (1)
 	{
 		line = get_next_line(fd);
+		printf("line = %s\n", line);
 		if (!line)
 			break ;
 		len = sl_strlen(line);
+		printf("len = %d\n", len);
 		if (check_map_col(data, len) == 0 || check_map_row(line, len) == 0)
 			error_and_exit();
-		add_line(&data->node, line);
+		add_line(data->node, line);
 		free(line);
 		data->map->n_row++;
 	}
-	set_layout(data, &data->map->grid, &data->node);
+	set_layout(data, &data->map->grid, data->node);
+	flood_fill(data, data->map);
+	return (1);
 }

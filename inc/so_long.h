@@ -21,7 +21,7 @@
 # include <string.h>
 
 # include "mlx.h"
-//# include "get_next_line.h"
+# include "get_next_line.h"
 
 typedef struct s_err
 {
@@ -60,8 +60,8 @@ typedef struct s_map
 {
 	int		n_row;
 	int		n_col;
-	int		n_exit;
 	int		n_player;
+	int		n_exit;
 	int		n_collect;
 	int		n_enemy;
 	char	**grid;
@@ -96,16 +96,22 @@ typedef struct s_data
 # define KEY_Q				113
 # define KEY_ESC			65307
 
+// main.c
+t_map	*start_map(t_map *map);
+
 // util.c
 size_t	sl_strlen(char *s);
 char	*sl_strdup(char *s);
-int		sl_strrncmp(const char *s1, const char *s2, size_t n);
-char	*sl_strjoin(char const *s1, char const *s2);
+int		sl_strrncmp(char *s1, char *s2, size_t n);
+char	*sl_strjoin(char *s1, char *s2);
 
 // error.c
 void	error_and_exit(void);
 
 // map.c
-int		read_map(int argc, char **argv, t_data *data);
+int		read_map(char **argv, t_data *data);
+
+// flood_fill.c
+int		flood_fill(t_data *data, t_map *map);
 
 #endif

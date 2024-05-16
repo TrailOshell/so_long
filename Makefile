@@ -13,10 +13,13 @@
 NAME	=	so_long
 
 INC_PTH	=	inc/
-INC		=	so_long.h
+#INC		=	$(INC_PTH)so_long.h
+INC		=	-I$(INC_PTH)
 
 SRC_PTH	=	src/
-SRC		=	main.c
+SRC		=	main.c util.c \
+			map.c flood_fill.c \
+			error.c \
 
 OBJ_PTH	=	obj/
 OBJ		=	$(SRC:%.c=$(OBJ_PTH)%.o)
@@ -26,22 +29,24 @@ BONUS_PTH	=	bonus/
 # get_next_line
 GNL_PTH	=	gnl/
 GNL		=	$(GNL_PTH)get_next_line.a
-GNL_INC	=	$(GNL_PTH)get_next_line.h
+#GNL_INC	=	$(GNL_PTH)get_next_line.h
+GNL_INC	=	-I$(GNL_PTH)
 
 CC		=	cc
-#CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 RM		=	rm -f
 RM_RF	= 	rm -rf
 
 MLX_PTH		=	mlx
 MLX			=	$(MLX_PTH)/libmlx.a
 MLX_FLAGS	=	-L$(MLX_PTH) -l$(MLX_PTH) -L/usr/lib -I$(MLX_PTH) -lXext -lX11 -lm -lz
-MLX_INC		=	-I/usr/include -I$(MLX_PTH) -O3
+#MLX_INC		=	-I/usr/include -I$(MLX_PTH) -O3
+MLX_INC		=	-I$(MLX_PTH) -O3
 
 all: $(MLX) $(GNL) $(NAME)
 
 $(OBJ_PTH)%.o: $(SRC_PTH)%.c Makefile | $(OBJ_PTH)
-	$(CC) $(CFLAGS) -I$(INC_PTH) -I$(GNL_INC) $(MLX_INC) -c $< -o $@
+	$(CC) $(CFLAGS) $(INC) $(GNL_INC) $(MLX_INC) -c $< -o $@
 	@echo "$(D_GREEN)compiled $<$(NC)"
 
 $(NAME): $(OBJ)
@@ -92,6 +97,11 @@ L_CYAN		=	\033[1;36m
 WHITE		=	\033[1;37m
 
 #	my additional rules
+
+test =	test.ber
+
+t: all
+	./$(NAME) $(test)
 
 clear:
 	@clear

@@ -10,16 +10,29 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "../inc/so_long.h"
+//#include "../inc/so_long.h"
 
-void	start_data(t_data *data)
+t_map	*start_map(t_map *map)
 {
+	if (!map)
+		map = malloc(sizeof(t_map));
+	map->n_col = 0;
+	map->n_row = 0;
+	return (map);
+}
+
+t_data	*start_data(t_data *data)
+{
+	if (!data)
+		data = malloc(sizeof(t_data));
 	data->mlx_ptr = mlx_init();
-	data->map->n_col = 0;
-	data->map->n_row = 0;
+	printf("n\n");
+	data->map = start_map(data->map);
 	data->player = malloc(sizeof(t_player));
 	data->exit = malloc(sizeof(t_exit));
-	//data->collect = malloc(sizeof(t_collect));
+	data->collect = malloc(sizeof(t_collect));
+	return (data);
 }
 
 int	on_destroy(t_data *data)
@@ -38,7 +51,10 @@ int	on_keypress(int keysym, t_data *data)
 	//if (keysym == KEY_RIGHT || keysym == KEY_D)
 	//if (keysym == KEY_DOWN || keysym == KEY_S)
 	if (keysym == KEY_Q || keysym == KEY_ESC)
+	{
+		on_destroy(data);
 		exit(0);
+	}
 	return (0);
 }
 
@@ -46,10 +62,13 @@ int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-	start_data(data);
+	if (argc != 2)
+		error_and_exit();
+	data = NULL;
+	data = start_data(data);
 	if (!data->mlx_ptr)
 		return (1);
-	read_map(argc, argv, data);
+	read_map(argv, data);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, 1920, 1080, "so_long");
 	if (!data->win_ptr)
 		return (free(data->mlx_ptr), 1);
