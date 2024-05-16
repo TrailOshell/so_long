@@ -23,23 +23,6 @@
 # include "mlx.h"
 //# include "get_next_line.h"
 
-typedef struct s_node
-{
-	t_node	next;
-	char	*line;
-}	t_node;
-
-typedef struct s_map
-{
-	int		n_row;
-	int		n_col;
-	int		n_exit;
-	int		n_player;
-	int		n_collect;
-	int		n_enemy;
-	char	**grid;
-}	t_map;
-
 typedef struct s_err
 {
 	int	err_borders;
@@ -48,17 +31,11 @@ typedef struct s_err
 	int	err_collect;
 }	t_err;
 
-typedef struct s_data
+typedef struct s_node
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	//void		*textures[5];
-	t_map		*map;
-	t_node		*node;
-	t_player	*player;
-	t_exit		*exit;
-	t_collect	*collect;
-}	t_data;
+	struct s_node	*next;
+	char			*line;
+}	t_node;
 
 typedef struct s_player
 {
@@ -74,10 +51,32 @@ typedef struct s_exit
 
 typedef struct s_collect
 {
-	int			x;
-	int			y;
-	t_collect	next;
+	int					x;
+	int					y;
+	struct s_collect	*next;
 }	t_collect;
+
+typedef struct s_map
+{
+	int		n_row;
+	int		n_col;
+	int		n_exit;
+	int		n_player;
+	int		n_collect;
+	int		n_enemy;
+	char	**grid;
+}	t_map;
+
+typedef struct s_data
+{
+	void		*mlx_ptr;
+	void		*win_ptr;
+	t_map		*map;
+	t_node		*node;
+	t_player	*player;
+	t_exit		*exit;
+	t_collect	*collect;
+}	t_data;
 
 //	X11 events 
 # define KEYPRESS			2
