@@ -70,24 +70,24 @@ void	add_line(t_node **node, char *line)
 	}
 	new->line[i] = '\0';
 	new->next = NULL;
-	printf("--- adding ---\n");
-	printf("add line = %s\n", new->line);
+	//printf("--- adding ---\n");
+	//printf("add line = %s\n", new->line);
 	if (!*node)
 	{
 		*node = new;
-		printf("add first node->line = %s\n", (*node)->line);
+		//printf("add first node->line = %s\n", (*node)->line);
 		return ;
 	}
-	printf("--- debug ---\n");
-	printf("node->line = %s\n", (*node)->line);
+	//printf("--- debug ---\n");
+	//printf("node->line = %s\n", (*node)->line);
 	tmp = *node;
 	while (tmp->next)
 	{
-		printf("node->next->line = %s\n", (*node)->next->line);
+		//printf("node->next->line = %s\n", (*node)->next->line);
 		tmp = tmp->next;
 	}
 	tmp->next = new;
-	printf("add node->next->line = %s\n", (*node)->next->line);
+	//printf("add node->next->line = %s\n", (*node)->next->line);
 }
 
 int	check_top_bottom(char **grid, int x, int y)
@@ -97,7 +97,7 @@ int	check_top_bottom(char **grid, int x, int y)
 	i = 0;
 	while (i <= x)
 	{
-		if (grid[0][i] != 1 || grid [y][i] != 1)
+		if (grid[0][i] != '1' || grid[y][i] != '1')
 			return (0);
 		i++;
 	}
@@ -121,10 +121,13 @@ int	set_exit(t_exit *exit, int x, int y)
 int	set_collect(t_collect *collect, int x, int y)
 {
 	t_collect	*new;
+	t_collect	*tmp;
 
+	printf("-- start collect --\n");
 	new = malloc(sizeof(t_collect));
 	new->x = x;
 	new->y = y;
+	printf("-- collect --\n");
 	if (!collect)
 	{
 		collect = new;
@@ -133,40 +136,44 @@ int	set_collect(t_collect *collect, int x, int y)
 	while (collect->next)
 		collect = collect->next;
 	collect->next = new;
+	printf("-- end collect --\n");
 	return (1);
 }
 
 int	count_valid_char(t_data *data, char **grid, t_map *map)
 {
-	int	i;
-	int	j;
+	int	col;
+	int	row;
 
-	j = 0;
-	while (grid[j])
+	row = 0;
+	//printf("grid[%d][%d] = %c\n", row, col, (*grid)[row][col]);
+	printf("grid[%d] = %s\n", 2, grid[2]);
+	printf("-- start row --\n");
+	while (grid[row])
 	{
-		i = 0;
-		while (grid[j][i])
+		printf("-- check row[%d] --\n", row);
+		printf("grid[%d] = %s\n", row, grid[row]);
+		col = 0;
+		printf("-- start col --\n");
+		while (grid[row][col])
 		{
-			if (grid[j][i] == 'P')
-				map->n_player += set_player(data->player, i, j);
-			else if (grid[j][i] == 'E')
-				map->n_exit += set_exit(data->exit, i, j);
-			else if (grid[j][i] == 'C')
-				map->n_collect += set_collect(data->collect, i, j);
-			i++;
+			printf("-- check col[%d] (%c) --\n", col, grid[row][col]);
+			if (grid[row][col] == 'P')
+				map->n_player += set_player(data->player, col, row);
+			else if (grid[row][col] == 'E')
+				map->n_exit += set_exit(data->exit, col, row);
+			else if (grid[row][col] == 'C')
+				map->n_collect += set_collect(data->collect, col, row);
+			col++;
 		}
-		j++;
+		row++;
+		printf("row = %d\n", row);
+		printf("-- valid --\n");
 	}
 	if (map->n_collect == 0 || map->n_player != 1 || map->n_exit != 1)
 		return (0);
 	return (1);
 }
-
-//int	check_clear_path(data, grid)
-//{
-
-//	return (1);
-//}
 
 int	check_layout(t_data *data, char **grid)
 {
@@ -177,10 +184,9 @@ int	check_layout(t_data *data, char **grid)
 	y = data->map->n_row - 1;
 	if (check_top_bottom(grid, x, y) == 0)
 		error_and_exit();
+	printf("func = %d\n", count_valid_char(data, grid, data->map));
 	if (count_valid_char(data, grid, data->map) == 0)
 		error_and_exit();
-	//if (check_clear_path(data, grid) == 0);
-	//	error_and_exit();
 	return (1);
 }
 
@@ -197,9 +203,9 @@ char	**new_grid(t_data *data)
 		row++;
 	}
 	grid[row] = NULL;
-	printf("row = %d\n", data->map->n_row);
-	printf("col = %d\n", data->map->n_col);
-	printf("[row] = %d\n", row);
+	//printf("row = %d\n", data->map->n_row);
+	//printf("col = %d\n", data->map->n_col);
+	//printf("[row] = %d\n", row);
 	return (grid);
 }
 
@@ -230,7 +236,6 @@ void	set_layout(t_data *data, char ***grid, t_node *node)
 		free(tmp);
 		y++;
 	}
-	printf("ee\n");
 	if (check_layout(data, *grid) == 0)
 		error_and_exit();
 }
@@ -249,7 +254,7 @@ int	read_map(char **argv, t_data *data)
 
 	printf("open(argv[1], O_RDONLY) = \"%s\"\n", argv[1]);
 	fd = open(argv[1], O_RDONLY);
-	printf("fd = %d\n", fd);
+	//printf("fd = %d\n", fd);
 	if (fd < 0)
 		error_and_exit();
 	if (sl_strrncmp(argv[1], ".ber", 4))
@@ -273,10 +278,10 @@ int	read_map(char **argv, t_data *data)
 		free(line);
 		data->map->n_row++;
 	}
-	printf("next\n");
-	printf("data->node->line = %s\n", data->node->line);
-	printf("data->node->line = %s\n", data->node->next->line);
-	printf("data->node->line = %s\n", data->node->next->next->line);
+	//printf("next\n");
+	//printf("data->node->line = %s\n", data->node->line);
+	//printf("data->node->line = %s\n", data->node->next->line);
+	//printf("data->node->line = %s\n", data->node->next->next->line);
 	set_layout(data, &data->map->grid, data->node);
 	flood_fill(data, data->map);
 	return (1);
