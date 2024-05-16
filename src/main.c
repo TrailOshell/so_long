@@ -19,6 +19,7 @@ t_map	*start_map(t_map *map)
 		map = malloc(sizeof(t_map));
 	map->n_col = 0;
 	map->n_row = 0;
+	map->grid = NULL;
 	return (map);
 }
 
