@@ -12,13 +12,33 @@
 
 #include "so_long.h"
 
-int	painting(t_map *flood, char **grid)
+//int	ispaintable(int x, int y, char** grid)
+//{
+	
+//}
+
+//void	loop_painting()
+//{
+
+//}
+
+int	painting(t_data *data, t_map *flood, char **grid)
 {
+	t_node	*start;
+
+	start = malloc(sizeof(t_node));
+	start->x = data->player->x;
+	start->y = data->player->y;
 	if (!flood)
 		return (0);
 	if (grid == 0)
 		return (0);
-	return (0);
+	//while (1)
+	//{
+	//	loop_painting();
+	//}
+	free(start);
+	return (1);
 }
 
 int	check_flood_char(t_map *map, t_map *flood)
@@ -39,7 +59,7 @@ int	flood_fill(t_data *data, t_map *map)
 		return (0);
 	flood = NULL;
 	flood = start_map(flood);
-	painting(flood, map->grid);
+	painting(data, flood, map->grid);
 	if (check_flood_char(map, flood) == 0)
 	{
 		free(flood);

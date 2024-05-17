@@ -24,6 +24,8 @@ typedef struct s_node
 {
 	struct s_node	*next;
 	char			*line;
+	int				x;
+	int				y;
 }	t_node;
 
 typedef struct s_player
