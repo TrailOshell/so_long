@@ -20,6 +20,7 @@ SRC_PTH	=	src/
 SRC		=	main.c util.c \
 			map.c set_layout.c get_next_row.c flood_fill.c \
 			error.c \
+			debug.c
 
 OBJ_PTH	=	obj/
 OBJ		=	$(SRC:%.c=$(OBJ_PTH)%.o)

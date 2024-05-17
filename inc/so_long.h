@@ -110,4 +110,7 @@ void	get_next_row(t_data *data, int fd);
 // flood_fill.c
 int		flood_fill(t_data *data, t_map *map);
 
+// debug.c
+void	write_grid(char **grid);
+
 #endif

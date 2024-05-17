@@ -34,6 +34,7 @@ int	flood_fill(t_data *data, t_map *map)
 {
 	t_map	*flood;
 
+	write_grid(map->grid);
 	if (!data)
 		return (0);
 	flood = NULL;
