@@ -14,7 +14,6 @@
 
 int	read_map(char **argv, t_data *data)
 {
-	char	*line;
 	int		fd;
 
 	printf("open(argv[1], O_RDONLY) = \"%s\"\n", argv[1]);
@@ -28,6 +27,7 @@ int	read_map(char **argv, t_data *data)
 	//printf("data->node->line = %s\n", data->node->line);
 	//printf("data->node->line = %s\n", data->node->next->line);
 	//printf("data->node->line = %s\n", data->node->next->next->line);
+	get_next_row(data, fd);
 	set_layout(data, &data->map->grid, data->node);
 	flood_fill(data, data->map);
 	return (1);

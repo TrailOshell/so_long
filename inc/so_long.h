@@ -1,15 +1,4 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   so_long.h                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/05 17:29:56 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/05/05 17:29:57 by tsomchan         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
+/* ************************************************************************** */ /*                                                                            */ /*                                                        :::      ::::::::   */ /*   so_long.h                                          :+:      :+:    :+:   */ /*                                                    +:+ +:+         +:+     */ /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */ /*                                                +#+#+#+#+#+   +#+           */ /*   Created: 2024/05/05 17:29:56 by tsomchan          #+#    #+#             */ /*   Updated: 2024/05/05 17:29:57 by tsomchan         ###   ########.fr       */ /*                                                                            */ /* ************************************************************************** */
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -113,9 +102,10 @@ int		read_map(char **argv, t_data *data);
 
 // set_layout.c
 void	set_layout(t_data *data, char ***grid, t_node *node);
+int		isvalidchar(char c);
 
 // get_next_row.c
-void	get_next_row(t_data *data, int fd, char *line);
+void	get_next_row(t_data *data, int fd);
 
 // flood_fill.c
 int		flood_fill(t_data *data, t_map *map);

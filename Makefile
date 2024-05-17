@@ -18,7 +18,7 @@ INC		=	-I$(INC_PTH)
 
 SRC_PTH	=	src/
 SRC		=	main.c util.c \
-			map.c flood_fill.c \
+			map.c set_layout.c get_next_row.c flood_fill.c \
 			error.c \
 
 OBJ_PTH	=	obj/

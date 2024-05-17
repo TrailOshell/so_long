@@ -81,8 +81,9 @@ void	add_line(t_node **node, char *line)
 	//printf("add node->next->line = %s\n", (*node)->next->line);
 }
 
-void	get_next_row(t_data *data, int fd, char *line)
+void	get_next_row(t_data *data, int fd)
 {
+	char	*line;
 	int		len;
 
 	while (1)
