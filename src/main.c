@@ -32,7 +32,8 @@ t_data	*start_data(t_data *data)
 	data->map = start_map(data->map);
 	data->player = malloc(sizeof(t_player));
 	data->exit = malloc(sizeof(t_exit));
-	data->collect = malloc(sizeof(t_collect));
+	//data->collect = malloc(sizeof(t_collect));
+	data->collect = NULL;
 	return (data);
 }
 
@@ -68,7 +69,7 @@ int	main(int argc, char **argv)
 	data = NULL;
 	data = start_data(data);
 	if (!data->mlx_ptr)
-		return (1);
+		return (0);
 	read_map(argv, data);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, 1920, 1080, "so_long");
 	if (!data->win_ptr)

@@ -111,6 +111,12 @@ void	error_and_exit(void);
 // map.c
 int		read_map(char **argv, t_data *data);
 
+// set_layout.c
+void	set_layout(t_data *data, char ***grid, t_node *node);
+
+// get_next_row.c
+void	get_next_row(t_data *data, int fd, char *line);
+
 // flood_fill.c
 int		flood_fill(t_data *data, t_map *map);
 

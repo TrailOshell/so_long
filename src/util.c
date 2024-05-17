@@ -27,9 +27,9 @@ char	*sl_strdup(char *s)
 	char	*dup;
 	int		i;
 
-	printf("d\n");
+	//printf("d\n");
 	dup = malloc(sizeof(char) * sl_strlen(s) + 1);
-	printf("s = %zu\n", sl_strlen(s));
+	//printf("s = %zu\n", sl_strlen(s));
 	i = 0;
 	while (s[i])
 	{
