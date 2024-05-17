@@ -6,17 +6,15 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:13:10 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/05/05 17:13:11 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/05/17 16:48:27 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/so_long.h"
-//#include "../inc/so_long.h"
 
 t_map	*start_map(t_map *map)
 {
-	if (!map)
-		map = malloc(sizeof(t_map));
+	map = malloc(sizeof(t_map));
 	map->n_col = 0;
 	map->n_row = 0;
 	map->grid = NULL;
@@ -28,11 +26,9 @@ t_data	*start_data(t_data *data)
 	if (!data)
 		data = malloc(sizeof(t_data));
 	data->mlx_ptr = mlx_init();
-	printf("n\n");
 	data->map = start_map(data->map);
 	data->player = malloc(sizeof(t_player));
 	data->exit = malloc(sizeof(t_exit));
-	//data->collect = malloc(sizeof(t_collect));
 	data->collect = NULL;
 	return (data);
 }
@@ -58,6 +54,27 @@ int	on_keypress(int keysym, t_data *data)
 		exit(0);
 	}
 	return (0);
+}
+
+int	read_map(char **argv, t_data *data)
+{
+	int		fd;
+
+	printf("open(argv[1], O_RDONLY) = \"%s\"\n", argv[1]);
+	fd = open(argv[1], O_RDONLY);
+	//printf("fd = %d\n", fd);
+	if (fd < 0)
+		error_and_exit();
+	if (sl_strrncmp(argv[1], ".ber", 4))
+		error_and_exit();
+	//printf("next\n");
+	//printf("data->node->line = %s\n", data->node->line);
+	//printf("data->node->line = %s\n", data->node->next->line);
+	//printf("data->node->line = %s\n", data->node->next->next->line);
+	get_next_row(data, fd);
+	set_layout(data, &data->map->grid, data->node);
+	flood_fill(data, data->map);
+	return (1);
 }
 
 int	main(int argc, char **argv)

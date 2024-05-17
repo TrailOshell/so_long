@@ -54,11 +54,11 @@ int	set_collect(t_collect *collect, int x, int y)
 	t_collect	*new;
 	t_collect	*tmp;
 
-	printf("-- start collect --\n");
+	//printf("-- start collect --\n");
 	new = malloc(sizeof(t_collect));
 	new->x = x;
 	new->y = y;
-	printf("-- collect --\n");
+	//printf("-- collect --\n");
 	if (!collect)
 	{
 		collect = new;
@@ -68,7 +68,7 @@ int	set_collect(t_collect *collect, int x, int y)
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;
-	printf("-- end collect --\n");
+	//printf("-- end collect --\n");
 	return (1);
 }
 
@@ -79,17 +79,17 @@ int	count_valid_char(t_data *data, char **grid, t_map *map)
 
 	row = 0;
 	//printf("grid[%d][%d] = %c\n", row, col, (*grid)[row][col]);
-	printf("grid[%d] = %s\n", 2, grid[2]);
+	//printf("grid[%d] = %s\n", 2, grid[2]);
 	printf("-- start row --\n");
 	while (grid[row])
 	{
-		printf("-- check row[%d] --\n", row);
+		//printf("-- check row[%d] --\n", row);
 		printf("grid[%d] = %s\n", row, grid[row]);
 		col = 0;
-		printf("-- start col --\n");
+		//printf("-- start col --\n");
 		while (grid[row][col])
 		{
-			printf("-- check col[%d] (%c) --\n", col, grid[row][col]);
+			printf("col[%d](%c) \t", col, grid[row][col]);
 			if (grid[row][col] == 'P')
 				map->n_player += set_player(data->player, col, row);
 			else if (grid[row][col] == 'E')
@@ -98,9 +98,10 @@ int	count_valid_char(t_data *data, char **grid, t_map *map)
 				map->n_collect += set_collect(data->collect, col, row);
 			col++;
 		}
+		printf("\n");
 		row++;
 		printf("row = %d\n", row);
-		printf("-- valid --\n");
+		//printf("-- valid --\n");
 	}
 	if (map->n_collect == 0 || map->n_player != 1 || map->n_exit != 1)
 		return (0);
@@ -116,7 +117,6 @@ int	check_layout(t_data *data, char **grid)
 	y = data->map->n_row - 1;
 	if (check_top_bottom(grid, x, y) == 0)
 		error_and_exit();
-	printf("func = %d\n", count_valid_char(data, grid, data->map));
 	if (count_valid_char(data, grid, data->map) == 0)
 		error_and_exit();
 	return (1);
