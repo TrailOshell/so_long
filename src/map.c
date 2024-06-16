@@ -11,3 +11,22 @@
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+char	**dupe_grid(char **dupe, char **map)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	while (map[j])
+	{
+		i = 0;
+		while (map[j][i])
+		{
+			dupe[j][i] = map[j][i];
+			i++;
+		}
+		j++;
+	}
+	return (dupe);
+}

@@ -80,16 +80,16 @@ int	count_valid_char(t_data *data, char **grid, t_map *map)
 	row = 0;
 	//printf("grid[%d][%d] = %c\n", row, col, (*grid)[row][col]);
 	//printf("grid[%d] = %s\n", 2, grid[2]);
-	printf("-- start row --\n");
+	//printf("-- start row --\n");
 	while (grid[row])
 	{
 		//printf("-- check row[%d] --\n", row);
-		printf("grid[%d] = %s\n", row, grid[row]);
+		//printf("grid[%d] = %s\n", row, grid[row]);
 		col = 0;
 		//printf("-- start col --\n");
 		while (grid[row][col])
 		{
-			printf("col[%d](%c) \t", col, grid[row][col]);
+			//printf("col[%d](%c) \t", col, grid[row][col]);
 			if (grid[row][col] == 'P')
 				map->n_player += set_player(data->player, col, row);
 			else if (grid[row][col] == 'E')
@@ -98,9 +98,9 @@ int	count_valid_char(t_data *data, char **grid, t_map *map)
 				map->n_collect += set_collect(data->collect, col, row);
 			col++;
 		}
-		printf("\n");
+		//printf("\n");
 		row++;
-		printf("row = %d\n", row);
+		//printf("row = %d\n", row);
 		//printf("-- valid --\n");
 	}
 	if (map->n_collect == 0 || map->n_player != 1 || map->n_exit != 1)

@@ -1,4 +1,15 @@
-/* ************************************************************************** */ /*                                                                            */ /*                                                        :::      ::::::::   */ /*   so_long.h                                          :+:      :+:    :+:   */ /*                                                    +:+ +:+         +:+     */ /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */ /*                                                +#+#+#+#+#+   +#+           */ /*   Created: 2024/05/05 17:29:56 by tsomchan          #+#    #+#             */ /*   Updated: 2024/05/05 17:29:57 by tsomchan         ###   ########.fr       */ /*                                                                            */ /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/06/16 16:32:03 by tsomchan          #+#    #+#             */
+/*   Updated: 2024/06/16 16:32:05 by tsomchan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
@@ -101,10 +112,12 @@ void	error_and_exit(void);
 
 // map.c
 int		read_map(char **argv, t_data *data);
+char	**dupe_grid(char **dupe, char **map);
 
 // set_layout.c
 void	set_layout(t_data *data, char ***grid, t_node *node);
 int		isvalidchar(char c);
+char	**new_grid(t_data *data);
 
 // get_next_row.c
 void	get_next_row(t_data *data, int fd);
