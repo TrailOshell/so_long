@@ -106,6 +106,7 @@ size_t	sl_strlen(char *s);
 char	*sl_strdup(char *s);
 int		sl_strrncmp(char *s1, char *s2, size_t n);
 char	*sl_strjoin(char *s1, char *s2);
+char	*sl_itoa(int n);
 
 // error.c
 void	error_and_exit(char *msg);
