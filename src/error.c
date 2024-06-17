@@ -12,8 +12,11 @@
 
 #include "so_long.h"
 
-void	error_and_exit(void)
+void	error_and_exit(char *msg)
 {
-	write(1, "Error\n", 6);
+	if (!msg || !*msg)
+		write(1, "Error\n", 6);
+	else
+		write(1, msg, sl_strlen(msg));
 	exit(0);
 }

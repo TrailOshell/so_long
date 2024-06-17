@@ -17,6 +17,9 @@ t_map	*start_map(t_map *map)
 	map = malloc(sizeof(t_map));
 	map->n_col = 0;
 	map->n_row = 0;
+	map->n_collect = 0;
+	map->n_exit = 0;
+	map->n_player = 0;
 	map->grid = NULL;
 	return (map);
 }
@@ -30,6 +33,7 @@ t_data	*start_data(t_data *data)
 	data->player = malloc(sizeof(t_player));
 	data->exit = malloc(sizeof(t_exit));
 	data->collect = NULL;
+	data->moves = 0;
 	return (data);
 }
 
@@ -44,10 +48,14 @@ int	on_destroy(t_data *data)
 
 int	on_keypress(int keysym, t_data *data)
 {
-	//if (keysym == KEY_UP || keysym == KEY_W)
-	//if (keysym == KEY_LEFT || keysym == KEY_A)
-	//if (keysym == KEY_RIGHT || keysym == KEY_D)
-	//if (keysym == KEY_DOWN || keysym == KEY_S)
+	if (keysym == KEY_UP || keysym == KEY_W)
+		player_move(0, -1, data);
+	if (keysym == KEY_LEFT || keysym == KEY_A)
+		player_move(-1, 0, data);
+	if (keysym == KEY_RIGHT || keysym == KEY_D)
+		player_move(1, 0, data);
+	if (keysym == KEY_DOWN || keysym == KEY_S)
+		player_move(0, 1, data);
 	if (keysym == KEY_Q || keysym == KEY_ESC)
 	{
 		on_destroy(data);
@@ -64,9 +72,9 @@ int	read_map(char **argv, t_data *data)
 	fd = open(argv[1], O_RDONLY);
 	//printf("fd = %d\n", fd);
 	if (fd < 0)
-		error_and_exit();
+		error_and_exit("ERROR! fd error\n");
 	if (sl_strrncmp(argv[1], ".ber", 4))
-		error_and_exit();
+		error_and_exit("ERROR! only .ber file is allowed\n");
 	//printf("next\n");
 	//printf("data->node->line = %s\n", data->node->line);
 	//printf("data->node->line = %s\n", data->node->next->line);
@@ -82,7 +90,7 @@ int	main(int argc, char **argv)
 	t_data	*data;
 
 	if (argc != 2)
-		error_and_exit();
+		error_and_exit("ERROR! Input arguments not equal 2\n");
 	data = NULL;
 	data = start_data(data);
 	if (!data->mlx_ptr)

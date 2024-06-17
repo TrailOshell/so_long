@@ -14,7 +14,6 @@
 # define SO_LONG_H
 
 # include <stdio.h>
-
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -78,6 +77,7 @@ typedef struct s_data
 	t_player	*player;
 	t_exit		*exit;
 	t_collect	*collect;
+	int			moves;
 }	t_data;
 
 //	X11 events 
@@ -108,7 +108,7 @@ int		sl_strrncmp(char *s1, char *s2, size_t n);
 char	*sl_strjoin(char *s1, char *s2);
 
 // error.c
-void	error_and_exit(void);
+void	error_and_exit(char *msg);
 
 // map.c
 int		read_map(char **argv, t_data *data);
@@ -124,6 +124,9 @@ void	get_next_row(t_data *data, int fd);
 
 // flood_fill.c
 int		flood_fill(t_data *data, t_map *map);
+
+// input.c
+void	player_move(int x, int y, t_data *data);
 
 // debug.c
 void	write_grid(char **grid);

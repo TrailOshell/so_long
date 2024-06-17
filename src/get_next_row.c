@@ -97,7 +97,7 @@ void	get_next_row(t_data *data, int fd)
 			len--;
 		//printf("len = %d\n", len);
 		if (check_map_col(data, len) == 0 || check_map_row(line, len) == 0)
-			error_and_exit();
+			error_and_exit("ERROR! incorrect col and row\n");
 		add_line(&data->node, line);
 		//if (data->node)
 		//	printf("data->node = true\n");

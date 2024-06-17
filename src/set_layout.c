@@ -116,9 +116,9 @@ int	check_layout(t_data *data, char **grid)
 	x = data->map->n_col - 1;
 	y = data->map->n_row - 1;
 	if (check_top_bottom(grid, x, y) == 0)
-		error_and_exit();
+		error_and_exit("ERROR! top bottom error\n");
 	if (count_valid_char(data, grid, data->map) == 0)
-		error_and_exit();
+		error_and_exit("ERROR! invalid char error\n");
 	return (1);
 }
 
@@ -169,7 +169,7 @@ void	set_layout(t_data *data, char ***grid, t_node *node)
 		y++;
 	}
 	if (check_layout(data, *grid) == 0)
-		error_and_exit();
+		error_and_exit("ERROR! layout error\n");
 }
 
 /*	void	set_layout(char ***grid, t_node *node)
