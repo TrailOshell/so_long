@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/09 19:07:41 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/05/09 19:07:43 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/06/19 20:57:25 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,7 @@ char	*sl_strdup(char *s)
 	char	*dup;
 	int		i;
 
-	//printf("d\n");
 	dup = malloc(sizeof(char) * sl_strlen(s) + 1);
-	//printf("s = %zu\n", sl_strlen(s));
 	i = 0;
 	while (s[i])
 	{
@@ -39,8 +37,9 @@ char	*sl_strdup(char *s)
 	dup[i] = '\0';
 	return (dup);
 }
+	//printf("d\n");
+	//printf("s = %zu\n", sl_strlen(s));
 
-// printf("*s1 = \'%c\' \t *s2 = \'%c\'\n", *s1, *s2);
 int	sl_strrncmp(char *s1, char *s2, size_t n)
 {
 	while (*s1)
@@ -52,18 +51,7 @@ int	sl_strrncmp(char *s1, char *s2, size_t n)
 			return (*s1 - *s2);
 	return (0);
 }
-
-/*	int	sl_strrncmp(const char *s1, const char *s2, size_t n)
-	size_t	len1;
-	size_t	len2;
-
-	len1 = sl_strlen(s1);
-	len2 = sl_strlen(s2);
-
-	while (n--)
-		if (s1[len1] != s2[len2])
-			return (s1[len1] - s2[len2]);
-*/
+// printf("*s1 = \'%c\' \t *s2 = \'%c\'\n", *s1, *s2);
 
 char	*sl_strjoin(char *s1, char *s2)
 {
@@ -87,59 +75,17 @@ char	*sl_strjoin(char *s1, char *s2)
 	return (ptr);
 }
 
-int	count_value(int n)
+/* sl_strrncmp() 
+int	sl_strrncmp(const char *s1, const char *s2, size_t n)
 {
-	int	count;
+	size_t	len1;
+	size_t	len2;
 
-	count = 0;
-	if (n < 0)
-	{
-		n *= -1;
-		count++;
-	}
-	if (n == 0)
-		return (1);
-	while (n > 0)
-	{
-		count++;
-		n /= 10;
-	}
-	return (count);
+	len1 = sl_strlen(s1);
+	len2 = sl_strlen(s2);
+
+	while (n--)
+		if (s1[len1] != s2[len2])
+			return (s1[len1] - s2[len2]);
 }
-
-void	recur_itoa(int n, char *ptr, int i)
-{
-	char	c;
-
-	if (n < 0)
-	{
-		n *= -1;
-		ptr[0] = '-';
-		recur_itoa(n, ptr, i);
-	}
-	else if (n > 0)
-	{
-		c = n % 10;
-		if (n / 10 > 0)
-			recur_itoa(n / 10, ptr, i - 1);
-		ptr[i] = '0' + c;
-	}
-	else if (n == 0)
-		ptr[i] = '0';
-}
-
-char	*sl_itoa(int n)
-{
-	char	*ptr;
-	size_t	count;
-
-	if (n == -2147483648)
-		return (sl_strdup("-2147483648"));
-	count = count_value(n);
-	ptr = malloc(sizeof(char) * (count + 1));
-	if (!ptr)
-		return (0);
-	recur_itoa(n, ptr, count - 1);
-	ptr[count] = 0;
-	return (ptr);
-}
+*/

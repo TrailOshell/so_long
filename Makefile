@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 16:46:54 by tsomchan          #+#    #+#              #
-#    Updated: 2024/05/04 16:46:56 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/06/19 22:21:48 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,11 @@ INC_PTH	=	inc/
 INC		=	-I$(INC_PTH)
 
 SRC_PTH	=	src/
-SRC		=	main.c util.c \
-			map.c set_layout.c get_next_row.c flood_fill.c input.c\
-			error.c \
-			debug.c
+SRC		=	main.c util.c sl_itoa.c error.c free.c debug.c \
+			is_conditions.c \
+			get_next_row.c line.c grid.c \
+			set_map.c set_object.c flood_fill.c \
+			mlx_events.c input.c \
 
 OBJ_PTH	=	obj/
 OBJ		=	$(SRC:%.c=$(OBJ_PTH)%.o)
@@ -30,7 +31,7 @@ BONUS_PTH	=	bonus/
 # get_next_line
 GNL_PTH	=	gnl/
 GNL		=	$(GNL_PTH)get_next_line.a
-#GNL_INC	=	$(GNL_PTH)get_next_line.h
+# GNL_INC	=	$(GNL_PTH)get_next_line.h
 GNL_INC	=	-I$(GNL_PTH)
 
 CC		=	cc

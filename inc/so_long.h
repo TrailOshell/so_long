@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:32:03 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/06/16 16:32:05 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/06/19 22:23:04 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,37 +99,61 @@ typedef struct s_data
 # define KEY_ESC			65307
 
 // main.c
-t_map	*start_map(t_map *map);
 
 // util.c
 size_t	sl_strlen(char *s);
 char	*sl_strdup(char *s);
 int		sl_strrncmp(char *s1, char *s2, size_t n);
 char	*sl_strjoin(char *s1, char *s2);
+
+// sl_itoa.c
 char	*sl_itoa(int n);
 
 // error.c
-void	error_and_exit(char *msg);
+void	error_and_exit(char *msg, t_data *data);
 
-// map.c
-int		read_map(char **argv, t_data *data);
-char	**dupe_grid(char **dupe, char **map);
+// free.c
+void	free_map(t_map *map);
+void	free_collect(t_collect *collect);
+void	free_node(t_node *node);
+void	free_stuff(t_data *data);
 
-// set_layout.c
-void	set_layout(t_data *data, char ***grid, t_node *node);
+// debug.c
+void	write_grid(char **grid);
+void	write_value(char *msg, int int_val);
+
+// is_conditions.c
 int		isvalidchar(char c);
-char	**new_grid(t_data *data);
+int		iswalkable(char c);
 
 // get_next_row.c
 void	get_next_row(t_data *data, int fd);
 
+// line.c
+void	add_line(t_node **node, char *line);
+char	*line_dupe(char *line);
+char	*line_copy(char *copy, char *line);
+
+// grid.c
+char	**new_grid(t_map *map);
+char	**dupe_grid(char **map);
+
+// set_map.c
+void	set_map(t_data *data, t_node *node);
+
+// set_object.c
+int		set_player(t_player *player, int x, int y);
+int		set_exit(t_exit *exit, int x, int y);
+int		add_collectible(t_collect *collect, int x, int y);
+
 // flood_fill.c
-int		flood_fill(t_data *data, t_map *map);
+int		flood_fill(t_data *data);
+
+// mlx_events.c
+int		on_exit(t_data *data);
+int		on_keypress(int keysym, t_data *data);
 
 // input.c
 void	player_move(int x, int y, t_data *data);
-
-// debug.c
-void	write_grid(char **grid);
 
 #endif

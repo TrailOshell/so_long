@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:06:46 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/05/17 17:06:51 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/06/19 21:10:38 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,17 @@ void	write_grid(char **grid)
 		write(1, "\n", 1);
 		row++;
 	}
+}
+
+void	write_value(char *msg, int int_val)
+{
+	char	*str;
+
+	str = sl_strdup(msg);
+	write(1, msg, sl_strlen(str));
+	free(str);
+	write(1, ": ", 2);
+	str = sl_itoa(int_val);
+	write(1, str, sl_strlen(str));
+	free(str);
 }

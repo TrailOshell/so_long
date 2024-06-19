@@ -1,32 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.c                                              :+:      :+:    :+:   */
+/*   is_conditions.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/09 19:51:24 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/05/17 16:44:37 by tsomchan         ###   ########.fr       */
+/*   Created: 2024/06/19 19:23:55 by tsomchan          #+#    #+#             */
+/*   Updated: 2024/06/19 21:03:30 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-char	**dupe_grid(char **dupe, char **map)
+int	isvalidchar(char c)
 {
-	int	i;
-	int	j;
+	if (c == '0' || c == '1' || c == 'P' || c == 'E' || c == 'C')
+		return (1);
+	else if (c == '\n')
+		return (1);
+	return (0);
+}
 
-	j = 0;
-	while (map[j])
-	{
-		i = 0;
-		while (map[j][i])
-		{
-			dupe[j][i] = map[j][i];
-			i++;
-		}
-		j++;
-	}
-	return (dupe);
+int	iswalkable(char c)
+{
+	if (c == '0' || c == 'C' || c == 'E')
+		return (1);
+	return (0);
 }
