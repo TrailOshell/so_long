@@ -39,6 +39,12 @@ void	update_move(t_data *data, int x, int y, char *target_tile)
 	*target_tile = 'P';
 	data->player->x += x;
 	data->player->y += y;
+	data->moves += 1;
+	write_value("Moves", data->moves);
+	write(1, "\t", 1);
+	write_value("Collectibles Left", data->map->n_collect);
+	write(1, "\n", 1);
+	write_grid(data->map->grid);
 }
 
 void	player_move(int x, int y, t_data *data)
@@ -60,17 +66,7 @@ void	player_move(int x, int y, t_data *data)
 			on_game_exit(data);
 		else if (*target_tile == 'E' && data->map->n_collect > 0)
 			return ;
-		//update_move(data, x, y, target_tile);
-		data->map->grid[data->player->y][data->player->x] = '0';
-		*target_tile = 'P';
-		data->player->x += x;
-		data->player->y += y;
-		data->moves += 1;
-		write_value("Moves", data->moves);
-		//write(1, "\t", 1);
-		//write_value("Collectibles Left", data->map->n_collect);
-		write(1, "\n", 1);
-		write_grid(data->map->grid);
+		update_move(data, x, y, target_tile);
 	}
 }
 
