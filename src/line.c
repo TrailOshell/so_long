@@ -62,4 +62,5 @@ char	*line_copy(char *copy, char *line)
 		i++;
 	}
 	copy[i] = '\0';
+	return (copy);
 }

@@ -24,14 +24,21 @@
 // 	return (1);
 // }
 
-void	update_move(t_data *data, int cordx, int cordy)
+void	update_move(t_data *data, int x, int y, char *target_tile)
 {
-	char	*str;
+	//char	*target_tile;
+	//int		cordx;
+	//int		cordy;
 
-	data->map->grid[cordy][cordx] = '0';
-	*c = 'P';
-	data->player->x = cordx + x;
-	data->player->y = cordy + y;
+	//cordx = data->player->x;
+	//cordy = data->player->y;
+	//target_tile = &(data->map->grid[cordy + y][cordx + x]);
+	//data->player->x = cordx + x;
+	//data->player->y = cordy + y;
+	data->map->grid[data->player->y][data->player->x] = '0';
+	*target_tile = 'P';
+	data->player->x += x;
+	data->player->y += y;
 	data->moves += 1;
 	write_value("Moves", data->moves);
 	write(1, "\t", 1);
@@ -42,22 +49,24 @@ void	update_move(t_data *data, int cordx, int cordy)
 
 void	player_move(int x, int y, t_data *data)
 {
-	int		cordx;
-	int		cordy;
-	char	*c;
+	//int		cordx;
+	//int		cordy;
 
-	cordx = data->player->x;
-	cordy = data->player->y;
-	c = &(data->map->grid[cordy + y][cordx + x]);
-	if (iswalkable(*c))
+	//cordx = data->player->x;
+	//cordy = data->player->y;
+	//c = &(data->map->grid[cordy + y][cordx + x]);
+	char	*target_tile;
+	
+	target_tile = &(data->map->grid[data->player->y + y][data->player->x + x]);
+	if (iswalkable(*target_tile))
 	{
-		if (*c == 'C')
+		if (*target_tile == 'C')
 			data->map->n_collect -= 1;
-		else if (*c == 'E' && data->map->n_collect == 0)
-			on_exit(data);
-		else if (*c == 'E' && data->map->n_collect > 0)
+		else if (*target_tile == 'E' && data->map->n_collect == 0)
+			on_game_exit(data);
+		else if (*target_tile == 'E' && data->map->n_collect > 0)
 			return ;
-		update_move(data);
+		update_move(data, x, y, target_tile);
 	}
 }
 

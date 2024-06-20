@@ -43,17 +43,16 @@ int	flood_fill(t_data *data)
 
 	if (!data || !data->map)
 		return (0);
+	flood = NULL;
 	flood = start_map(flood);
-	flood->grid = dupe_grid(data->map->grid);
+	flood->grid = dupe_map(data->map);
 	if (!flood || !flood->grid)
 		return (0);
 	paintnear(data->player->y, data->player->x, flood);
 	isflooded = 1;
 	if (flood->n_exit < 1 || flood->n_collect != data->map->n_collect)
 		isflooded = 0;
-	// free(flood->grid);
-	// free(flood);
-	free_map(flood);
+	free_map(&flood);
 	return (isflooded);
 }
 
@@ -89,19 +88,19 @@ int	flood_fill(t_data *data)
 int	check_flood_char(t_map *map, t_map *flood)
 {
 	if (flood->n_player != 1)
-		error_and_exit("ERROR! multiple players found\n");
+		error_and_exit(data, "ERROR! multiple players found\n");
 	if (flood->n_exit == 0)
 		return (0);
 	{
 		free(flood);
 		free(map);
-		error_and_exit("ERROR! Unreachable exit\n");
+		error_and_exit(data, "ERROR! Unreachable exit\n");
 	}
 	else if (flood->n_collect != map->n_collect)
 		return (0);
 	{
 		free(flood);
-		error_and_exit("ERROR! Unreachable collectible found\n");
+		error_and_exit(data, "ERROR! Unreachable collectible found\n");
 	}
 	return (1);
 }
@@ -117,7 +116,7 @@ int	flood_fill(t_data *data, t_map *map)
 		return (0);
 	flood = NULL;
 	flood = start_map(flood);
-	flood->grid = new_grid(data);
+	flood->grid = new_map(data);
 	painting(data, flood, map->grid);
 	write_grid(flood->grid);
 	printf("flood->n_collect = %d\n", flood->n_collect);

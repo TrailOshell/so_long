@@ -60,20 +60,20 @@ int	check_layout(t_data *data, char **grid)
 	x = data->map->n_col - 1;
 	y = data->map->n_row - 1;
 	if (check_top_bottom(grid, x, y) == 0)
-		error_and_exit("ERROR! top bottom error\n");
+		error_and_exit(data, "ERROR! top bottom error\n");
 	if (count_valid_char(data, grid, data->map) == 0)
-		error_and_exit("ERROR! invalid char error\n");
+		error_and_exit(data, "ERROR! invalid char error\n");
 	return (1);
 }
 
 // why not use data->grid instead of char ***grid ?
 void	set_map(t_data *data, t_node *node)
 {
-	t_node	*tmp;
+	//t_node	*tmp;
 	// int		x;
 	int		y;
 
-	data->grid = new_grid(data);
+	data->map->grid = new_map(data->map);
 	y = 0;
 	// while (y < data->map->n_row)
 	while (node != NULL)
@@ -85,16 +85,16 @@ void	set_map(t_data *data, t_node *node)
 		// 	x++;
 		// }
 		// (*grid)[y][x] = '\0';
-		line_copy(data->grid[y], node->line);
+		line_copy(data->map->grid[y], node->line);
 		// tmp = node;
 		node = node->next;
 		// free(tmp->line);
 		// free(tmp);
 		y++;
 	}
-	free_node(node);
-	if (check_layout(data, data->grid) == 0)
-		error_and_exit("ERROR! layout error\n");
+	free_node(&data->node);
+	if (check_layout(data, data->map->grid) == 0)
+		error_and_exit(data, "ERROR! layout error\n");
 }
 
 /*	void	set_map(char ***grid, t_node *node)
@@ -141,7 +141,7 @@ int	count_valid_char(t_data *data, char **grid, t_map *map)
 }
 */
 
-/* new_grid() debug
+/* new_map() debug
 	printf("row = %d\n", data->map->n_row);
 	printf("col = %d\n", data->map->n_col);
 	printf("[row] = %d\n", row);
@@ -154,7 +154,7 @@ void	set_map(t_data *data, char ***grid, t_node *node)
 	int		x;
 	int		y;
 
-	*grid = new_grid(data);
+	*grid = new_map(data);
 	y = 0;
 	while (y < data->map->n_row)
 	{
@@ -176,6 +176,6 @@ void	set_map(t_data *data, char ***grid, t_node *node)
 		y++;
 	}
 	if (check_layout(data, *grid) == 0)
-		error_and_exit("ERROR! layout error\n");
+		error_and_exit(data, "ERROR! layout error\n");
 }
 */

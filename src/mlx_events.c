@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-int	on_exit(t_data *data)
+int	on_game_exit(t_data *data)
 {
 	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	mlx_destroy_display(data->mlx_ptr);
@@ -32,6 +32,6 @@ int	on_keypress(int keysym, t_data *data)
 	if (keysym == KEY_DOWN || keysym == KEY_S)
 		player_move(0, 1, data);
 	if (keysym == KEY_Q || keysym == KEY_ESC)
-		on_exit(data);
+		on_game_exit(data);
 	return (0);
 }

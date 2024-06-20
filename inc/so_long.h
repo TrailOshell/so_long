@@ -99,6 +99,7 @@ typedef struct s_data
 # define KEY_ESC			65307
 
 // main.c
+t_map	*start_map(t_map *map);
 
 // util.c
 size_t	sl_strlen(char *s);
@@ -110,12 +111,12 @@ char	*sl_strjoin(char *s1, char *s2);
 char	*sl_itoa(int n);
 
 // error.c
-void	error_and_exit(char *msg, t_data *data);
+void	error_and_exit(t_data *data, char *msg);
 
 // free.c
-void	free_map(t_map *map);
-void	free_collect(t_collect *collect);
-void	free_node(t_node *node);
+void	free_map(t_map **map);
+void	free_collect(t_collect **collect);
+void	free_node(t_node **node);
 void	free_stuff(t_data *data);
 
 // debug.c
@@ -135,8 +136,8 @@ char	*line_dupe(char *line);
 char	*line_copy(char *copy, char *line);
 
 // grid.c
-char	**new_grid(t_map *map);
-char	**dupe_grid(char **map);
+char	**new_map(t_map *map);
+char	**dupe_map(t_map *map);
 
 // set_map.c
 void	set_map(t_data *data, t_node *node);
@@ -150,7 +151,7 @@ int		add_collectible(t_collect *collect, int x, int y);
 int		flood_fill(t_data *data);
 
 // mlx_events.c
-int		on_exit(t_data *data);
+int		on_game_exit(t_data *data);
 int		on_keypress(int keysym, t_data *data);
 
 // input.c

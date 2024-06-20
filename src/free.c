@@ -12,44 +12,44 @@
 
 #include "so_long.h"
 
-void	free_map(t_map *map)
+void	free_map(t_map **map)
 {
 	int	i;
 
-	if (data->map->grid)
+	if ((*map)->grid)
 	{
 		i = 0;
-		while (data->map->grid[i])
-			free(data->map->grid[i++]);
-		free(data->map->grid);
+		while ((*map)->grid[i])
+			free((*map)->grid[i++]);
+		free((*map)->grid);
 	}
-	free(data->map);
+	free(*map);
+	*map = NULL;
 }
 
-void	free_collect(t_collect *collect)
+void	free_collect(t_collect **collect)
 {
 	t_collect	*tmp;
 
-	while (collect->next)
+	while (*collect)
 	{
-		tmp = collect;
-		collect = collect->next;
-		free(tmp);
+		tmp = (*collect)->next;
+		free(*collect);
+		*collect = tmp;
 	}
-	free(collect);
 }
 
-void	free_node(t_node *node)
+void	free_node(t_node **node)
 {
 	t_node	*tmp;
 
-	while (node->next)
+	while (*node)
 	{
-		tmp = node;
-		node = node->next;
-		free(tmp);
+		tmp = (*node)->next;
+		free((*node)->line);
+		free(*node);
+		*node = tmp;
 	}
-	free(node);
 }
 
 void	free_stuff(t_data *data)
@@ -63,11 +63,11 @@ void	free_stuff(t_data *data)
 		if (data->exit)
 			free(data->exit);
 		if (data->collect)
-			free_collect(data->collect);
+			free_collect(&data->collect);
 		if (data->map)
-			free_map(map);
-		if (data->node)
-			free_node(node);
+			free_map(&data->map);
+		if (data->node != NULL)
+			free_node(&data->node);
 		free(data);
 	}
 }

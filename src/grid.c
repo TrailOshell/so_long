@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-char	**new_grid(t_map *map)
+char	**new_map(t_map *map)
 {
 	char	**grid;
 	int		row;
@@ -28,15 +28,15 @@ char	**new_grid(t_map *map)
 	return (grid);
 }
 
-char	**dupe_grid(char **map)
+char	**dupe_map(t_map *map)
 {
 	char	**dupe;
 	// int		x;
 	int		y;
 
-	dupe = new_grid(data->map);
+	dupe = new_map(map);
 	y = 0;
-	while (map[y])
+	while (map->grid[y])
 	{
 		// x = 0;
 		// while (map[y][x])
@@ -45,9 +45,10 @@ char	**dupe_grid(char **map)
 		// 	x++;
 		// }
 		// dupe[y][x] = '\0';
-		line_copy(dupe[y], map[y]);
+		line_copy(dupe[y], map->grid[y]);
 		y++;
 	}
+	dupe[y] = NULL;
 	return (dupe);
 }
 

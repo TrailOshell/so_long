@@ -30,6 +30,7 @@ t_data	*start_data(t_data *data)
 		data = malloc(sizeof(t_data));
 	data->mlx_ptr = mlx_init();
 	data->map = start_map(data->map);
+	data->node = NULL;
 	data->player = malloc(sizeof(t_player));
 	data->exit = malloc(sizeof(t_exit));
 	data->collect = NULL;
@@ -44,12 +45,14 @@ int	read_map(char **argv, t_data *data)
 	printf("open(argv[1], O_RDONLY) = \"%s\"\n", argv[1]);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
-		error_and_exit("ERROR! fd error\n");
+		error_and_exit(data, "ERROR! fd error\n");
 	if (sl_strrncmp(argv[1], ".ber", 4))
-		error_and_exit("ERROR! only .ber file is allowed\n");
+		error_and_exit(data, "ERROR! only .ber file is allowed\n");
 	get_next_row(data, fd);
 	set_map(data, data->node);
-	flood_fill(data, data->map);
+	if (data->node)
+		printf("node is true\n");
+	flood_fill(data);
 	return (1);
 }
 
@@ -62,10 +65,10 @@ int	main(int argc, char **argv)
 {
 	t_data	*data;
 
-	if (argc != 2)
-		error_and_exit("ERROR! Input arguments not equal 2\n");
 	data = NULL;
 	data = start_data(data);
+	if (argc != 2)
+		error_and_exit(data, "ERROR! Input arguments not equal 2\n");
 	if (!data->mlx_ptr)
 		return (0);
 	read_map(argv, data);
@@ -74,7 +77,7 @@ int	main(int argc, char **argv)
 		return (free(data->mlx_ptr), 1);
 	rendering();
 	mlx_hook(data->win_ptr, KEYPRESS, (1L << 0), &on_keypress, data);
-	mlx_hook(data->win_ptr, DESTROYNOTIFY, (1L << 2), &on_destroy, data);
+	mlx_hook(data->win_ptr, DESTROYNOTIFY, (1L << 2), &on_game_exit, data);
 	mlx_loop(data->mlx_ptr);
 	return (0);
 }
@@ -102,9 +105,9 @@ int	read_map(char **argv, t_data *data)
 	fd = open(argv[1], O_RDONLY);
 	printf("fd = %d\n", fd);
 	if (fd < 0)
-		error_and_exit("ERROR! fd error\n");
+		error_and_exit(data, "ERROR! fd error\n");
 	if (sl_strrncmp(argv[1], ".ber", 4))
-		error_and_exit("ERROR! only .ber file is allowed\n");
+		error_and_exit(data, "ERROR! only .ber file is allowed\n");
 	printf("next\n");
 	printf("data->node->line = %s\n", data->node->line);
 	printf("data->node->line = %s\n", data->node->next->line);

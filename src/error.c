@@ -12,7 +12,7 @@
 
 #include "so_long.h"
 
-void	error_and_exit(char *msg, t_data *data)
+void	error_and_exit(t_data *data, char *msg)
 {
 	if (!msg || !*msg)
 		write(1, "Error\n", 6);

@@ -36,6 +36,7 @@ GNL_INC	=	-I$(GNL_PTH)
 
 CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	+=	-g
 RM		=	rm -f
 RM_RF	= 	rm -rf
 
