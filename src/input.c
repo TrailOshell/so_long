@@ -41,8 +41,8 @@ void	update_move(t_data *data, int x, int y, char *target_tile)
 	data->player->y += y;
 	data->moves += 1;
 	write_value("Moves", data->moves);
-	write(1, "\t", 1);
-	write_value("Collectibles Left", data->map->n_collect);
+	//write(1, "\t", 1);
+	//write_value("Collectibles Left", data->map->n_collect);
 	write(1, "\n", 1);
 	write_grid(data->map->grid);
 }

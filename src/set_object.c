@@ -26,20 +26,21 @@ int	set_exit(t_exit *exit, int x, int y)
 	return (1);
 }
 
-int	add_collectible(t_collect *collect, int x, int y)
+int	add_collectible(t_collect **collect, int x, int y)
 {
 	t_collect	*new;
 	t_collect	*tmp;
 
 	new = malloc(sizeof(t_collect));
+	new->next = NULL;
 	new->x = x;
 	new->y = y;
-	if (!collect)
+	if (!*collect)
 	{
-		collect = new;
+		*collect = new;
 		return (1);
 	}
-	tmp = collect;
+	tmp = *collect;
 	while (tmp->next)
 		tmp = tmp->next;
 	tmp->next = new;

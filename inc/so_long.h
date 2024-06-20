@@ -22,6 +22,33 @@
 # include "mlx.h"
 # include "get_next_line.h"
 
+// tile size
+# define SIZE				32
+
+// map sprites path
+# define BRICK_TILE			"sprites/tiles/brick.xpm"
+# define SNOW_TILE			"sprites/tiles/snow.xpm"
+
+// player sprites path
+# define PL_UP				"sprites/player/up.xpm"
+# define PL_DOWN			"sprites/player/down.xpm"
+# define PL_LEFT			"sprites/player/left.xpm"
+# define PL_RIGHT			"sprites/player/right.xpm"
+
+typedef struct s_map_sprite
+{
+	void	*brick;
+	void	*snow;
+}	t_map_sprite;
+
+typedef struct s_pl_sprite
+{
+	void	*up;
+	void	*down;
+	void	*left;
+	void	*right;
+}	t_pl_sprite;
+
 typedef struct s_err
 {
 	int	err_borders;
@@ -38,12 +65,6 @@ typedef struct s_node
 	int				y;
 }	t_node;
 
-typedef struct s_player
-{
-	int	x;
-	int	y;
-}	t_player;
-
 typedef struct s_exit
 {
 	int	x;
@@ -57,27 +78,35 @@ typedef struct s_collect
 	struct s_collect	*next;
 }	t_collect;
 
+typedef struct s_player
+{
+	int			x;
+	int			y;
+	t_pl_sprite	sprites;
+}	t_player;
+
 typedef struct s_map
 {
-	int		n_row;
-	int		n_col;
-	int		n_player;
-	int		n_exit;
-	int		n_collect;
-	int		n_enemy;
-	char	**grid;
+	int				n_row;
+	int				n_col;
+	int				n_player;
+	int				n_exit;
+	int				n_collect;
+	int				n_enemy;
+	char			**grid;
 }	t_map;
 
 typedef struct s_data
 {
-	void		*mlx_ptr;
-	void		*win_ptr;
-	t_map		*map;
-	t_node		*node;
-	t_player	*player;
-	t_exit		*exit;
-	t_collect	*collect;
-	int			moves;
+	void			*mlx;
+	void			*win;
+	t_map			*map;
+	t_node			*node;
+	t_player		*player;
+	t_exit			*exit;
+	t_collect		*collect;
+	int				moves;
+	t_map_sprite	m_sprites;
 }	t_data;
 
 //	X11 events 
@@ -117,6 +146,7 @@ void	error_and_exit(t_data *data, char *msg);
 void	free_map(t_map **map);
 void	free_collect(t_collect **collect);
 void	free_node(t_node **node);
+void	free_sprites(t_data *data);
 void	free_stuff(t_data *data);
 
 // debug.c
@@ -145,7 +175,7 @@ void	set_map(t_data *data, t_node *node);
 // set_object.c
 int		set_player(t_player *player, int x, int y);
 int		set_exit(t_exit *exit, int x, int y);
-int		add_collectible(t_collect *collect, int x, int y);
+int		add_collectible(t_collect **collect, int x, int y);
 
 // flood_fill.c
 int		flood_fill(t_data *data);

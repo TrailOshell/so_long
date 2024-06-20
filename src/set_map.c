@@ -42,7 +42,7 @@ int	count_valid_char(t_data *data, char **grid, t_map *map)
 			else if (grid[row][col] == 'E')
 				map->n_exit += set_exit(data->exit, col, row);
 			else if (grid[row][col] == 'C')
-				map->n_collect += add_collectible(data->collect, col, row);
+				map->n_collect += add_collectible(&data->collect, col, row);
 			col++;
 		}
 		row++;

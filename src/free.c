@@ -52,12 +52,34 @@ void	free_node(t_node **node)
 	}
 }
 
+
+void	free_sprites(t_data *data)
+{
+	if (data->m_sprites.brick)
+		mlx_destroy_image(data->mlx, data->m_sprites.brick);
+	if (data->m_sprites.snow)
+		mlx_destroy_image(data->mlx, data->m_sprites.snow);
+}
+/*
+	mlx_destroy_image(data->mlx, data->m_sprites.brick);
+	mlx_destroy_image(data->mlx, data->m_sprites.snow);
+*/
+//void	check_free_sprite(void *mlx, void *img)
+//{
+//	if (!img)
+//		return ;
+//	//if (img)
+//	mlx_destroy_image(mlx, img);
+//}
+	//check_free_sprite(data->mlx, data->map->sprites.brick);
+	//check_free_sprite(data->mlx, data->map->sprites.snow);
+
 void	free_stuff(t_data *data)
 {
 	if (data)
 	{
-		if (data->mlx_ptr)
-			free(data->mlx_ptr);
+		if (data->mlx)
+			free(data->mlx);
 		if (data->player)
 			free(data->player);
 		if (data->exit)
