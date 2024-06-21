@@ -31,24 +31,15 @@ char	**new_map(t_map *map)
 char	**dupe_map(t_map *map)
 {
 	char	**dupe;
-	// int		x;
 	int		y;
 
 	dupe = new_map(map);
 	y = 0;
 	while (map->grid[y])
 	{
-		// x = 0;
-		// while (map[y][x])
-		// {
-		// 	dupe[y][x] = map[y][x];
-		// 	x++;
-		// }
-		// dupe[y][x] = '\0';
 		line_copy(dupe[y], map->grid[y]);
 		y++;
 	}
 	dupe[y] = NULL;
 	return (dupe);
 }
-

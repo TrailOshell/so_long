@@ -15,7 +15,6 @@
 int	on_game_exit(t_data *data)
 {
 	free_sprites(data);
-	mlx_clear_window(data->mlx, data->win);
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free_stuff(data);

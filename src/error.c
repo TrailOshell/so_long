@@ -14,10 +14,14 @@
 
 void	error_and_exit(t_data *data, char *msg)
 {
+	write_grid(data->map->grid);
+	set_color(YELLOW);
 	if (!msg || !*msg)
 		write(1, "Error\n", 6);
 	else
 		write(1, msg, sl_strlen(msg));
+	set_color(RESET);
+	mlx_destroy_display(data->mlx);
 	free_stuff(data);
 	exit(0);
 }

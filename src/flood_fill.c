@@ -19,7 +19,10 @@ int	paint_and_count(char *c, t_map *map)
 	if (*c == 'C')
 		map->n_collect += 1;
 	else if (*c == 'E')
+	{
 		map->n_exit += 1;
+		return (0);
+	}
 	*c = 'P';
 	return (1);
 }
@@ -39,7 +42,6 @@ void	paintnear(int y, int x, t_map *map)
 int	flood_fill(t_data *data)
 {
 	t_map	*flood;
-	int		isflooded;
 
 	if (!data || !data->map)
 		return (0);
@@ -49,11 +51,19 @@ int	flood_fill(t_data *data)
 	if (!flood || !flood->grid)
 		return (0);
 	paintnear(data->player->y, data->player->x, flood);
-	isflooded = 1;
-	if (flood->n_exit < 1 || flood->n_collect != data->map->n_collect)
-		isflooded = 0;
+	if (flood->n_exit < 1)
+	{
+		free_map(&flood);
+		error_and_exit(data, "ERROR! Unreachable Exit\n");
+	}
+	else if (flood->n_collect < data->map->n_collect)
+	{
+		free_map(&flood);
+		error_and_exit(data, "ERROR! Unreachable Collectible\n");
+	}
+	write_grid(flood->grid);
 	free_map(&flood);
-	return (isflooded);
+	return (1);
 }
 
 /* int	paintnear(int x, int y, char **grid)

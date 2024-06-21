@@ -37,8 +37,6 @@ char	*sl_strdup(char *s)
 	dup[i] = '\0';
 	return (dup);
 }
-	//printf("d\n");
-	//printf("s = %zu\n", sl_strlen(s));
 
 int	sl_strrncmp(char *s1, char *s2, size_t n)
 {
@@ -51,7 +49,6 @@ int	sl_strrncmp(char *s1, char *s2, size_t n)
 			return (*s1 - *s2);
 	return (0);
 }
-// printf("*s1 = \'%c\' \t *s2 = \'%c\'\n", *s1, *s2);
 
 char	*sl_strjoin(char *s1, char *s2)
 {
@@ -71,21 +68,7 @@ char	*sl_strjoin(char *s1, char *s2)
 	while (*s1)
 		ptr[i++] = *(s1++);
 	while (*s2)
-		ptr[i++] = *(s1++);
+		ptr[i++] = *(s2++);
+	ptr[i] = '\0';
 	return (ptr);
 }
-
-/* sl_strrncmp() 
-int	sl_strrncmp(const char *s1, const char *s2, size_t n)
-{
-	size_t	len1;
-	size_t	len2;
-
-	len1 = sl_strlen(s1);
-	len2 = sl_strlen(s2);
-
-	while (n--)
-		if (s1[len1] != s2[len2])
-			return (s1[len1] - s2[len2]);
-}
-*/

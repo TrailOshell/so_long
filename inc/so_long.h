@@ -13,7 +13,6 @@
 #ifndef SO_LONG_H
 # define SO_LONG_H
 
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -22,22 +21,146 @@
 # include "mlx.h"
 # include "get_next_line.h"
 
+// color
+# define RESET "\033[0;39m"
+# define GRAY "\033[0;90m"
+# define RED "\033[0;91m"
+# define GREEN "\033[0;92m"
+# define YELLOW "\033[0;93m"
+# define BLUE "\033[0;94m"
+# define MAGENTA "\033[0;95m"
+# define CYAN "\033[0;96m"
+# define WHITE "\033[0;97m"
+
+/*
 // tile size
 # define SIZE				32
 
 // map sprites path
-# define BRICK_TILE			"sprites/tiles/brick.xpm"
-# define SNOW_TILE			"sprites/tiles/snow.xpm"
+# define BRICK_S			"sprites/32/brick south.xpm"
+# define BRICK_M			"sprites/32/brick middle.xpm"
+# define SNOW				"sprites/32/snow.xpm"
+
+// object sprites path
+# define MATCH				"sprites/32/bg/match box bg.xpm"
+# define EXIT_OFF			"sprites/32/bg/cauldron cold bg.xpm"
+# define EXIT_ON			"sprites/32/bg/cauldron hot bg.xpm"
 
 // player sprites path
-# define PL_UP				"sprites/player/up.xpm"
-# define PL_DOWN			"sprites/player/down.xpm"
-# define PL_LEFT			"sprites/player/left.xpm"
-# define PL_RIGHT			"sprites/player/right.xpm"
+# define PL_UP				"sprites/32/bg/match girl up bg snow.xpm"
+# define PL_DOWN			"sprites/32/bg/match girl down bg snow.xpm"
+# define PL_LEFT			"sprites/32/bg/match girl left bg snow.xpm"
+# define PL_RIGHT			"sprites/32/bg/match girl right bg snow.xpm"
+# define PL_S_UP			"sprites/32/bg/match girl up bg snow.xpm"
+# define PL_S_DOWN			"sprites/32/bg/match girl down bg snow.xpm"
+# define PL_S_LEFT			"sprites/32/bg/match girl left bg snow.xpm"
+# define PL_S_RIGHT			"sprites/32/bg/match girl right bg snow.xpm"
+# define PL_B_UP			"sprites/32/bg/match girl up bg brick.xpm"
+# define PL_B_DOWN			"sprites/32/bg/match girl down bg brick.xpm"
+# define PL_B_LEFT			"sprites/32/bg/match girl left bg brick.xpm"
+# define PL_B_RIGHT			"sprites/32/bg/match girl right bg brick.xpm"
+# define PL_M_UP			"sprites/32/bg/match girl up bg match box.xpm"
+# define PL_M_DOWN			"sprites/32/bg/match girl down bg match box.xpm"
+# define PL_M_LEFT			"sprites/32/bg/match girl left bg match box.xpm"
+# define PL_M_RIGHT			"sprites/32/bg/match girl right bg match box.xpm"
+# define PL_C_UP			"sprites/32/bg/match girl up bg cold.xpm"
+# define PL_C_DOWN			"sprites/32/bg/match girl down bg cold.xpm"
+# define PL_C_LEFT			"sprites/32/bg/match girl left bg cold.xpm"
+# define PL_C_RIGHT			"sprites/32/bg/match girl right bg cold.xpm"
+# define PL_H_UP			"sprites/32/bg/match girl up bg hot.xpm"
+# define PL_H_DOWN			"sprites/32/bg/match girl down bg hot.xpm"
+# define PL_H_LEFT			"sprites/32/bg/match girl left bg hot.xpm"
+# define PL_H_RIGHT			"sprites/32/bg/match girl right bg hot.xpm"
+*/
+
+// tile size
+# ifndef SIZE
+#  define SIZE				64
+# endif
+
+/*
+// map sprites path
+# define BRICK_S			"sprites/64/brick south.xpm"
+# define BRICK_M			"sprites/64/brick middle.xpm"
+# define SNOW				"sprites/64/snow.xpm"
+
+// object sprites path
+# define MATCH				"sprites/64/bg/match box bg.xpm"
+# define EXIT_OFF			"sprites/64/bg/cauldron cold bg.xpm"
+# define EXIT_ON			"sprites/64/bg/cauldron hot bg.xpm"
+
+// player sprites path
+# define PL_UP				"sprites/64/bg/match girl up bg snow.xpm"
+# define PL_DOWN			"sprites/64/bg/match girl down bg snow.xpm"
+# define PL_LEFT			"sprites/64/bg/match girl left bg snow.xpm"
+# define PL_RIGHT			"sprites/64/bg/match girl right bg snow.xpm"
+# define PL_S_UP			"sprites/64/bg/match girl up bg snow.xpm"
+# define PL_S_DOWN			"sprites/64/bg/match girl down bg snow.xpm"
+# define PL_S_LEFT			"sprites/64/bg/match girl left bg snow.xpm"
+# define PL_S_RIGHT			"sprites/64/bg/match girl right bg snow.xpm"
+# define PL_B_UP			"sprites/64/bg/match girl up bg brick.xpm"
+# define PL_B_DOWN			"sprites/64/bg/match girl down bg brick.xpm"
+# define PL_B_LEFT			"sprites/64/bg/match girl left bg brick.xpm"
+# define PL_B_RIGHT			"sprites/64/bg/match girl right bg brick.xpm"
+# define PL_M_UP			"sprites/64/bg/match girl up bg match box.xpm"
+# define PL_M_DOWN			"sprites/64/bg/match girl down bg match box.xpm"
+# define PL_M_LEFT			"sprites/64/bg/match girl left bg match box.xpm"
+# define PL_M_RIGHT			"sprites/64/bg/match girl right bg match box.xpm"
+# define PL_C_UP			"sprites/64/bg/match girl up bg cold.xpm"
+# define PL_C_DOWN			"sprites/64/bg/match girl down bg cold.xpm"
+# define PL_C_LEFT			"sprites/64/bg/match girl left bg cold.xpm"
+# define PL_C_RIGHT			"sprites/64/bg/match girl right bg cold.xpm"
+# define PL_H_UP			"sprites/64/bg/match girl up bg hot.xpm"
+# define PL_H_DOWN			"sprites/64/bg/match girl down bg hot.xpm"
+# define PL_H_LEFT			"sprites/64/bg/match girl left bg hot.xpm"
+# define PL_H_RIGHT			"sprites/64/bg/match girl right bg hot.xpm"
+*/
+
+# define PTH_16				"sprites/16/"
+# define PTH_32				"sprites/32/"
+# define PTH_64				"sprites/64/"
+# define PTH_128			"sprites/128/"
+
+// map sprites path
+# define BRICK_S			"brick south.xpm"
+# define BRICK_M			"brick middle.xpm"
+# define SNOW				"snow.xpm"
+
+// object sprites path
+# define MATCH				"bg/match box bg.xpm"
+# define EXIT_OFF			"bg/cauldron cold bg.xpm"
+# define EXIT_ON			"bg/cauldron hot bg.xpm"
+
+// player sprites path
+# define PL_UP				"bg/match girl up bg snow.xpm"
+# define PL_DOWN			"bg/match girl down bg snow.xpm"
+# define PL_LEFT			"bg/match girl left bg snow.xpm"
+# define PL_RIGHT			"bg/match girl right bg snow.xpm"
+# define PL_S_UP			"bg/match girl up bg snow.xpm"
+# define PL_S_DOWN			"bg/match girl down bg snow.xpm"
+# define PL_S_LEFT			"bg/match girl left bg snow.xpm"
+# define PL_S_RIGHT			"bg/match girl right bg snow.xpm"
+# define PL_B_UP			"bg/match girl up bg brick.xpm"
+# define PL_B_DOWN			"bg/match girl down bg brick.xpm"
+# define PL_B_LEFT			"bg/match girl left bg brick.xpm"
+# define PL_B_RIGHT			"bg/match girl right bg brick.xpm"
+# define PL_M_UP			"bg/match girl up bg match box.xpm"
+# define PL_M_DOWN			"bg/match girl down bg match box.xpm"
+# define PL_M_LEFT			"bg/match girl left bg match box.xpm"
+# define PL_M_RIGHT			"bg/match girl right bg match box.xpm"
+# define PL_C_UP			"bg/match girl up bg cold.xpm"
+# define PL_C_DOWN			"bg/match girl down bg cold.xpm"
+# define PL_C_LEFT			"bg/match girl left bg cold.xpm"
+# define PL_C_RIGHT			"bg/match girl right bg cold.xpm"
+# define PL_H_UP			"bg/match girl up bg hot.xpm"
+# define PL_H_DOWN			"bg/match girl down bg hot.xpm"
+# define PL_H_LEFT			"bg/match girl left bg hot.xpm"
+# define PL_H_RIGHT			"bg/match girl right bg hot.xpm"
 
 typedef struct s_map_sprite
 {
-	void	*brick;
+	void	*brick_s;
+	void	*brick_m;
 	void	*snow;
 }	t_map_sprite;
 
@@ -48,6 +171,13 @@ typedef struct s_pl_sprite
 	void	*left;
 	void	*right;
 }	t_pl_sprite;
+
+typedef struct s_obj_sprite
+{
+	void	*collectible;
+	void	*exit_off;
+	void	*exit_on;
+}	t_obj_sprite;
 
 typedef struct s_err
 {
@@ -107,6 +237,13 @@ typedef struct s_data
 	t_collect		*collect;
 	int				moves;
 	t_map_sprite	m_sprites;
+	t_obj_sprite	o_sprites;
+	t_pl_sprite		p_sprites;
+	t_pl_sprite		p_sprites_s;
+	t_pl_sprite		p_sprites_b;
+	t_pl_sprite		p_sprites_m;
+	t_pl_sprite		p_sprites_c;
+	t_pl_sprite		p_sprites_h;
 }	t_data;
 
 //	X11 events 
@@ -146,10 +283,10 @@ void	error_and_exit(t_data *data, char *msg);
 void	free_map(t_map **map);
 void	free_collect(t_collect **collect);
 void	free_node(t_node **node);
-void	free_sprites(t_data *data);
 void	free_stuff(t_data *data);
 
 // debug.c
+void	set_color(char *color);
 void	write_grid(char **grid);
 void	write_value(char *msg, int int_val);
 
@@ -179,6 +316,17 @@ int		add_collectible(t_collect **collect, int x, int y);
 
 // flood_fill.c
 int		flood_fill(t_data *data);
+
+// sprites.c
+void	load_sprites(t_data *data);
+void	free_p_sprites(t_data *data);
+void	free_sprites(t_data *data);
+
+// render.c
+void	render_map(t_data *data);
+void	render_tile(t_data *data, int x, int y);
+void	render_objects(t_data *data);
+void	render_player(t_data *data, int x, int y);
 
 // mlx_events.c
 int		on_game_exit(t_data *data);

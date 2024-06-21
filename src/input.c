@@ -12,29 +12,8 @@
 
 #include "../inc/so_long.h"
 
-// int	walk_on_grid(char *c, t_data *data)
-// {
-// 	if (iswalkable(*c) == 0)
-// 		return (0);
-// 	if (*c == 'C')
-// 		data->map->n_collect -= 1;
-// 	else if (*c == 'E' && data->map->n_collect == 0)
-// 		exit (1);
-// 	*c = 'P';
-// 	return (1);
-// }
-
 void	update_move(t_data *data, int x, int y, char *target_tile)
 {
-	//char	*target_tile;
-	//int		cordx;
-	//int		cordy;
-
-	//cordx = data->player->x;
-	//cordy = data->player->y;
-	//target_tile = &(data->map->grid[cordy + y][cordx + x]);
-	//data->player->x = cordx + x;
-	//data->player->y = cordy + y;
 	data->map->grid[data->player->y][data->player->x] = '0';
 	*target_tile = 'P';
 	data->player->x += x;
@@ -49,14 +28,8 @@ void	update_move(t_data *data, int x, int y, char *target_tile)
 
 void	player_move(int x, int y, t_data *data)
 {
-	//int		cordx;
-	//int		cordy;
-
-	//cordx = data->player->x;
-	//cordy = data->player->y;
-	//c = &(data->map->grid[cordy + y][cordx + x]);
 	char	*target_tile;
-	
+
 	target_tile = &(data->map->grid[data->player->y + y][data->player->x + x]);
 	if (iswalkable(*target_tile))
 	{
@@ -67,7 +40,12 @@ void	player_move(int x, int y, t_data *data)
 		else if (*target_tile == 'E' && data->map->n_collect > 0)
 			return ;
 		update_move(data, x, y, target_tile);
+		render_tile(data, data->player->x - x, data->player->y - y);
+		render_tile(data, data->player->x - x, data->player->y - y - 1);
+		if (data->map->n_collect == 0)
+			render_tile(data, data->exit->x, data->exit->y);
 	}
+	render_player(data, x, y);
 }
 
 /* player_move() put this under -> c = &(data->map->grid[cordy + y][cordx + x]);

@@ -13,14 +13,16 @@
 NAME	=	so_long
 
 INC_PTH	=	inc/
-#INC		=	$(INC_PTH)so_long.h
 INC		=	-I$(INC_PTH)
 
+INC_SO_LONG		=	$(INC_PTH)so_long.h
+
 SRC_PTH	=	src/
-SRC		=	main.c util.c sl_itoa.c error.c free.c debug.c \
+SRC		=	main.c util.c sl_itoa.c \
+			error.c free.c debug.c \
 			is_conditions.c \
-			get_next_row.c line.c grid.c \
-			set_map.c set_object.c flood_fill.c \
+			get_next_row.c line.c grid.c set_map.c set_object.c flood_fill.c \
+			sprites.c render.c \
 			mlx_events.c input.c \
 
 OBJ_PTH	=	obj/
@@ -48,7 +50,7 @@ MLX_INC		=	-I$(MLX_PTH) -O3
 
 all: $(MLX) $(GNL) $(NAME)
 
-$(OBJ_PTH)%.o: $(SRC_PTH)%.c Makefile | $(OBJ_PTH)
+$(OBJ_PTH)%.o: $(SRC_PTH)%.c Makefile $(INC_SO_LONG)| $(OBJ_PTH)
 	$(CC) $(CFLAGS) $(INC) $(GNL_INC) $(MLX_INC) -c $< -o $@
 	@echo "$(D_GREEN)compiled $<$(NC)"
 

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/so_long.h"
+#include "so_long.h"
 
 t_map	*start_map(t_map *map)
 {
@@ -42,7 +42,6 @@ int	read_map(char **argv, t_data *data)
 {
 	int		fd;
 
-	printf("open(argv[1], O_RDONLY) = \"%s\"\n", argv[1]);
 	fd = open(argv[1], O_RDONLY);
 	if (fd < 0)
 		error_and_exit(data, "ERROR! fd error\n");
@@ -56,87 +55,6 @@ int	read_map(char **argv, t_data *data)
 	return (1);
 }
 
-int	load_textures(t_data *data)
-{
-	int	size;
-
-	size = SIZE;
-	data->m_sprites.brick = mlx_xpm_file_to_image(data->mlx, \
-			BRICK_TILE, &size, &size);
-	data->m_sprites.snow = mlx_xpm_file_to_image(data->mlx, \
-			SNOW_TILE, &size, &size);
-	return (1);
-}
-
-void	render_tile(t_data *data, t_map_sprite m_sprites, int x, int y)
-{
-	if (data->map->grid[y][x] == '1')
-		mlx_put_image_to_window(data->mlx, data->win, \
-			m_sprites.brick, x * SIZE, y * SIZE);
-	//else if (iswalkable(data->map->grid[y][x]) == 1 \
-	//	|| data->map->grid[y][x] == 'P')
-	//	mlx_put_image_to_window(data->mlx, data->win, \
-	//		m_sprites.snow, x * SIZE, y * SIZE);
-}
-/*
-	t_map_sprite	m_sprites;
-
-	m_sprites = data->map->sprites;
-*/
-
-void	render_map(t_data *data)
-{
-	int	x;
-	int	y;
-
-	y = 0;
-	while (data->map->grid[y])
-	{
-		x = 0;
-		while (data->map->grid[y][x])
-		{
-			render_tile(data, data->m_sprites, x, y);
-			x++;
-		}
-		y++;
-	}
-}
-
-void	render_collect(t_data *data, t_collect *collect)
-{
-	while (collect)
-	{
-		mlx_put_image_to_window(data->mlx, data->win, data->m_sprites.snow, \
-			collect->x * SIZE, collect->y * SIZE);
-		collect = collect->next;
-	}
-}
-
-void	render_objects(t_data *data)
-{
-	mlx_put_image_to_window(data->mlx, data->win, data->m_sprites.snow, \
-		data->player->x * SIZE, data->player->y * SIZE);
-	mlx_put_image_to_window(data->mlx, data->win, data->m_sprites.snow, \
-		data->exit->x * SIZE, data->exit->y * SIZE);
-	if (data->collect)
-		printf("true\n");
-	render_collect(data, data->collect);
-	//int	x;
-	//int	y;
-
-	//y = 0;
-	//while (data->map->grid[y])
-	//{
-	//	x = 0;
-	//	while (data->map->grid[y][x])
-	//	{
-	//		render_tile(data, data->map->sprites, x, y);
-	//		x++;
-	//	}
-	//	y++;
-	//}
-}
-
 int	main(int argc, char **argv)
 {
 	t_data	*data;
@@ -148,32 +66,18 @@ int	main(int argc, char **argv)
 	if (!data->mlx)
 		return (0);
 	read_map(argv, data);
+	load_sprites(data);
 	data->win = mlx_new_window(data->mlx, \
 		data->map->n_col * SIZE, data->map->n_row * SIZE, "so_long");
 	if (!data->win)
 		return (free(data->mlx), 1);
-	load_textures(data);
-	render_objects(data);
 	render_map(data);
+	render_player(data, 0, 0);
 	mlx_hook(data->win, KEYPRESS, (1L << 0), &on_keypress, data);
 	mlx_hook(data->win, DESTROYNOTIFY, (1L << 2), &on_game_exit, data);
 	mlx_loop(data->mlx);
 	return (0);
 }
-
-/*
-	void *mlx_xpm_file_to_image(void *mlx, char *filename,
-		int *width, int *height);
-
-	img_ptr = malloc();	
-	img_ptr = mlx_xpm_file_to_image(void *mlx, char *filename,
-		int *width, int *height);
-*/
-
-/*
-	int mlx_put_image_to_window(void *mlx, void *win,
-		void *img_ptr, int x, int y);
-*/
 
 /* read_map() debug
 int	read_map(char **argv, t_data *data)

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/17 16:13:58 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/06/19 19:25:24by tsomchan         ###   ########.fr       */
+/*   Created: 2024/06/21 16:42:30 by tsomchan          #+#    #+#             */
+/*   Updated: 2024/06/21 16:42:37 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,6 @@ int	count_valid_char(t_data *data, char **grid, t_map *map)
 		}
 		row++;
 	}
-	if (map->n_collect == 0 || map->n_player != 1 || map->n_exit != 1)
-		return (0);
 	return (1);
 }
 
@@ -60,36 +58,27 @@ int	check_layout(t_data *data, char **grid)
 	x = data->map->n_col - 1;
 	y = data->map->n_row - 1;
 	if (check_top_bottom(grid, x, y) == 0)
-		error_and_exit(data, "ERROR! top bottom error\n");
-	if (count_valid_char(data, grid, data->map) == 0)
-		error_and_exit(data, "ERROR! invalid char error\n");
+		error_and_exit(data, "ERROR! top or bottom row are not all walls\n");
+	count_valid_char(data, grid, data->map);
+	if (data->map->n_collect == 0)
+		error_and_exit(data, "ERROR! Collectible not found\n");
+	else if (data->map->n_player != 1)
+		error_and_exit(data, "ERROR! Player count not equal 1\n");
+	else if (data->map->n_exit != 1)
+		error_and_exit(data, "ERROR! Exit count not equal 1\n");
 	return (1);
 }
 
-// why not use data->grid instead of char ***grid ?
 void	set_map(t_data *data, t_node *node)
 {
-	//t_node	*tmp;
-	// int		x;
 	int		y;
 
 	data->map->grid = new_map(data->map);
 	y = 0;
-	// while (y < data->map->n_row)
 	while (node != NULL)
 	{
-		// x = 0;
-		// while (node->line[x])
-		// {
-		// 	(*grid)[y][x] = node->line[x];
-		// 	x++;
-		// }
-		// (*grid)[y][x] = '\0';
 		line_copy(data->map->grid[y], node->line);
-		// tmp = node;
 		node = node->next;
-		// free(tmp->line);
-		// free(tmp);
 		y++;
 	}
 	free_node(&data->node);
