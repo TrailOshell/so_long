@@ -9,7 +9,6 @@
 #    Updated: 2024/06/19 22:21:48 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-
 NAME	=	so_long
 
 INC_PTH	=	inc/
@@ -103,11 +102,6 @@ WHITE		=	\033[1;37m
 
 #	my additional rules
 
-test =	test.ber
-
-t: all
-	./$(NAME) $(test)
-
 clear:
 	@clear
 
@@ -137,3 +131,44 @@ ifdef m
 endif
 
 .PHONY += clear norm clean_more git log push git_add
+
+# test
+
+# invalid maps
+
+MAP_PTH		=	map/
+
+INV_MAP_PTH	=	$(MAP_PTH)invalid/
+#INV_MAP 	=	no_E.ber \
+#				invalid_E_count.ber invalid_P_count.ber \
+#				invalid_path_E_blocking.ber \
+#				unreachable_C.ber unreachable_E.ber
+#INV			=	$(addprefix $(INV_MAP_PTH), $(INV_MAP))
+
+MAP_VLD_PTH	=	$(MAP_PTH)valid/
+
+inv:
+	-./$(NAME) $(INV_MAP_PTH)not_a_ber_file.sus
+	-./$(NAME) $(INV_MAP_PTH)not_even_a_map.ber 
+	-./$(NAME) $(INV_MAP_PTH)not_rectangle.ber 
+	-./$(NAME) $(INV_MAP_PTH)invalid_filepath.ber 
+	-./$(NAME) $(INV_MAP_PTH)1_line.ber 
+	-./$(NAME) $(INV_MAP_PTH)2_lines.ber 
+	-./$(NAME) $(INV_MAP_PTH)empty.ber 
+	-./$(NAME) $(INV_MAP_PTH)empty_line.ber 
+	-./$(NAME) $(INV_MAP_PTH)invalid_character.ber 
+	
+	-./$(NAME) $(INV_MAP_PTH)multiple_E.ber 
+	-./$(NAME) $(INV_MAP_PTH)multiple_P.ber 
+	-./$(NAME) $(INV_MAP_PTH)no_C.ber 
+	-./$(NAME) $(INV_MAP_PTH)no_E.ber 
+	-./$(NAME) $(INV_MAP_PTH)no_P.ber 
+
+	-./$(NAME) $(INV_MAP_PTH)unreachable_C.ber 
+	-./$(NAME) $(INV_MAP_PTH)unreachable_E.ber 
+	-./$(NAME) $(INV_MAP_PTH)blocked_by_E.ber 
+	-./$(NAME) $(INV_MAP_PTH)blocked_by_Walls.ber 
+	
+	-./$(NAME) $(INV_MAP_PTH)following_empty_lines.ber 
+	
+#	$(addprefix ./$(NAME) , $(INV))
