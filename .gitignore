@@ -2,3 +2,5 @@
 *obj/
 so_long*
 mlx/*libmlx*.a
+valgrind.out
+settings.json

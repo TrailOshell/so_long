@@ -9,6 +9,7 @@
 #    Updated: 2024/06/19 22:21:48 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
+
 NAME	=	so_long
 
 INC_PTH	=	inc/
@@ -20,7 +21,7 @@ SRC_PTH	=	src/
 SRC		=	main.c util.c sl_itoa.c \
 			error.c free.c debug.c \
 			is_conditions.c \
-			get_next_row.c line.c grid.c set_map.c set_object.c flood_fill.c \
+			get_next_row.c line.c grid.c set_map.c check_map_input.c set_object.c flood_fill.c \
 			sprites.c render.c \
 			mlx_events.c input.c \
 
@@ -105,6 +106,8 @@ WHITE		=	\033[1;37m
 clear:
 	@clear
 
+n: norm
+
 norm: clear
 	@norminette $(addprefix $(SRC_PTH), $(SRC)) $(SRC_S) $(SRC_C) $(BONUS_S) $(BONUS_C)
 TRASH = .DS_Store
@@ -134,41 +137,140 @@ endif
 
 # test
 
-# invalid maps
+h: help
+
+help:
+	@echo "$(D_PURPLE)Rules to use$(NC)"
+	@echo "$(D_YELLOW)Help\t\t\t: $(NC)h help$(NC)"
+	@echo "$(D_YELLOW)Norminette\t\t: $(NC)n norm$(NC)"
+	@echo "$(D_YELLOW)Invalid tests\t\t: $(NC)i inv inv_file inv_size inv_line inv_layout inv_char inv_path$(NC)"
+	@echo "$(D_YELLOW)Valid tests\t\t: $(NC)v val 100 200 300$(NC)"
+	@echo "$(D_YELLOW)Custom Map tests\t: $(NC)m map$(NC)"
+	@echo "$(D_YELLOW)\t\t\t+-> $(NC)make m m=[pth_to_map.ber]$(NC)"
 
 MAP_PTH		=	map/
-
 INV_MAP_PTH	=	$(MAP_PTH)invalid/
-#INV_MAP 	=	no_E.ber \
-#				invalid_E_count.ber invalid_P_count.ber \
-#				invalid_path_E_blocking.ber \
-#				unreachable_C.ber unreachable_E.ber
-#INV			=	$(addprefix $(INV_MAP_PTH), $(INV_MAP))
+VLD_MAP_PTH	=	$(MAP_PTH)valid/
 
-MAP_VLD_PTH	=	$(MAP_PTH)valid/
+v	= 1
 
-inv:
-	-./$(NAME) $(INV_MAP_PTH)not_a_ber_file.sus
-	-./$(NAME) $(INV_MAP_PTH)not_even_a_map.ber 
-	-./$(NAME) $(INV_MAP_PTH)not_rectangle.ber 
-	-./$(NAME) $(INV_MAP_PTH)invalid_filepath.ber 
-	-./$(NAME) $(INV_MAP_PTH)1_line.ber 
-	-./$(NAME) $(INV_MAP_PTH)2_lines.ber 
-	-./$(NAME) $(INV_MAP_PTH)empty.ber 
-	-./$(NAME) $(INV_MAP_PTH)empty_line.ber 
-	-./$(NAME) $(INV_MAP_PTH)invalid_character.ber 
-	
-	-./$(NAME) $(INV_MAP_PTH)multiple_E.ber 
-	-./$(NAME) $(INV_MAP_PTH)multiple_P.ber 
-	-./$(NAME) $(INV_MAP_PTH)no_C.ber 
-	-./$(NAME) $(INV_MAP_PTH)no_E.ber 
-	-./$(NAME) $(INV_MAP_PTH)no_P.ber 
+define	test_ber
+	@echo "$(D_GREEN)Map: $(addprefix $1, $2)$(NC)"
+	@-valgrind --log-file="valgrind.out" ./$(NAME) $(addprefix $1, $2)
+	@-grep --color=auto -E "no leaks" valgrind.out || @-grep echo "leaks found"
+	@-grep --color=auto -E "definitely lost:|indirectly lost:|possibly lost:|still reachable:| suppressed:" valgrind.out || true
+	@-grep --color=auto "ERROR SUMMARY" valgrind.out || true
+	@-echo ""
+endef
+#	@-grep --color=auto -E "no leaks" valgrind.out || true
+#	@echo "$(D_GREEN)Map: $2$(NC)"
+#	-valgrind --log-file="valgrind.out" --leak-check=full --show-leak-kinds=all ./$(NAME) $(addprefix $(INV_MAP_PTH), $1) 
+#	cat valgrind.out
+#	@-grep --color=auto -E "in use at exit: " valgrind.out || true
+#	@-grep --color=auto -E "definitely lost:|indirectly lost:|possibly lost:|still reachable:| suppressed:" valgrind.out || true
 
-	-./$(NAME) $(INV_MAP_PTH)unreachable_C.ber 
-	-./$(NAME) $(INV_MAP_PTH)unreachable_E.ber 
-	-./$(NAME) $(INV_MAP_PTH)blocked_by_E.ber 
-	-./$(NAME) $(INV_MAP_PTH)blocked_by_Walls.ber 
-	
-	-./$(NAME) $(INV_MAP_PTH)following_empty_lines.ber 
-	
-#	$(addprefix ./$(NAME) , $(INV))
+define	test_ber_full_pth
+	@echo "$(D_GREEN)Map: $1 $(NC)"
+	@-valgrind --log-file="valgrind.out" ./$(NAME) $1
+	@-grep --color=auto -E "no leaks" valgrind.out || true
+	@-grep --color=auto -E "definitely lost:|indirectly lost:|possibly lost:|still reachable:| suppressed:" valgrind.out || true
+	@-grep --color=auto "ERROR SUMMARY" valgrind.out || true
+	@-echo ""
+endef
+
+# invalid map test
+
+inv_file: all
+	@echo "$(D_BLUE)### run test cases: invalid file$(NC)"
+	-$(call test_ber, $(INV_MAP_PTH)file/, invalid_filepath.ber)
+	-$(call test_ber, $(INV_MAP_PTH)file/, not_a_ber_file.sus)
+#	-$(call test_ber, $(INV_MAP_PTH)file/, not_even_a_map.ber)
+	@echo "$(D_BLUE)# End of test cases ----- -------  ---- --- \n$(NC)"
+
+inv_size: all
+	@echo "$(D_BLUE)### run test cases: invalid size$(NC)"
+	-$(call test_ber, $(INV_MAP_PTH)size/, empty.ber)
+	-$(call test_ber, $(INV_MAP_PTH)size/, not_rectangle.ber)
+	-$(call test_ber, $(INV_MAP_PTH)size/, 1_col.ber)
+	-$(call test_ber, $(INV_MAP_PTH)size/, 2_cols.ber)
+	-$(call test_ber, $(INV_MAP_PTH)size/, 1_line.ber)
+	-$(call test_ber, $(INV_MAP_PTH)size/, 2_lines.ber)
+	-$(call test_ber, $(INV_MAP_PTH)size/, uneven_lines.ber)
+	-$(call test_ber, $(INV_MAP_PTH)size/, uneven_line_at_first.ber)
+	-$(call test_ber, $(INV_MAP_PTH)size/, uneven_line_at_last.ber)
+	-$(call test_ber, $(INV_MAP_PTH)size/, uneven_line_at_middle.ber)
+	@echo "$(D_BLUE)# End of test cases ----- -------  ---- --- \n$(NC)"
+
+inv_line: all
+	@echo "$(D_BLUE)### run test cases: invalid layout of lines$(NC)"
+	-$(call test_ber, $(INV_MAP_PTH)line/, empty_line.ber)
+	-$(call test_ber, $(INV_MAP_PTH)line/, initial_empty_lines.ber)
+	-$(call test_ber, $(INV_MAP_PTH)line/, following_empty_lines.ber)
+	-$(call test_ber, $(INV_MAP_PTH)line/, first_empty_line.ber)
+#	-$(call test_ber, $(INV_MAP_PTH)line/, last_empty_line.ber)
+	@echo "$(D_BLUE)# End of test cases ----- -------  ---- --- \n$(NC)"
+
+inv_layout: all
+	@echo "$(D_BLUE)### run test cases: invalid layout$(NC)"
+	-$(call test_ber, $(INV_MAP_PTH)layout/, no_walls.ber)
+	-$(call test_ber, $(INV_MAP_PTH)layout/, no_top_walls.ber)
+	-$(call test_ber, $(INV_MAP_PTH)layout/, no_bottom_walls.ber)
+	-$(call test_ber, $(INV_MAP_PTH)layout/, no_left_walls.ber)
+	-$(call test_ber, $(INV_MAP_PTH)layout/, no_right_walls.ber)
+	-$(call test_ber, $(INV_MAP_PTH)layout/, no_corner_walls.ber)
+	-$(call test_ber, $(INV_MAP_PTH)layout/, only_corners.ber)
+	-$(call test_ber, $(INV_MAP_PTH)layout/, no_top_walls_but_corners.ber)
+	-$(call test_ber, $(INV_MAP_PTH)layout/, no_bottom_walls_but_corners.ber)
+	-$(call test_ber, $(INV_MAP_PTH)layout/, no_left_walls_but_corners.ber)
+	-$(call test_ber, $(INV_MAP_PTH)layout/, no_right_walls_but_corners.ber)
+	-$(call test_ber, $(INV_MAP_PTH)layout/, so_much_gaps.ber)
+	@echo "$(D_BLUE)# End of test cases ----- -------  ---- --- \n$(NC)"
+
+inv_char: all
+	@echo "$(D_BLUE)### run test cases: invalid character$(NC)"
+	-$(call test_ber, $(INV_MAP_PTH)char/, invalid_character.ber)
+	-$(call test_ber, $(INV_MAP_PTH)char/, multiple_E.ber)
+	-$(call test_ber, $(INV_MAP_PTH)char/, multiple_P.ber)
+	-$(call test_ber, $(INV_MAP_PTH)char/, no_C.ber)
+	-$(call test_ber, $(INV_MAP_PTH)char/, no_E.ber)
+	-$(call test_ber, $(INV_MAP_PTH)char/, no_P.ber)
+	@echo "$(D_BLUE)# End of test cases ----- -------  ---- --- \n$(NC)"
+
+inv_path: all
+	@echo "$(D_BLUE)### run test cases: invalid path$(NC)"
+	-$(call test_ber, $(INV_MAP_PTH)path/, unreachable_C.ber)
+	-$(call test_ber, $(INV_MAP_PTH)path/, unreachable_E.ber)
+	-$(call test_ber, $(INV_MAP_PTH)path/, blocked_by_E.ber)
+	-$(call test_ber, $(INV_MAP_PTH)path/, blocked_by_Walls.ber)
+	@echo "$(D_BLUE)# End of test cases ----- -------  ---- --- \n$(NC)"
+
+i: inv
+
+inv: all
+	@-make --no-print-directory inv_file	
+	@-make --no-print-directory inv_size
+	@-make --no-print-directory inv_line
+	@-make --no-print-directory inv_layout
+	@-make --no-print-directory inv_char
+	@-make --no-print-directory inv_path
+
+v: val
+
+val: all
+	-$(call test_ber, $(VLD_MAP_PTH), valid_path_test.ber)
+
+100: all
+	-$(call test_ber, $(VLD_MAP_PTH), 100x6.ber)
+
+200: all
+	-$(call test_ber, $(VLD_MAP_PTH), 200x6.ber)
+
+300: all
+	-$(call test_ber, $(VLD_MAP_PTH), 300x6.ber)
+
+m: map
+
+map: all
+ifdef m
+	-$(call test_ber_full_pth, $(m))
+endif

@@ -14,7 +14,8 @@
 
 void	error_and_exit(t_data *data, char *msg)
 {
-	write_grid(data->map->grid);
+	if (data->map->grid != NULL)
+		write_grid(data->map->grid);
 	set_color(YELLOW);
 	if (!msg || !*msg)
 		write(1, "Error\n", 6);

@@ -49,9 +49,9 @@ int	read_map(char **argv, t_data *data)
 		error_and_exit(data, "ERROR! only .ber file is allowed\n");
 	get_next_row(data, fd);
 	set_map(data, data->node);
-	if (data->node)
-		printf("node is true\n");
 	flood_fill(data);
+	write_color("Initial map\n", GREEN);
+	write_grid(data->map->grid);
 	return (1);
 }
 
@@ -78,26 +78,3 @@ int	main(int argc, char **argv)
 	mlx_loop(data->mlx);
 	return (0);
 }
-
-/* read_map() debug
-int	read_map(char **argv, t_data *data)
-{
-	int		fd;
-
-	printf("open(argv[1], O_RDONLY) = \"%s\"\n", argv[1]);
-	fd = open(argv[1], O_RDONLY);
-	printf("fd = %d\n", fd);
-	if (fd < 0)
-		error_and_exit(data, "ERROR! fd error\n");
-	if (sl_strrncmp(argv[1], ".ber", 4))
-		error_and_exit(data, "ERROR! only .ber file is allowed\n");
-	printf("next\n");
-	printf("data->node->line = %s\n", data->node->line);
-	printf("data->node->line = %s\n", data->node->next->line);
-	printf("data->node->line = %s\n", data->node->next->next->line);
-	get_next_row(data, fd);
-	set_map(data, &data->map->grid, data->node);
-	flood_fill(data, data->map);
-	return (1);
-}
-*/

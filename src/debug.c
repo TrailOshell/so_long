@@ -29,6 +29,8 @@ void	color_from_char(char c)
 		set_color(GREEN);
 	else if (c == '0')
 		set_color(RESET);
+	else
+		set_color(MAGENTA);
 }
 
 void	write_grid(char **grid)
@@ -65,3 +67,38 @@ void	write_value(char *msg, int int_val)
 	write(1, str, sl_strlen(str));
 	free(str);
 }
+
+void	write_color(char *msg, char *color)
+{
+	char	*str;
+
+	set_color(color);
+	str = sl_strdup(msg);
+	write(1, msg, sl_strlen(str));
+	free(str);
+	set_color(RESET);
+}
+
+/*
+void	write_node(t_node *node)
+{
+	int	i;
+
+	while (node)
+	{
+		i = 0;
+		write_color("\"", BLUE);
+		while (node->line[i])
+		{
+			if (node->line[i] == '\n')
+				write_color("\\n", MAGENTA);
+			else
+				write(1, &node->line[i], 1);
+			i++;
+		}
+		write_color("\"", BLUE);
+		write(1, "\n", 1);
+		node = node->next;
+	}
+}
+*/

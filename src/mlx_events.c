@@ -36,3 +36,20 @@ int	on_keypress(int keysym, t_data *data)
 		on_game_exit(data);
 	return (0);
 }
+
+/*
+	if (keysym == KEY_Q || keysym == KEY_ESC)
+	{
+		if (data->isaskingexit == 0)
+		{
+			data->isaskingexit == 1;
+			ask_game_exit(data);
+		}
+		else if (data->isaskingexit == 1)
+			on_game_exit(data);
+	}
+	if (keysym == KEY_H)
+		show_help(data);
+	if (keysym == KEY_F)
+		player_light_match(data);
+*/

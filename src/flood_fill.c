@@ -61,6 +61,7 @@ int	flood_fill(t_data *data)
 		free_map(&flood);
 		error_and_exit(data, "ERROR! Unreachable Collectible\n");
 	}
+	write_color("Map is valid (flood_filled)\n", MAGENTA);
 	write_grid(flood->grid);
 	free_map(&flood);
 	return (1);
