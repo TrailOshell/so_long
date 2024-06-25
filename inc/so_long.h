@@ -237,9 +237,9 @@ void	set_map(t_data *data, t_node *node);
 
 // check_map_input.c
 int		check_map_size(t_data *data);
-int		check_line_layout(t_data *data, char **grid);
-int		check_enclosed_walls(t_data *data, char **grid);
-int		check_chars_count(t_data *data);
+int		check_map_by_lines(t_data *data, char **grid);
+int		check_map_enclosed_walls(t_data *data, char **grid);
+int		check_map_chars_count(t_data *data);
 
 // set_object.c
 int		set_player(t_player *player, int x, int y);

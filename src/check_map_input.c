@@ -25,7 +25,7 @@ int	check_map_size(t_data *data)
 	return (1);
 }
 
-int	check_line_layout(t_data *data, char **grid)
+int	check_map_by_lines(t_data *data, char **grid)
 {
 	char	*line;
 	int		len;
@@ -48,7 +48,7 @@ int	check_line_layout(t_data *data, char **grid)
 	return (1);
 }
 
-int	check_enclosed_walls(t_data *data, char **grid)
+int	check_map_enclosed_walls(t_data *data, char **grid)
 {
 	int	x;
 	int	y;
@@ -70,7 +70,7 @@ int	check_enclosed_walls(t_data *data, char **grid)
 	return (1);
 }
 
-int	check_chars_count(t_data *data)
+int	check_map_chars_count(t_data *data)
 {
 	if (data->map->n_collect == 0)
 		error_and_exit(data, "ERROR! Collectible not found\n");

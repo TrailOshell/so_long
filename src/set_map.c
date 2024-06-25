@@ -51,9 +51,9 @@ void	set_map(t_data *data, t_node *node)
 	free_node(&data->node);
 	count_valid_char(data, data->map->grid, data->map);
 	check_map_size(data);
-	check_line_layout(data, data->map->grid);
-	check_enclosed_walls(data, data->map->grid);
-	check_chars_count(data);
+	check_map_by_lines(data, data->map->grid);
+	check_map_enclosed_walls(data, data->map->grid);
+	check_map_chars_count(data);
 }
 
 /*
