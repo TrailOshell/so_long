@@ -10,23 +10,36 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	so_long
+NAME			=	so_long
 
-INC_PTH	=	inc/
-INC		=	-I$(INC_PTH)
+INC_PTH			=	inc/
+INC				=	-I$(INC_PTH)
 
 INC_SO_LONG		=	$(INC_PTH)so_long.h
 
-SRC_PTH	=	src/
-SRC		=	main.c util.c sl_itoa.c \
-			error.c free.c debug.c \
-			is_conditions.c \
-			get_next_row.c line.c grid.c set_map.c check_map_input.c set_object.c flood_fill.c \
-			sprites.c render.c \
-			mlx_events.c input.c \
+SRC_PTH			=	src/
+SRC				=	main.c
+
+SRC_UTIL_PTH	=	util/
+SRC	+=	$(addprefix $(SRC_UTIL_PTH), util.c sl_itoa.c is_conditions.c)
+
+SRC_INIT_PTH	=	init/
+SRC	+=	$(addprefix $(SRC_INIT_PTH), get_next_row.c line.c grid.c \
+		set_map.c check_map_input.c set_object.c flood_fill.c) \
+
+SRC_RENDER_PTH	=	render/
+SRC	+=	$(addprefix $(SRC_RENDER_PTH), sprites.c render.c)
+
+SRC_EVENT_PTH	=	event/
+SRC	+=	$(addprefix $(SRC_EVENT_PTH), mlx_events.c input.c)
+
+SRC_DEBUG_PTH	=	debug/
+SRC	+=	$(addprefix $(SRC_DEBUG_PTH), error.c free.c debug.c)
 
 OBJ_PTH	=	obj/
 OBJ		=	$(SRC:%.c=$(OBJ_PTH)%.o)
+OBJ_SUB_PTHS =	$(addprefix $(OBJ_PTH),	$(SRC_UTIL_PTH) $(SRC_INIT_PTH) \
+				$(SRC_RENDER_PTH) $(SRC_EVENT_PTH) $(SRC_DEBUG_PTH))
 
 BONUS_PTH	=	bonus/
 
@@ -50,7 +63,7 @@ MLX_INC		=	-I$(MLX_PTH) -O3
 
 all: $(MLX) $(GNL) $(NAME)
 
-$(OBJ_PTH)%.o: $(SRC_PTH)%.c Makefile $(INC_SO_LONG)| $(OBJ_PTH)
+$(OBJ_PTH)%.o: $(SRC_PTH)%.c Makefile $(INC_SO_LONG)| $(OBJ_PTH) $(OBJ_SUB_PTHS)
 	$(CC) $(CFLAGS) $(INC) $(GNL_INC) $(MLX_INC) -c $< -o $@
 	@echo "$(D_GREEN)compiled $<$(NC)"
 
@@ -58,9 +71,12 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(GNL) -o $@ $(MLX_FLAGS)
 	@echo "$(D_GREEN)compiled $@$(NC)"
 
-$(OBJ_PTH):
+$(OBJ_PTH): $(OBJ_SUB_PTHS)
 	mkdir -p $(OBJ_PTH)
 	@echo "$(D_GREEN)compiled $@$(NC)"
+
+$(OBJ_SUB_PTHS):
+	mkdir -p $(OBJ_SUB_PTHS)
 
 $(GNL):
 	make -C ${GNL_PTH}

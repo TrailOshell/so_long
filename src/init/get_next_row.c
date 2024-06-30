@@ -15,7 +15,7 @@
 void	get_next_row(t_data *data, int fd)
 {
 	char	*line;
-	int		len;
+	int		 			len;
 
 	while (1)
 	{
