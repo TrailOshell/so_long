@@ -59,10 +59,12 @@ void	write_value(char *msg, int int_val)
 {
 	char	*str;
 
+	set_color(BLUE);
 	str = sl_strdup(msg);
 	write(1, msg, sl_strlen(str));
 	free(str);
 	write(1, ": ", 2);
+	set_color(RESET);
 	str = sl_itoa(int_val);
 	write(1, str, sl_strlen(str));
 	free(str);
