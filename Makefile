@@ -34,11 +34,11 @@ SRC_EVENT_PTH	=	event/
 SRC	+=	$(addprefix $(SRC_EVENT_PTH), mlx_events.c input.c)
 
 SRC_DEBUG_PTH	=	debug/
-SRC	+=	$(addprefix $(SRC_DEBUG_PTH), error.c free.c debug.c)
+SRC	+=	$(addprefix $(SRC_DEBUG_PTH), error.c free.c debug.c check_debug.c)
 
 OBJ_PTH	=	obj/
 OBJ		=	$(SRC:%.c=$(OBJ_PTH)%.o)
-OBJ_SUB_PTHS =	$(addprefix $(OBJ_PTH),	$(SRC_UTIL_PTH) $(SRC_INIT_PTH) \
+OBJ_SUB_PTHS =	$(OBJ_PTH) $(addprefix $(OBJ_PTH),	$(SRC_UTIL_PTH) $(SRC_INIT_PTH) \
 				$(SRC_RENDER_PTH) $(SRC_EVENT_PTH) $(SRC_DEBUG_PTH))
 
 BONUS_PTH	=	bonus/
@@ -63,7 +63,7 @@ MLX_INC		=	-I$(MLX_PTH) -O3
 
 all: $(MLX) $(GNL) $(NAME)
 
-$(OBJ_PTH)%.o: $(SRC_PTH)%.c Makefile $(INC_SO_LONG)| $(OBJ_PTH) $(OBJ_SUB_PTHS)
+$(OBJ_PTH)%.o: $(SRC_PTH)%.c Makefile $(INC_SO_LONG)| $(OBJ_SUB_PTHS)
 	$(CC) $(CFLAGS) $(INC) $(GNL_INC) $(MLX_INC) -c $< -o $@
 	@echo "$(D_GREEN)compiled $<$(NC)"
 
@@ -71,11 +71,12 @@ $(NAME): $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(GNL) -o $@ $(MLX_FLAGS)
 	@echo "$(D_GREEN)compiled $@$(NC)"
 
-$(OBJ_PTH): $(OBJ_SUB_PTHS)
-	mkdir -p $(OBJ_PTH)
-	@echo "$(D_GREEN)compiled $@$(NC)"
+#$(OBJ_PTH): 
+#	mkdir -p $(OBJ_PTH)
+#	@echo "$(D_GREEN)compiled $@$(NC)"
 
 $(OBJ_SUB_PTHS):
+	mkdir -p $(OBJ_PTH)
 	mkdir -p $(OBJ_SUB_PTHS)
 
 $(GNL):
@@ -223,7 +224,7 @@ inv_line: all
 	-$(call test_ber, $(INV_MAP_PTH)line/, initial_empty_lines.ber)
 	-$(call test_ber, $(INV_MAP_PTH)line/, following_empty_lines.ber)
 	-$(call test_ber, $(INV_MAP_PTH)line/, first_empty_line.ber)
-#	-$(call test_ber, $(INV_MAP_PTH)line/, last_empty_line.ber)
+	-$(call test_ber, $(INV_MAP_PTH)line/, last_empty_line.ber)
 	@echo "$(D_BLUE)# End of test cases ----- -------  ---- --- \n$(NC)"
 
 inv_layout: all

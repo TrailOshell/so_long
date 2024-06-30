@@ -70,5 +70,4 @@ int	add_collectible(t_collect *collect, int x, int y)
 	printf("-- end collect --\n");
 	return (1);
 }
-
 */

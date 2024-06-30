@@ -25,6 +25,21 @@ int	check_map_size(t_data *data)
 	return (1);
 }
 
+int	check_last_line(t_data *data)
+{
+	t_node	*tmp;
+	int		i;
+
+	tmp = data->node;
+	while (tmp->next != NULL)
+		tmp = tmp->next;
+	i = 0;
+	while (tmp->line[i])
+		if (tmp->line[i++] == '\n')
+			error_and_exit(data, "ERROR! Last line has newline\n");
+	return (1);
+}
+
 int	check_map_by_lines(t_data *data, char **grid)
 {
 	char	*line;
@@ -32,6 +47,7 @@ int	check_map_by_lines(t_data *data, char **grid)
 	int		y;
 
 	y = 0;
+	check_last_line(data);
 	while (grid[y])
 	{
 		line = grid[y];

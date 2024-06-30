@@ -12,10 +12,35 @@
 
 #include "so_long.h"
 
+// this one keeps newline in the nodes
 void	get_next_row(t_data *data, int fd)
 {
 	char	*line;
-	int		 			len;
+	int		len;
+
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
+		len = sl_strlen(line);
+		if (len > 0 && line[len - 1] == '\n')
+			len--;
+		if (data->map->n_col == 0)
+			data->map->n_col = len;
+		add_line(&data->node, line);
+		free(line);
+		data->map->n_row++;
+	}
+	if (data->node == NULL)
+		error_and_exit(data, "ERROR! Empty file\n");
+}
+
+/* this one don't keep newline in the nodes
+void	get_next_row(t_data *data, int fd)
+{
+	char	*line;
+	int		len;
 
 	while (1)
 	{
@@ -34,7 +59,10 @@ void	get_next_row(t_data *data, int fd)
 	if (data->node == NULL)
 		error_and_exit(data, "ERROR! Empty file\n");
 }
-/*
+*/
+
+/* old
+void	get_next_row(t_data *data, int fd)
 	char	*line;
 	int		len;
 
@@ -54,13 +82,4 @@ void	get_next_row(t_data *data, int fd)
 	}
 	if (data->node == NULL)
 		error_and_exit(data, "ERROR! Empty file\n");
-
 */
-		//if (line[0] == '\n')
-		//	error_and_exit(data, "ERROR! Empty line found\n");
-		//else if (check_valid_char(line) == 0)
-		//	error_and_exit(data, "ERROR! Invalid char\n");
-		//else if (check_all_equal_len_lines(data, len) == 0)
-		//	error_and_exit(data, "ERROR! Incorrect col and row layout\n");
-		//else if (check_left_right_wall(line, len) == 0)
-		//	error_and_exit(data, "ERROR! Incorrect col and row layout\n");

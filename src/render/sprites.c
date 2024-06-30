@@ -121,38 +121,41 @@ void	free_sprites(t_data *data)
 		mlx_destroy_image(data->mlx, data->p_sprites.right);
 	free_p_sprites(data);
 }
+
 /*
 	mlx_destroy_image(data->mlx, data->m_sprites.brick);
 	mlx_destroy_image(data->mlx, data->m_sprites.snow);
+	check_free_sprite(data->mlx, data->map->sprites.brick);
+	check_free_sprite(data->mlx, data->map->sprites.snow);
 */
-//void	check_free_sprite(void *mlx, void *img)
-//{
-//	if (!img)
-//		return ;
-//	//if (img)
-//	mlx_destroy_image(mlx, img);
-//}
-	//check_free_sprite(data->mlx, data->map->sprites.brick);
-	//check_free_sprite(data->mlx, data->map->sprites.snow);
 /*
-	//data->m_sprites.brick_s = mlx_xpm_file_to_image(data->mlx, \
-	//		BRICK_S, &size, &size);
-	//data->m_sprites.brick_m = mlx_xpm_file_to_image(data->mlx, \
-	//		BRICK_M, &size, &size);
-	//data->m_sprites.snow = mlx_xpm_file_to_image(data->mlx, \
-	//		SNOW, &size, &size);
-	//data->o_sprites.collectible = mlx_xpm_file_to_image(data->mlx, \
-	//		MATCH, &size, &size);
-	//data->o_sprites.exit_off = mlx_xpm_file_to_image(data->mlx, \
-	//		EXIT_OFF, &size, &size);
-	//data->o_sprites.exit_on = mlx_xpm_file_to_image(data->mlx, \
-	//		EXIT_ON, &size, &size);
-	//data->p_sprites.up = mlx_xpm_file_to_image(data->mlx, \
-	//		PL_UP, &size, &size);
-	//data->p_sprites.down = mlx_xpm_file_to_image(data->mlx, \
-	//		PL_DOWN, &size, &size);
-	//data->p_sprites.left = mlx_xpm_file_to_image(data->mlx, \
-	//		PL_LEFT, &size, &size);
-	//data->p_sprites.right = mlx_xpm_file_to_image(data->mlx, \
-	//		PL_RIGHT, &size, &size);
+void	check_free_sprite(void *mlx, void *img)
+{
+	if (!img)
+		return ;
+	if (img)
+	mlx_destroy_image(mlx, img);
+}
+*/
+/*
+	data->m_sprites.brick_s = mlx_xpm_file_to_image(data->mlx, \
+			BRICK_S, &size, &size);
+	data->m_sprites.brick_m = mlx_xpm_file_to_image(data->mlx, \
+			BRICK_M, &size, &size);
+	data->m_sprites.snow = mlx_xpm_file_to_image(data->mlx, \
+			SNOW, &size, &size);
+	data->o_sprites.collectible = mlx_xpm_file_to_image(data->mlx, \
+			MATCH, &size, &size);
+	data->o_sprites.exit_off = mlx_xpm_file_to_image(data->mlx, \
+			EXIT_OFF, &size, &size);
+	data->o_sprites.exit_on = mlx_xpm_file_to_image(data->mlx, \
+			EXIT_ON, &size, &size);
+	data->p_sprites.up = mlx_xpm_file_to_image(data->mlx, \
+			PL_UP, &size, &size);
+	data->p_sprites.down = mlx_xpm_file_to_image(data->mlx, \
+			PL_DOWN, &size, &size);
+	data->p_sprites.left = mlx_xpm_file_to_image(data->mlx, \
+			PL_LEFT, &size, &size);
+	data->p_sprites.right = mlx_xpm_file_to_image(data->mlx, \
+			PL_RIGHT, &size, &size);
 */

@@ -213,15 +213,15 @@ void	write_value(char *msg, int int_val);
 void	write_color(char *msg, char *color);
 void	write_node(t_node *node);
 
+// check_debug.c
+//void	check_has_nl(char *line);
+
 // is_conditions.c
 int		isvalidchar(char c);
 int		iswalkable(char c);
 
 // get_next_row.c
 void	get_next_row(t_data *data, int fd);
-//int		check_all_equal_len_lines(t_data *data, int len);
-//int		check_left_right_wall(char *line, int len);
-//int		check_valid_char(char *line);
 
 // line.c
 void	add_line(t_node **node, char *line);

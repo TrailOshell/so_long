@@ -48,35 +48,21 @@ void	set_map(t_data *data, t_node *node)
 		node = node->next;
 		y++;
 	}
-	free_node(&data->node);
+	check_map_by_lines(data, data->map->grid);
 	count_valid_char(data, data->map->grid, data->map);
 	check_map_size(data);
-	check_map_by_lines(data, data->map->grid);
 	check_map_enclosed_walls(data, data->map->grid);
 	check_map_chars_count(data);
+	free_node(&data->node);
 }
 
 /*
-	i = 0;
-	while (i <= x)
-	{
-		if (grid[0][i] == '0' || grid[y][i] == '0')
-			error_and_exit(data, "ERROR! Unenclosed top/bottom side of walls\n");
-		i++;
-	}
-	i = 0;
-	while (i <= y)
-	{
-		if (grid[i][0] == '0' || grid[i][x] == '0')
-			error_and_exit(data, "ERROR! Unenclosed left/right side of walls\n");
-		i++;
-	}
+	printf("x = %d y = %d\n", x, y);
+		printf("i = %d\n", i);
+		printf("%s\n", grid[i]);
+		printf("%c %c\n", grid[i][0], grid[i][x]);
+		printf("result = %d\n", grid[i][0] != '1' || grid[i][x] != '1');
+			printf("%c %c\n", grid[i][0], grid[i][x]);
+			printf("result = %d\n", grid[i][0] != '1' || grid[i][x] != '1');
+		printf("i = %d\n", i);
 */
-	//printf("x = %d y = %d\n", x, y);
-		//printf("i = %d\n", i);
-		//printf("%s\n", grid[i]);
-		//printf("%c %c\n", grid[i][0], grid[i][x]);
-		//printf("result = %d\n", grid[i][0] != '1' || grid[i][x] != '1');
-			//printf("%c %c\n", grid[i][0], grid[i][x]);
-			//printf("result = %d\n", grid[i][0] != '1' || grid[i][x] != '1');
-		//printf("i = %d\n", i);

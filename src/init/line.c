@@ -38,8 +38,6 @@ char	*line_dupe(char *line)
 	int		i;
 
 	len = sl_strlen(line);
-	if (line[len - 1] == '\n')
-		len--;
 	new = malloc(sizeof(char) * len + 1);
 	i = 0;
 	while (len--)
@@ -56,7 +54,7 @@ char	*line_copy(char *copy, char *line)
 	int	i;
 
 	i = 0;
-	while (line[i])
+	while (line[i] && line[i] != '\n')
 	{
 		copy[i] = line[i];
 		i++;
