@@ -207,8 +207,14 @@ endef
 
 # invalid map test
 
-inv_file: all
+BER	=	.ber
+
+$(BER):
+	cp $(INV_MAP_PTH)file/.ber .ber
+
+inv_file: all | $(BER)
 	@echo "$(D_BLUE)### run test cases: invalid file$(NC)"
+	-$(call test_ber, "", .ber)
 	-$(call test_ber, $(INV_MAP_PTH)file/, .ber)
 	-$(call test_ber, $(INV_MAP_PTH)file/, invalid_filepath.ber)
 	-$(call test_ber, $(INV_MAP_PTH)file/, not_a_ber_file.sus)
