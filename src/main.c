@@ -47,6 +47,8 @@ int	read_map(char **argv, t_data *data)
 		error_and_exit(data, "ERROR! fd error\n");
 	if (sl_strrncmp(argv[1], ".ber", 4))
 		error_and_exit(data, "ERROR! only .ber file is allowed\n");
+	else if (sl_strrncmp(argv[1], "/.ber", 5) == 0 || argv[1][0] == '.')
+		error_and_exit(data, "ERROR! hidden file not allowed\n");
 	get_next_row(data, fd);
 	set_map(data, data->node);
 	flood_fill(data);

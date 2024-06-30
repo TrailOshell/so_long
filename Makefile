@@ -179,12 +179,22 @@ define	test_ber
 	@-grep --color=auto "ERROR SUMMARY" valgrind.out || true
 	@-echo ""
 endef
+#	@-valgrind --log-file="valgrind.out" ./$(NAME) $(addprefix $1, $2)
 #	@-grep --color=auto -E "no leaks" valgrind.out || true
 #	@echo "$(D_GREEN)Map: $2$(NC)"
 #	-valgrind --log-file="valgrind.out" --leak-check=full --show-leak-kinds=all ./$(NAME) $(addprefix $(INV_MAP_PTH), $1) 
 #	cat valgrind.out
 #	@-grep --color=auto -E "in use at exit: " valgrind.out || true
 #	@-grep --color=auto -E "definitely lost:|indirectly lost:|possibly lost:|still reachable:| suppressed:" valgrind.out || true
+
+define	test_output_result
+	@echo "$(D_GREEN)Map: $(addprefix $1, $2)$(NC)"
+	@-valgrind --log-file="valgrind.out" ./$(NAME) $(addprefix $1, $2) | grep --color=auto -E "ERROR" 
+	@-grep --color=auto -E "no leaks" valgrind.out || @-grep echo "leaks found"
+	@-grep --color=auto -E "definitely lost:|indirectly lost:|possibly lost:|still reachable:| suppressed:" valgrind.out || true
+	@-grep --color=auto "ERROR SUMMARY" valgrind.out || true
+	@-echo ""
+endef
 
 define	test_ber_full_pth
 	@echo "$(D_GREEN)Map: $1 $(NC)"
@@ -199,9 +209,9 @@ endef
 
 inv_file: all
 	@echo "$(D_BLUE)### run test cases: invalid file$(NC)"
+	-$(call test_ber, $(INV_MAP_PTH)file/, .ber)
 	-$(call test_ber, $(INV_MAP_PTH)file/, invalid_filepath.ber)
 	-$(call test_ber, $(INV_MAP_PTH)file/, not_a_ber_file.sus)
-#	-$(call test_ber, $(INV_MAP_PTH)file/, not_even_a_map.ber)
 	@echo "$(D_BLUE)# End of test cases ----- -------  ---- --- \n$(NC)"
 
 inv_size: all
@@ -251,6 +261,7 @@ inv_char: all
 	-$(call test_ber, $(INV_MAP_PTH)char/, no_C.ber)
 	-$(call test_ber, $(INV_MAP_PTH)char/, no_E.ber)
 	-$(call test_ber, $(INV_MAP_PTH)char/, no_P.ber)
+#	-$(call test_ber, $(INV_MAP_PTH)char/, not_even_a_map.ber)
 	@echo "$(D_BLUE)# End of test cases ----- -------  ---- --- \n$(NC)"
 
 inv_path: all

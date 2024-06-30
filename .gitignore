@@ -4,3 +4,12 @@ so_long*
 mlx/*libmlx*.a
 valgrind.out
 settings.json
+
+# from So_long-Tester by gemartin
+*So_long-Tester/
+*maps_err/
+*maps_valid/
+Tester_so_long.sh
+
+# a test file
+.ber

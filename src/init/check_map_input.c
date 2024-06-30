@@ -72,16 +72,16 @@ int	check_map_enclosed_walls(t_data *data, char **grid)
 
 	x = data->map->n_col - 1;
 	y = data->map->n_row - 1;
-	if (grid[0][0] == '0' || grid[y][x] == '0'
-		||grid[y][0] == '0' || grid[0][x] == '0')
+	if (grid[0][0] != '1' || grid[y][x] != '1'
+		||grid[y][0] != '1' || grid[0][x] != '1')
 		error_and_exit(data, "ERROR! Unenclosed walls\n");
 	i = 1;
 	while (i < x)
-		if (i++ && (grid[0][i] == '0' || grid[y][i] == '0'))
+		if (i++ && (grid[0][i] != '1' || grid[y][i] != '1'))
 			error_and_exit(data, "ERROR! Unenclosed walls\n");
 	i = 1;
 	while (i < y)
-		if (i++ && (grid[i][0] == '0' || grid[i][x] == '0'))
+		if (i++ && (grid[i][0] != '1' || grid[i][x] != '1'))
 			error_and_exit(data, "ERROR! Unenclosed walls\n");
 	return (1);
 }
