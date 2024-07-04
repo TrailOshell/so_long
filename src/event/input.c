@@ -23,7 +23,6 @@ void	update_move(t_data *data, int x, int y, char *target_tile)
 	write(1, "\t", 1);
 	write_value("Collectibles Left", data->map->n_collect);
 	write(1, "\n", 1);
-	write_grid(data->map->grid);
 }
 
 void	player_move(int x, int y, t_data *data)
@@ -41,6 +40,7 @@ void	player_move(int x, int y, t_data *data)
 			return ;
 		update_move(data, x, y, target_tile);
 		patroling(data);
+		write_grid(data->map->grid);
 		render_tile(data, data->player->x - x, data->player->y - y);
 		render_tile(data, data->player->x - x, data->player->y - y - 1);
 		if (data->map->n_collect == 0)

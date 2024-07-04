@@ -27,6 +27,10 @@ void	color_from_char(char c)
 		set_color(YELLOW);
 	else if (c == 'E')
 		set_color(GREEN);
+	else if (c == 't')
+		set_color(BLUE);
+	else if (c == 'T')
+		set_color(CYAN);
 	else if (c == '0')
 		set_color(RESET);
 	else

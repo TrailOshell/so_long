@@ -37,7 +37,7 @@ SRC_PATROL_PTH	=	patrol/
 SRC	+=	$(addprefix $(SRC_PATROL_PTH), patrol.c pathfinding.c)
 
 SRC_DEBUG_PTH	=	debug/
-SRC	+=	$(addprefix $(SRC_DEBUG_PTH), error.c free.c debug.c check_debug.c)
+SRC	+=	$(addprefix $(SRC_DEBUG_PTH), error.c free.c debug.c debug_check.c debug_pathfinding.c)
 
 OBJ_PTH	=	obj/
 OBJ		=	$(SRC:%.c=$(OBJ_PTH)%.o)

@@ -238,6 +238,10 @@ void	write_node(t_node *node);
 // check_debug.c
 //void	check_has_nl(char *line);
 
+// debug_pathfinding.c
+void	debug_facing_step(int up, int down, int left, int right);
+void	debug_pathfinding(int up, int down, int left, int right);
+
 // is_conditions.c
 int		isvalidchar(char c);
 int		iswalkable(char c);
@@ -297,5 +301,6 @@ void	patroling(t_data *data);
 
 // pathfinding.c
 int		pathfinding(char **grid, t_patrol *patrol);
+char	set_next_step(int up, int down, int left, int right);
 
 #endif

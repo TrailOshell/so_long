@@ -91,7 +91,7 @@ void	patroling(t_data *data)
 		moving_patrol = set_moving_patrol_move(data->patrol);
 		if (moving_patrol == NULL)
 			break ;
-		//pathfinding(data->map->grid, moving_patrol);
+		pathfinding(data->map->grid, moving_patrol);
 		printf("patrol->facing = %c\n", moving_patrol->facing);
 		if (moving_patrol->facing == 'D')
 			patrol_move(data, moving_patrol, 0, 1);
