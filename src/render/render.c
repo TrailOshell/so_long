@@ -16,27 +16,27 @@ void	render_tile(t_data *data, int x, int y)
 {
 	if (data->map->grid[y][x] == '0')
 		mlx_put_image_to_window(data->mlx, data->win, \
-			data->m_sprites.snow, x * SIZE, y * SIZE);
+			data->sprite.m.snow, x * SIZE, y * SIZE);
 	else if (data->map->grid[y][x] == '1')
 	{
 		if (y + 1 < data->map->n_row && data->map->grid[y + 1][x] == '1')
 			mlx_put_image_to_window(data->mlx, data->win, \
-				data->m_sprites.brick_m, x * SIZE, y * SIZE);
+				data->sprite.m.brick_m, x * SIZE, y * SIZE);
 		else
 			mlx_put_image_to_window(data->mlx, data->win, \
-				data->m_sprites.brick_s, x * SIZE, y * SIZE);
+				data->sprite.m.brick_s, x * SIZE, y * SIZE);
 	}
 	else if (data->map->grid[y][x] == 'C')
 		mlx_put_image_to_window(data->mlx, data->win, \
-			data->o_sprites.collectible, x * SIZE, y * SIZE);
+			data->sprite.o.collectible, x * SIZE, y * SIZE);
 	else if (data->map->grid[y][x] == 'E')
 	{
 		if (data->map->n_collect > 0)
 			mlx_put_image_to_window(data->mlx, data->win, \
-				data->o_sprites.exit_off, x * SIZE, y * SIZE);
+				data->sprite.o.exit_off, x * SIZE, y * SIZE);
 		else if (data->map->n_collect == 0)
 			mlx_put_image_to_window(data->mlx, data->win, \
-				data->o_sprites.exit_on, x * SIZE, y * SIZE);
+				data->sprite.o.exit_on, x * SIZE, y * SIZE);
 	}
 }
 
@@ -77,26 +77,48 @@ void	render_pl_direction(t_data *data, t_pl_sprite player, int x, int y)
 			data->player->x * SIZE, (data->player->y * SIZE) - SIZE);
 }
 
+int	get_patrol_state(t_data *data, int x, int y)
+{
+	t_patrol	*curr_patrol;
+
+	curr_patrol = data->patrol;
+	while (curr_patrol)
+	{
+		if (curr_patrol->x == x && curr_patrol->y == y)
+			return (curr_patrol->move_pts);
+		curr_patrol = curr_patrol->next;
+	}
+	return (0);
+}
+
 void	render_player(t_data *data, int x, int y)
 {
 	char	top_tile;
 
 	top_tile = data->map->grid[data->player->y - 1][data->player->x];
 	if (top_tile == '0')
-		render_pl_direction(data, data->p_sprites_s, x, y);
+		render_pl_direction(data, data->sprite.pl_s, x, y);
 	else if (top_tile == '1')
-		render_pl_direction(data, data->p_sprites_b, x, y);
+		render_pl_direction(data, data->sprite.pl_b, x, y);
 	else if (top_tile == 'C')
-		render_pl_direction(data, data->p_sprites_m, x, y);
+		render_pl_direction(data, data->sprite.pl_m, x, y);
 	else if (top_tile == 'E')
 	{
 		if (data->map->n_collect > 0)
-			render_pl_direction(data, data->p_sprites_c, x, y);
+			render_pl_direction(data, data->sprite.pl_c, x, y);
 		else if (data->map->n_collect == 0)
-			render_pl_direction(data, data->p_sprites_h, x, y);
+			render_pl_direction(data, data->sprite.pl_h, x, y);
 	}
+	//else if (top_tile == 'T')
+	//{
+	//	if (get_patrol_state(data, data->player->y - 1, data->player->x) == 0)
+	//	if (patrol->move_pts == 0)
+	//		render_pl_direction(data, data->sprite.t, x, y);
+	//	else
+	//		render_pl_direction(data, data->sprite.t_r, x, y);
+	//}
 	else
-		render_pl_direction(data, data->p_sprites_s, x, y);
+		render_pl_direction(data, data->sprite.pl_s, x, y);
 }
 
 void	render_pt_direction(t_data *data, t_pt_sprite patrol, int x, int y)
@@ -153,7 +175,7 @@ void	render_collect(t_data *data, t_collect *collect)
 	while (collect)
 	{
 		mlx_put_image_to_window(data->mlx, data->win, \
-			data->o_sprites.collectible, collect->x * SIZE, collect->y * SIZE);
+			data->obj.collectible, collect->x * SIZE, collect->y * SIZE);
 		collect = collect->next;
 	}
 }
@@ -164,10 +186,10 @@ void	render_objects(t_data *data)
 {
 	render_collect(data, data->collect);
 	if (data->map->n_collect > 0)
-		mlx_put_image_to_window(data->mlx, data->win, data->o_sprites.exit_off, \
+		mlx_put_image_to_window(data->mlx, data->win, data->obj.exit_off, \
 			data->exit->x * SIZE, data->exit->y * SIZE);
 	else
-		mlx_put_image_to_window(data->mlx, data->win, data->o_sprites.exit_on, \
+		mlx_put_image_to_window(data->mlx, data->win, data->obj.exit_on, \
 			data->exit->x * SIZE, data->exit->y * SIZE);
 }
 */
@@ -178,9 +200,9 @@ void	render_tile(t_data *data, int x, int y)
 	else if (iswalkable(data->map->grid[y][x]) == 1 \
 		|| data->map->grid[y][x] == 'P')
 		mlx_put_image_to_window(data->mlx, data->win, \
-			data->m_sprites.snow, x * SIZE, y * SIZE);
-	t_map_sprite	m_sprites;
+			data->map.snow, x * SIZE, y * SIZE);
+	t_map_sprite	map;
 
-	m_sprites = data->map->sprites;
+	map = data->map->sprites;
 }
 */
