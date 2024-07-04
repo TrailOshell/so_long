@@ -34,7 +34,7 @@ void	*load_a_sprite(t_data *data, char *filename)
 	return (ptr);
 }
 
-void	load_p_sprites(t_data *data)
+void	load_pl_sprites(t_data *data)
 {
 	data->p_sprites_s.up = load_a_sprite(data, PL_S_UP);
 	data->p_sprites_s.down = load_a_sprite(data, PL_S_DOWN);
@@ -58,6 +58,46 @@ void	load_p_sprites(t_data *data)
 	data->p_sprites_h.right = load_a_sprite(data, PL_H_RIGHT);
 }
 
+void	load_pt_sprites(t_data *data)
+{
+	data->sprite.pt_s.up = load_a_sprite(data, PT_S_UP);
+	data->sprite.pt_s.down = load_a_sprite(data, PT_S_DOWN);
+	data->sprite.pt_s.left = load_a_sprite(data, PT_S_LEFT);
+	data->sprite.pt_s.right = load_a_sprite(data, PT_S_RIGHT);
+	data->sprite.pt_m.up = load_a_sprite(data, PT_M_UP);
+	data->sprite.pt_m.down = load_a_sprite(data, PT_M_DOWN);
+	data->sprite.pt_m.left = load_a_sprite(data, PT_M_LEFT);
+	data->sprite.pt_m.right = load_a_sprite(data, PT_M_RIGHT);
+	data->sprite.pt_s_r.up = load_a_sprite(data, PT_S_R_UP);
+	data->sprite.pt_s_r.down = load_a_sprite(data, PT_S_R_DOWN);
+	data->sprite.pt_s_r.left = load_a_sprite(data, PT_S_R_LEFT);
+	data->sprite.pt_s_r.right = load_a_sprite(data, PT_S_R_RIGHT);
+	data->sprite.pt_m_r.up = load_a_sprite(data, PT_M_R_UP);
+	data->sprite.pt_m_r.down = load_a_sprite(data, PT_M_R_DOWN);
+	data->sprite.pt_m_r.left = load_a_sprite(data, PT_M_R_LEFT);
+	data->sprite.pt_m_r.right = load_a_sprite(data, PT_M_R_RIGHT);
+}
+
+void	free_pt_sprites(t_data *data)
+{
+	mlx_destroy_image(data->mlx, data->sprite.pt_s.up);
+	mlx_destroy_image(data->mlx, data->sprite.pt_s.down);
+	mlx_destroy_image(data->mlx, data->sprite.pt_s.left);
+	mlx_destroy_image(data->mlx, data->sprite.pt_s.right);
+	mlx_destroy_image(data->mlx, data->sprite.pt_s_r.up);
+	mlx_destroy_image(data->mlx, data->sprite.pt_s_r.down);
+	mlx_destroy_image(data->mlx, data->sprite.pt_s_r.left);
+	mlx_destroy_image(data->mlx, data->sprite.pt_s_r.right);
+	mlx_destroy_image(data->mlx, data->sprite.pt_m.up);
+	mlx_destroy_image(data->mlx, data->sprite.pt_m.down);
+	mlx_destroy_image(data->mlx, data->sprite.pt_m.left);
+	mlx_destroy_image(data->mlx, data->sprite.pt_m.right);
+	mlx_destroy_image(data->mlx, data->sprite.pt_m_r.up);
+	mlx_destroy_image(data->mlx, data->sprite.pt_m_r.down);
+	mlx_destroy_image(data->mlx, data->sprite.pt_m_r.left);
+	mlx_destroy_image(data->mlx, data->sprite.pt_m_r.right);
+}
+
 void	load_sprites(t_data *data)
 {
 	data->m_sprites.brick_s = load_a_sprite(data, BRICK_S);
@@ -70,10 +110,11 @@ void	load_sprites(t_data *data)
 	data->p_sprites.down = load_a_sprite(data, PL_DOWN);
 	data->p_sprites.left = load_a_sprite(data, PL_LEFT);
 	data->p_sprites.right = load_a_sprite(data, PL_RIGHT);
-	load_p_sprites(data);
+	load_pl_sprites(data);
+	load_pt_sprites(data);
 }
 
-void	free_p_sprites(t_data *data)
+void	free_pl_sprites(t_data *data)
 {
 	mlx_destroy_image(data->mlx, data->p_sprites_s.up);
 	mlx_destroy_image(data->mlx, data->p_sprites_s.down);
@@ -119,7 +160,8 @@ void	free_sprites(t_data *data)
 		mlx_destroy_image(data->mlx, data->p_sprites.left);
 	if (data->p_sprites.right)
 		mlx_destroy_image(data->mlx, data->p_sprites.right);
-	free_p_sprites(data);
+	free_pl_sprites(data);
+	free_pt_sprites(data);
 }
 
 /*

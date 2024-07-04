@@ -311,6 +311,18 @@ patrol: all
 	valgrind --leak-check=full ./$(NAME) $(VLD_MAP_PTH)patrol/1_patrol.ber
 #	-$(call test_ber, $(VLD_MAP_PTH)patrol/, 1_patrol.ber)
 
+p1: all
+	valgrind --leak-check=full ./$(NAME) $(VLD_MAP_PTH)patrol/1_patrol.ber
+
+p2: all
+	valgrind --leak-check=full ./$(NAME) $(VLD_MAP_PTH)patrol/2_patrol.ber
+
+p3c: all
+	valgrind --leak-check=full ./$(NAME) $(VLD_MAP_PTH)patrol/3_patrol_cramped.ber
+
+p1t: all
+	valgrind --leak-check=full ./$(NAME) $(VLD_MAP_PTH)patrol/1_patrol_treasure.ber
+
 m: map
 
 map: all

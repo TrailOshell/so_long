@@ -99,58 +99,6 @@ int	pathfinding(char **grid, t_patrol *patrol)
 	right = find_player(grid, 1, patrol->x + 1, patrol->y);
 	patrol->steps_needed = min_valid_steps(up, down, left, right);
 	patrol->facing = set_next_step(up, down, left, right);
-	debug_pathfinding(up, down, left, right);
 	return (patrol->steps_needed);
 }
-
-/* broken
-int	min_valid_steps(int up, int down, int left, int right)
-{
-	int	steps;
-
-	steps = 1;
-	if (!down && !up && !left && !right)
-		return (0);
-	if (down > 0)
-		steps = down;
-	if (left > 0 && left < steps)
-		steps = left;
-	if (right > 0 && right < steps)
-		steps = right;
-	if (up > 0 && up < steps)
-		steps = up;
-	return (steps);
-}
-
-char	set_next_step(int up, int down, int left, int right)
-{
-	int		steps;
-	char	facing;
-
-	facing = 0;
-	steps = 1;
-	if (!down && !up && !left && !right)
-		return (0);
-	if (down > 0)
-	{
-		steps = down;
-		facing = 'D';
-	}
-	if (left > 0 && left < steps)
-	{
-		steps = left;
-		facing = 'L';
-	}
-	if (right > 0 && right < steps)
-	{
-		steps = right;
-		facing = 'R';
-	}
-	if (up > 0 && up < steps)
-	{
-		steps = up;
-		facing = 'U';
-	}
-	return (facing);
-}
-*/
+	//debug_pathfinding(up, down, left, right);

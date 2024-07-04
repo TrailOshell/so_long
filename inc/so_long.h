@@ -52,6 +52,41 @@
 # define EXIT_OFF			"bg/cauldron cold bg.xpm"
 # define EXIT_ON			"bg/cauldron hot bg.xpm"
 
+// patrol sprites path
+# define PT_S_UP		"cauldron cold.xpm"
+# define PT_S_DOWN		"cauldron cold.xpm"
+# define PT_S_LEFT		"cauldron cold.xpm"
+# define PT_S_RIGHT		"cauldron cold.xpm"
+# define PT_S_R_UP		"cauldron hot.xpm"
+# define PT_S_R_DOWN	"cauldron hot.xpm"
+# define PT_S_R_LEFT	"cauldron hot.xpm"
+# define PT_S_R_RIGHT	"cauldron hot.xpm"
+# define PT_M_UP		"bg/match bundle bg.xpm"
+# define PT_M_DOWN		"bg/match bundle bg.xpm"
+# define PT_M_LEFT		"bg/match bundle bg.xpm"
+# define PT_M_RIGHT		"bg/match bundle bg.xpm"
+# define PT_M_R_UP		"match bundle.xpm"
+# define PT_M_R_DOWN	"match bundle.xpm"
+# define PT_M_R_LEFT	"match bundle.xpm"
+# define PT_M_R_RIGHT	"match bundle.xpm"
+
+//# define PT_S_UP			"bg/turkey up bg snow.xpm"
+//# define PT_S_DOWN		"bg/turkey down bg snow.xpm"
+//# define PT_S_LEFT		"bg/turkey left bg snow.xpm"
+//# define PT_S_RIGHT		"bg/turkey right bg snow.xpm"
+//# define PT_S_R_UP		"bg/turkey ready up bg snow.xpm"
+//# define PT_S_R_DOWN		"bg/turkey ready down bg snow.xpm"
+//# define PT_S_R_LEFT		"bg/turkey ready left bg snow.xpm"
+//# define PT_S_R_RIGHT		"bg/turkey ready right bg snow.xpm"
+//# define PT_M_UP			"bg/turkey up bg match.xpm"
+//# define PT_M_DOWN		"bg/turkey down bg match.xpm"
+//# define PT_M_LEFT		"bg/turkey left bg match.xpm"
+//# define PT_M_RIGHT		"bg/turkey right bg match.xpm"
+//# define PT_M_R_UP		"bg/turkey ready up bg match.xpm"
+//# define PT_M_R_DOWN		"bg/turkey ready down bg match.xpm"
+//# define PT_M_R_LEFT		"bg/turkey ready left bg match.xpm"
+//# define PT_M_R_RIGHT		"bg/turkey ready right bg match.xpm"
+
 // player sprites path
 # define PL_UP				"bg/match girl up bg snow.xpm"
 # define PL_DOWN			"bg/match girl down bg snow.xpm"
@@ -77,6 +112,7 @@
 # define PL_H_DOWN			"bg/match girl down bg hot.xpm"
 # define PL_H_LEFT			"bg/match girl left bg hot.xpm"
 # define PL_H_RIGHT			"bg/match girl right bg hot.xpm"
+//# define PL_OVER			"bg/match girl over.xpm"
 
 typedef struct s_map_sprite
 {
@@ -108,13 +144,22 @@ typedef struct s_obj_sprite
 	void	*exit_on;
 }	t_obj_sprite;
 
-typedef struct s_err
+typedef struct s_sprite
 {
-	int	err_borders;
-	int	err_exit;
-	int	err_player;
-	int	err_collect;
-}	t_err;
+	t_map_sprite	map;
+	t_obj_sprite	obj;
+	t_pl_sprite		pl;
+	t_pl_sprite		pl_s;
+	t_pl_sprite		pl_b;
+	t_pl_sprite		pl_m;
+	t_pl_sprite		pl_c;
+	t_pl_sprite		pl_h;
+	t_pt_sprite		pt;
+	t_pt_sprite		pt_s;
+	t_pt_sprite		pt_s_r;
+	t_pt_sprite		pt_m;
+	t_pt_sprite		pt_m_r;
+}	t_sprite;
 
 typedef struct s_node
 {
@@ -179,6 +224,7 @@ typedef struct s_data
 	t_exit			*exit;
 	t_collect		*collect;
 	int				moves;
+	t_sprite		sprite;
 	t_map_sprite	m_sprites;
 	t_obj_sprite	o_sprites;
 	t_pl_sprite		p_sprites;
@@ -280,7 +326,7 @@ int		flood_fill(t_data *data);
 // sprites.c
 void	*load_a_sprite(t_data *data, char *filename);
 void	load_sprites(t_data *data);
-void	free_p_sprites(t_data *data);
+void	free_pl_sprites(t_data *data);
 void	free_sprites(t_data *data);
 
 // render.c
@@ -288,6 +334,7 @@ void	render_map(t_data *data);
 void	render_tile(t_data *data, int x, int y);
 void	render_objects(t_data *data);
 void	render_player(t_data *data, int x, int y);
+void	render_patrol(t_data *data);
 
 // mlx_events.c
 int		on_game_exit(t_data *data);
@@ -304,3 +351,11 @@ int		pathfinding(char **grid, t_patrol *patrol);
 char	set_next_step(int up, int down, int left, int right);
 
 #endif
+
+//typedef struct s_err
+//{
+//	int	err_borders;
+//	int	err_exit;
+//	int	err_player;
+//	int	err_collect;
+//}	t_err;

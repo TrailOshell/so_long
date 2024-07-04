@@ -99,6 +99,54 @@ void	render_player(t_data *data, int x, int y)
 		render_pl_direction(data, data->p_sprites_s, x, y);
 }
 
+void	render_pt_direction(t_data *data, t_pt_sprite patrol, int x, int y)
+{
+	if (y == -1)
+		mlx_put_image_to_window(data->mlx, data->win, patrol.up, \
+			x * SIZE, y * SIZE);
+	else if (y == 1)
+		mlx_put_image_to_window(data->mlx, data->win, patrol.down, \
+			x * SIZE, y * SIZE);
+	else if (x == -1)
+		mlx_put_image_to_window(data->mlx, data->win, patrol.left, \
+			x * SIZE, y * SIZE);
+	else if (x == 1)
+		mlx_put_image_to_window(data->mlx, data->win, patrol.right, \
+			x * SIZE, y * SIZE);
+	else
+		mlx_put_image_to_window(data->mlx, data->win, patrol.down, \
+			x * SIZE, y * SIZE);
+}
+
+void	render_patrol(t_data *data)
+{
+	t_patrol	*curr_patrol;
+
+	curr_patrol = data->patrol;
+	while (curr_patrol)
+	{
+		if (curr_patrol->is_on_collect == 0)
+		{
+			if (curr_patrol->move_pts == 0)
+				render_pt_direction(data, data->sprite.pt_s,
+					curr_patrol->x, curr_patrol->y);
+			else
+				render_pt_direction(data, data->sprite.pt_s_r,
+					curr_patrol->x, curr_patrol->y);
+		}
+		else if (curr_patrol->is_on_collect == 1)
+		{
+			if (curr_patrol->move_pts == 0)
+				render_pt_direction(data, data->sprite.pt_m,
+					curr_patrol->x, curr_patrol->y);
+			else
+				render_pt_direction(data, data->sprite.pt_m_r,
+					curr_patrol->x, curr_patrol->y);
+		}
+		curr_patrol = curr_patrol->next;
+	}
+}
+
 /*
 void	render_collect(t_data *data, t_collect *collect)
 {

@@ -46,10 +46,10 @@ void	curr_patrol_check(char **grid, t_patrol *patrol)
 			tmp_patrol->move_pts += tmp_patrol->move_spd;
 		else
 			tmp_patrol->move_pts = 0;
-		printf("patrol->move_pts = %f\n", tmp_patrol->move_pts);
 		tmp_patrol = tmp_patrol->next;
 	}
 }
+		//printf("patrol->move_pts = %f\n", tmp_patrol->move_pts);
 
 // patrol now move closer to the player
 void	patrol_move(t_data *data, t_patrol *patrol, int x, int y)
@@ -65,6 +65,7 @@ void	patrol_move(t_data *data, t_patrol *patrol, int x, int y)
 			data->map->grid[patrol->y][patrol->x] = 'C';
 		else
 			data->map->grid[patrol->y][patrol->x] = '0';
+		render_tile(data, patrol->x, patrol->y);
 		if (*target_tile == 'C')
 			patrol->is_on_collect = 1;
 		else
@@ -92,7 +93,6 @@ void	patroling(t_data *data)
 		if (moving_patrol == NULL)
 			break ;
 		pathfinding(data->map->grid, moving_patrol);
-		printf("patrol->facing = %c\n", moving_patrol->facing);
 		if (moving_patrol->facing == 'D')
 			patrol_move(data, moving_patrol, 0, 1);
 		else if (moving_patrol->facing == 'L')
@@ -102,7 +102,9 @@ void	patroling(t_data *data)
 		else if (moving_patrol->facing == 'U')
 			patrol_move(data, moving_patrol, 0, -1);
 	}
+	render_patrol(data);
 }
+		//printf("patrol->facing = %c\n", moving_patrol->facing);
 
 /* still enough lines in patrol_move() so this function won't be needed yet
 void	update_patrol(char **grid, t_patrol *patrol, int x, int y)
