@@ -40,11 +40,14 @@ void	player_move(int x, int y, t_data *data)
 		else if (*target_tile == 'E' && data->map->n_collect > 0)
 			return ;
 		update_move(data, x, y, target_tile);
+		patroling(data);
 		render_tile(data, data->player->x - x, data->player->y - y);
 		render_tile(data, data->player->x - x, data->player->y - y - 1);
 		if (data->map->n_collect == 0)
 			render_tile(data, data->exit->x, data->exit->y);
 	}
+	else if (*target_tile == 'T')
+		on_game_exit(data);
 	render_player(data, x, y);
 }
 

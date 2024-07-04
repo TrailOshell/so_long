@@ -39,6 +39,18 @@ void	free_collect(t_collect **collect)
 	}
 }
 
+void	free_patrol(t_patrol **patrol)
+{
+	t_patrol	*tmp;
+
+	while (*patrol)
+	{
+		tmp = (*patrol)->next;
+		free(*patrol);
+		*patrol = tmp;
+	}
+}
+
 void	free_node(t_node **node)
 {
 	t_node	*tmp;
@@ -64,6 +76,8 @@ void	free_stuff(t_data *data)
 			free(data->exit);
 		if (data->collect)
 			free_collect(&data->collect);
+		if (data->patrol)
+			free_patrol(&data->patrol);
 		if (data->map)
 			free_map(&data->map);
 		if (data->node != NULL)

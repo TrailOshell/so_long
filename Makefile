@@ -33,13 +33,16 @@ SRC	+=	$(addprefix $(SRC_RENDER_PTH), sprites.c render.c)
 SRC_EVENT_PTH	=	event/
 SRC	+=	$(addprefix $(SRC_EVENT_PTH), mlx_events.c input.c)
 
+SRC_PATROL_PTH	=	patrol/
+SRC	+=	$(addprefix $(SRC_PATROL_PTH), patrol.c pathfinding.c)
+
 SRC_DEBUG_PTH	=	debug/
 SRC	+=	$(addprefix $(SRC_DEBUG_PTH), error.c free.c debug.c check_debug.c)
 
 OBJ_PTH	=	obj/
 OBJ		=	$(SRC:%.c=$(OBJ_PTH)%.o)
 OBJ_SUB_PTHS =	$(OBJ_PTH) $(addprefix $(OBJ_PTH),	$(SRC_UTIL_PTH) $(SRC_INIT_PTH) \
-				$(SRC_RENDER_PTH) $(SRC_EVENT_PTH) $(SRC_DEBUG_PTH))
+				$(SRC_PATROL_PTH) $(SRC_RENDER_PTH) $(SRC_EVENT_PTH) $(SRC_DEBUG_PTH))
 
 BONUS_PTH	=	bonus/
 
@@ -301,6 +304,12 @@ val: all
 
 300: all
 	-$(call test_ber, $(VLD_MAP_PTH), 300x6.ber)
+
+p: patrol
+
+patrol: all
+	valgrind --leak-check=full ./$(NAME) $(VLD_MAP_PTH)patrol/1_patrol.ber
+#	-$(call test_ber, $(VLD_MAP_PTH)patrol/, 1_patrol.ber)
 
 m: map
 

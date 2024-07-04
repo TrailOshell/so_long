@@ -34,6 +34,7 @@ t_data	*start_data(t_data *data)
 	data->player = malloc(sizeof(t_player));
 	data->exit = malloc(sizeof(t_exit));
 	data->collect = NULL;
+	data->patrol = NULL;
 	data->moves = 0;
 	return (data);
 }

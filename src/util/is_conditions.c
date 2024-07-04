@@ -14,7 +14,7 @@
 
 int	isvalidchar(char c)
 {
-	if (c == '0' || c == '1' || c == 'P' || c == 'E' || c == 'C')
+	if (c == '0' || c == '1' || c == 'P' || c == 'E' || c == 'C' || c == 'T')
 		return (1);
 	else if (c == '\n')
 		return (1);
@@ -24,6 +24,13 @@ int	isvalidchar(char c)
 int	iswalkable(char c)
 {
 	if (c == '0' || c == 'C' || c == 'E')
+		return (1);
+	return (0);
+}
+
+int	ispatrolable(char c)
+{
+	if (c == '0' || c == 'C' || c == 'P' || c == 'T')
 		return (1);
 	return (0);
 }

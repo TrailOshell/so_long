@@ -47,6 +47,32 @@ int	add_collectible(t_collect **collect, int x, int y)
 	return (1);
 }
 
+int	add_patrol(t_patrol **patrol, int x, int y)
+{
+	t_patrol	*new;
+	t_patrol	*tmp;
+
+	new = malloc(sizeof(t_patrol));
+	new->next = NULL;
+	new->x = x;
+	new->y = y;
+	new->move_pts = 0;
+	new->move_spd = 0.5;
+	new->facing = 0;
+	new->steps_needed = 0;
+	new->is_on_collect = 0;
+	if (!*patrol)
+	{
+		*patrol = new;
+		return (1);
+	}
+	tmp = *patrol;
+	while (tmp->next)
+		tmp = tmp->next;
+	tmp->next = new;
+	return (1);
+}
+
 /* add_collectible() debug
 int	add_collectible(t_collect *collect, int x, int y)
 {

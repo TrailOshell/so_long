@@ -93,6 +93,14 @@ typedef struct s_pl_sprite
 	void	*right;
 }	t_pl_sprite;
 
+typedef struct s_pt_sprite
+{
+	void	*up;
+	void	*down;
+	void	*left;
+	void	*right;
+}	t_pt_sprite;
+
 typedef struct s_obj_sprite
 {
 	void	*collectible;
@@ -136,6 +144,19 @@ typedef struct s_player
 	t_pl_sprite	sprites;
 }	t_player;
 
+typedef struct s_patrol
+{
+	int				x;
+	int				y;
+	float			move_spd;
+	float			move_pts;
+	char			facing;
+	int				steps_needed;
+	int				is_on_collect;
+	t_pt_sprite		sprites;
+	struct s_patrol	*next;
+}	t_patrol;
+
 typedef struct s_map
 {
 	int				n_row;
@@ -143,7 +164,7 @@ typedef struct s_map
 	int				n_player;
 	int				n_exit;
 	int				n_collect;
-	int				n_enemy;
+	int				n_patrol;
 	char			**grid;
 }	t_map;
 
@@ -154,6 +175,7 @@ typedef struct s_data
 	t_map			*map;
 	t_node			*node;
 	t_player		*player;
+	t_patrol		*patrol;
 	t_exit			*exit;
 	t_collect		*collect;
 	int				moves;
@@ -219,6 +241,7 @@ void	write_node(t_node *node);
 // is_conditions.c
 int		isvalidchar(char c);
 int		iswalkable(char c);
+int		ispatrolable(char c);
 
 // get_next_row.c
 void	get_next_row(t_data *data, int fd);
@@ -245,11 +268,13 @@ int		check_map_chars_count(t_data *data);
 int		set_player(t_player *player, int x, int y);
 int		set_exit(t_exit *exit, int x, int y);
 int		add_collectible(t_collect **collect, int x, int y);
+int		add_patrol(t_patrol **patrol, int x, int y);
 
 // flood_fill.c
 int		flood_fill(t_data *data);
 
 // sprites.c
+void	*load_a_sprite(t_data *data, char *filename);
 void	load_sprites(t_data *data);
 void	free_p_sprites(t_data *data);
 void	free_sprites(t_data *data);
@@ -266,5 +291,11 @@ int		on_keypress(int keysym, t_data *data);
 
 // input.c
 void	player_move(int x, int y, t_data *data);
+
+// patrol.c
+void	patroling(t_data *data);
+
+// pathfinding.c
+int		pathfinding(char **grid, t_patrol *patrol);
 
 #endif
