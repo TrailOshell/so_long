@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 15:44:50 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/07/05 19:44:03 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/07/06 01:12:02 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,57 +77,6 @@ void	render_pl_direction(t_data *data, t_pl_sprite player, int x, int y)
 			data->player->x * SIZE, (data->player->y * SIZE) - SIZE);
 }
 
-int	pt_move_pts(t_data *data, int pt_x, int pt_y)
-{
-	t_patrol	*curr_patrol;
-
-	curr_patrol = data->patrol;
-	while (curr_patrol)
-	{
-		if (curr_patrol->x == pt_x && curr_patrol->y == pt_y)
-			return (curr_patrol->move_pts);
-		curr_patrol = curr_patrol->next;
-	}
-	return (0);
-}
-
-int	pt_on_collect(t_data *data, int pt_x, int pt_y)
-{
-	t_patrol	*curr_patrol;
-
-	curr_patrol = data->patrol;
-	while (curr_patrol)
-	{
-		if (curr_patrol->x == pt_x && curr_patrol->y == pt_y)
-			return (curr_patrol->is_on_collect);
-		curr_patrol = curr_patrol->next;
-	}
-	return (0);
-}
-
-void	render_pl_front_pt(t_data *data, int x, int y)
-{
-	int	pt_x;
-	int	pt_y;
-
-	pt_x = data->player->x;
-	pt_y = data->player->y - 1;
-	if (pt_on_collect(data, pt_y, pt_x) == 1)
-	{
-		if (pt_move_pts(data, pt_y, pt_x) == 0)
-			render_pl_direction(data, data->sprite.pl_t_m, x, y);
-		else
-			render_pl_direction(data, data->sprite.pl_t_m_r, x, y);
-	}
-	else
-	{
-		if (pt_move_pts(data, pt_y, pt_x) == 0)
-			render_pl_direction(data, data->sprite.pl_t, x, y);
-		else
-			render_pl_direction(data, data->sprite.pl_t_r, x, y);
-	}
-}
-
 void	render_player(t_data *data, int x, int y)
 {
 	char	top_tile;
@@ -147,7 +96,7 @@ void	render_player(t_data *data, int x, int y)
 			render_pl_direction(data, data->sprite.pl_h, x, y);
 	}
 	else if (top_tile == 'T')
-		render_pl_front_pt(data, x, y);
+		render_pl_front_of_pt(data, x, y);
 	else
 		render_pl_direction(data, data->sprite.pl_s, x, y);
 }

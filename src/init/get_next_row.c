@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/21 16:43:01 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/06/21 16:43:05 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/07/06 01:27:05 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,51 +35,3 @@ void	get_next_row(t_data *data, int fd)
 	if (data->node == NULL)
 		error_and_exit(data, "ERROR! Empty file\n");
 }
-
-/* this one don't keep newline in the nodes
-void	get_next_row(t_data *data, int fd)
-{
-	char	*line;
-	int		len;
-
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		len = sl_strlen(line);
-		if (line[len - 1] == '\n')
-			len--;
-		if (data->map->n_col == 0)
-			data->map->n_col = len;
-		add_line(&data->node, line);
-		free(line);
-		data->map->n_row++;
-	}
-	if (data->node == NULL)
-		error_and_exit(data, "ERROR! Empty file\n");
-}
-*/
-
-/* old
-void	get_next_row(t_data *data, int fd)
-	char	*line;
-	int		len;
-
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (!line)
-			break ;
-		len = sl_strlen(line);
-		if (line[len - 1] == '\n')
-			len--;
-		check_all_equal_len_lines(data, len);
-		check_left_right_wall(line, len);
-		add_line(&data->node, line);
-		free(line);
-		data->map->n_row++;
-	}
-	if (data->node == NULL)
-		error_and_exit(data, "ERROR! Empty file\n");
-*/

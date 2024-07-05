@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 16:46:54 by tsomchan          #+#    #+#              #
-#    Updated: 2024/07/05 20:24:19 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/07/06 01:31:40 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC	+=	$(addprefix $(SRC_INIT_PTH), get_next_row.c line.c grid.c \
 		set_map.c check_map_input.c set_object.c flood_fill.c) \
 
 SRC_RENDER_PTH	=	render/
-SRC	+=	$(addprefix $(SRC_RENDER_PTH), sprites.c free_sprites.c render.c)
+SRC	+=	$(addprefix $(SRC_RENDER_PTH), sprites.c free_sprites.c render.c \
+		render_pl_front_of_pt.c)
 
 SRC_EVENT_PTH	=	event/
 SRC	+=	$(addprefix $(SRC_EVENT_PTH), mlx_events.c input.c)
@@ -37,7 +38,8 @@ SRC_PATROL_PTH	=	patrol/
 SRC	+=	$(addprefix $(SRC_PATROL_PTH), patrol.c pathfinding.c)
 
 SRC_DEBUG_PTH	=	debug/
-SRC	+=	$(addprefix $(SRC_DEBUG_PTH), error.c free.c debug.c debug_check.c debug_pathfinding.c)
+SRC	+=	$(addprefix $(SRC_DEBUG_PTH), error.c free.c color.c \
+		debug.c debug_pathfinding.c)
 
 OBJ_PTH	=	obj/
 OBJ		=	$(SRC:%.c=$(OBJ_PTH)%.o)
@@ -53,7 +55,7 @@ GNL		=	$(GNL_PTH)get_next_line.a
 GNL_INC	=	-I$(GNL_PTH)
 
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror
+# CFLAGS	=	-Wall -Wextra -Werror
 CFLAGS	+=	-g
 RM		=	rm -f
 RM_RF	= 	rm -rf

@@ -6,36 +6,11 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 17:06:46 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/06/19 21:10:38 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/07/06 01:06:16 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	set_color(char *color)
-{
-	write(1, color, sl_strlen(color));
-}
-
-void	color_from_char(char c)
-{
-	if (c == '1')
-		set_color(RED);
-	else if (c == 'P')
-		set_color(MAGENTA);
-	else if (c == 'C')
-		set_color(YELLOW);
-	else if (c == 'E')
-		set_color(GREEN);
-	else if (c == 't')
-		set_color(BLUE);
-	else if (c == 'T')
-		set_color(CYAN);
-	else if (c == '0')
-		set_color(RESET);
-	else
-		set_color(MAGENTA);
-}
 
 void	write_grid(char **grid)
 {
@@ -83,6 +58,12 @@ void	write_color(char *msg, char *color)
 	write(1, msg, sl_strlen(str));
 	free(str);
 	set_color(RESET);
+}
+
+void	write_color_exit(t_data *data, char *msg, char *color)
+{
+	write_color(msg, color);
+	game_exit(data);
 }
 
 /*

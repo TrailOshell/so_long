@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 00:00:53 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/06/26 00:00:56 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/07/06 01:26:09 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,43 +100,3 @@ int	check_map_chars_count(t_data *data)
 		error_and_exit(data, "ERROR! Exit count not equal 1\n");
 	return (1);
 }
-
-/* unneeded?
-		else if (check_left_right_wall(line, len) == 0)
-			error_and_exit(data, "ERROR! Incorrect row layout\n");
-		//else if (check_all_equal_len_lines(data, len) == 0)
-*/
-
-/*
-int	check_all_equal_len_lines(t_data *data, int len)
-{
-	//if (len <= 0)
-	//	return (0);
-	//if (data->map->n_col == 0)
-	//	data->map->n_col = len;
-	//else if (len != data->map->n_col)
-	//	return (0);
-	if (len != data->map->n_col)
-		return (0);
-	return (1);
-}
-*/
-
-/*
-int	check_left_right_wall(char *line, int len)
-{
-	if (line[0] != '1' || line[len - 1] != '1')
-		return (0);
-	return (1);
-}
-*/
-
-/*
-int	check_valid_char(char *line)
-{
-	while (*line)
-		if (isvalidchar(*(line++)) == 0)
-			return (0);
-	return (1);
-}
-*/

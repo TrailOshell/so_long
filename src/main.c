@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/05 17:13:10 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/06/19 22:34:35 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/07/06 01:30:58 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ int	main(int argc, char **argv)
 	if (!data->win)
 		return (free(data->mlx), 1);
 	render_map(data);
-	render_player(data, 0, 0);
 	render_patrol(data);
+	render_player(data, 0, 0);
 	mlx_hook(data->win, KEYPRESS, (1L << 0), &on_keypress, data);
-	mlx_hook(data->win, DESTROYNOTIFY, (1L << 2), &on_game_exit, data);
+	mlx_hook(data->win, DESTROYNOTIFY, (1L << 2), &game_exit, data);
 	mlx_loop(data->mlx);
 	return (0);
 }

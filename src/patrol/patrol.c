@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:47:10 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/07/05 20:22:05 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/07/06 01:28:48 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,10 +60,7 @@ void	patrol_move(t_data *data, t_patrol *patrol, int x, int y)
 	if (ispatrolable(*target_tile) && *target_tile != 'T')
 	{
 		if (*target_tile == 'P')
-		{
-			write_color("GAME OVER 💀\n", RED);
-			on_game_exit(data);
-		}
+			write_color_exit(data, "GAME OVER 💀\n", GREEN);
 		if (patrol->is_on_collect == 1)
 			data->map->grid[patrol->y][patrol->x] = 'C';
 		else
@@ -79,8 +76,6 @@ void	patrol_move(t_data *data, t_patrol *patrol, int x, int y)
 	}
 	patrol->move_pts -= 1;
 }
-// if it can't move yet I would like to code to save it's move for next turn.
-// but it might be too much for now
 
 // the main function for patroling
 void	patroling(t_data *data)
@@ -108,23 +103,3 @@ void	patroling(t_data *data)
 	render_patrol(data);
 }
 		//printf("patrol->facing = %c\n", moving_patrol->facing);
-
-/* still enough lines in patrol_move() so this function won't be needed yet
-void	update_patrol(char **grid, t_patrol *patrol, int x, int y)
-{
-	char	*target_tile;
-
-	target_tile = &(grid[patrol->y + y][patrol->x + x]);
-	if (patrol->is_on_collect == 1)
-		grid[patrol->y][patrol->x] = 'C';
-	else
-		grid[patrol->y][patrol->x] = '0';
-	if (*target_tile == 'C')
-		patrol->is_on_collect = 1;
-	else
-		patrol->is_on_collect = 0;
-	*target_tile = 'T';
-	patrol->x += x;
-	patrol->y += y;
-}
-*/
