@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 16:46:54 by tsomchan          #+#    #+#              #
-#    Updated: 2024/07/06 01:31:40 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/07/06 01:44:28 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,7 @@ GNL		=	$(GNL_PTH)get_next_line.a
 GNL_INC	=	-I$(GNL_PTH)
 
 CC		=	cc
-# CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-Wall -Wextra -Werror
 CFLAGS	+=	-g
 RM		=	rm -f
 RM_RF	= 	rm -rf
