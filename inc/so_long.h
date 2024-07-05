@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:32:03 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/06/19 22:23:04 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/07/05 20:18:51 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,43 +49,61 @@
 
 // object sprites path
 # define MATCH				"bg/match box bg.xpm"
-# define EXIT_OFF			"bg/cauldron cold bg.xpm"
-# define EXIT_ON			"bg/cauldron hot bg.xpm"
+# define EXIT_OFF			"bg/furnace cold bg.xpm"
+# define EXIT_ON			"bg/furnace hot bg.xpm"
 
 // patrol sprites path
-# define PT_S_UP		"bg/cauldron cold bg.xpm"
-# define PT_S_DOWN		"bg/cauldron cold bg.xpm"
-# define PT_S_LEFT		"bg/cauldron cold bg.xpm"
-# define PT_S_RIGHT		"bg/cauldron cold bg.xpm"
-# define PT_S_R_UP		"bg/cauldron hot bg.xpm"
-# define PT_S_R_DOWN	"bg/cauldron hot bg.xpm"
-# define PT_S_R_LEFT	"bg/cauldron hot bg.xpm"
-# define PT_S_R_RIGHT	"bg/cauldron hot bg.xpm"
-# define PT_M_UP		"bg/match bundle bg.xpm"
-# define PT_M_DOWN		"bg/match bundle bg.xpm"
-# define PT_M_LEFT		"bg/match bundle bg.xpm"
-# define PT_M_RIGHT		"bg/match bundle bg.xpm"
-# define PT_M_R_UP		"bg/match bundle bg.xpm"
-# define PT_M_R_DOWN	"bg/match bundle bg.xpm"
-# define PT_M_R_LEFT	"bg/match bundle bg.xpm"
-# define PT_M_R_RIGHT	"bg/match bundle bg.xpm"
 
-//# define PT_S_UP			"bg/turkey up bg snow.xpm"
-//# define PT_S_DOWN		"bg/turkey down bg snow.xpm"
-//# define PT_S_LEFT		"bg/turkey left bg snow.xpm"
-//# define PT_S_RIGHT		"bg/turkey right bg snow.xpm"
-//# define PT_S_R_UP		"bg/turkey ready up bg snow.xpm"
-//# define PT_S_R_DOWN		"bg/turkey ready down bg snow.xpm"
-//# define PT_S_R_LEFT		"bg/turkey ready left bg snow.xpm"
-//# define PT_S_R_RIGHT		"bg/turkey ready right bg snow.xpm"
-//# define PT_M_UP			"bg/turkey up bg match.xpm"
-//# define PT_M_DOWN		"bg/turkey down bg match.xpm"
-//# define PT_M_LEFT		"bg/turkey left bg match.xpm"
-//# define PT_M_RIGHT		"bg/turkey right bg match.xpm"
-//# define PT_M_R_UP		"bg/turkey ready up bg match.xpm"
-//# define PT_M_R_DOWN		"bg/turkey ready down bg match.xpm"
-//# define PT_M_R_LEFT		"bg/turkey ready left bg match.xpm"
-//# define PT_M_R_RIGHT		"bg/turkey right bg match.xpm"
+# define PT_S_UP			"bg/turkey bg.xpm"
+# define PT_S_DOWN			"bg/turkey bg.xpm"
+# define PT_S_LEFT			"bg/turkey bg.xpm"
+# define PT_S_RIGHT			"bg/turkey bg.xpm"
+# define PT_S_R_UP			"bg/turkey ready bg.xpm"
+# define PT_S_R_DOWN		"bg/turkey ready bg.xpm"
+# define PT_S_R_LEFT		"bg/turkey ready bg.xpm"
+# define PT_S_R_RIGHT		"bg/turkey ready bg.xpm"
+# define PT_M_UP			"bg/turkey match box bg.xpm"
+# define PT_M_DOWN			"bg/turkey match box bg.xpm"
+# define PT_M_LEFT			"bg/turkey match box bg.xpm"
+# define PT_M_RIGHT			"bg/turkey match box bg.xpm"
+# define PT_M_R_UP			"bg/turkey ready match box bg.xpm"
+# define PT_M_R_DOWN		"bg/turkey ready match box bg.xpm"
+# define PT_M_R_LEFT		"bg/turkey ready match box bg.xpm"
+# define PT_M_R_RIGHT		"bg/turkey ready match box bg.xpm"
+
+// # define PT_S_UP			"bg/turkey up bg snow.xpm"
+// # define PT_S_DOWN			"bg/turkey down bg snow.xpm"
+// # define PT_S_LEFT			"bg/turkey left bg snow.xpm"
+// # define PT_S_RIGHT			"bg/turkey right bg snow.xpm"
+// # define PT_S_R_UP			"bg/turkey ready up bg snow.xpm"
+// # define PT_S_R_DOWN		"bg/turkey ready down bg snow.xpm"
+// # define PT_S_R_LEFT		"bg/turkey ready left bg snow.xpm"
+// # define PT_S_R_RIGHT		"bg/turkey ready right bg snow.xpm"
+// # define PT_M_UP			"bg/turkey up bg match.xpm"
+// # define PT_M_DOWN			"bg/turkey down bg match.xpm"
+// # define PT_M_LEFT			"bg/turkey left bg match.xpm"
+// # define PT_M_RIGHT			"bg/turkey right bg match.xpm"
+// # define PT_M_R_UP			"bg/turkey ready up bg match.xpm"
+// # define PT_M_R_DOWN		"bg/turkey ready down bg match.xpm"
+// # define PT_M_R_LEFT		"bg/turkey ready left bg match.xpm"
+// # define PT_M_R_RIGHT		"bg/turkey right bg match.xpm"
+
+// # define PT_S_UP		"bg/cauldron cold bg.xpm"
+// # define PT_S_DOWN		"bg/cauldron cold bg.xpm"
+// # define PT_S_LEFT		"bg/cauldron cold bg.xpm"
+// # define PT_S_RIGHT		"bg/cauldron cold bg.xpm"
+// # define PT_S_R_UP		"bg/cauldron hot bg.xpm"
+// # define PT_S_R_DOWN	"bg/cauldron hot bg.xpm"
+// # define PT_S_R_LEFT	"bg/cauldron hot bg.xpm"
+// # define PT_S_R_RIGHT	"bg/cauldron hot bg.xpm"
+// # define PT_M_UP		"bg/match bundle bg.xpm"
+// # define PT_M_DOWN		"bg/match bundle bg.xpm"
+// # define PT_M_LEFT		"bg/match bundle bg.xpm"
+// # define PT_M_RIGHT		"bg/match bundle bg.xpm"
+// # define PT_M_R_UP		"bg/match bundle bg.xpm"
+// # define PT_M_R_DOWN	"bg/match bundle bg.xpm"
+// # define PT_M_R_LEFT	"bg/match bundle bg.xpm"
+// # define PT_M_R_RIGHT	"bg/match bundle bg.xpm"
 
 // player sprites path
 # define PL_UP				"bg/match girl up bg snow.xpm"
@@ -104,22 +122,30 @@
 # define PL_M_DOWN			"bg/match girl down bg match box.xpm"
 # define PL_M_LEFT			"bg/match girl left bg match box.xpm"
 # define PL_M_RIGHT			"bg/match girl right bg match box.xpm"
-# define PL_C_UP			"bg/match girl up bg cold.xpm"
-# define PL_C_DOWN			"bg/match girl down bg cold.xpm"
-# define PL_C_LEFT			"bg/match girl left bg cold.xpm"
-# define PL_C_RIGHT			"bg/match girl right bg cold.xpm"
-# define PL_H_UP			"bg/match girl up bg hot.xpm"
-# define PL_H_DOWN			"bg/match girl down bg hot.xpm"
-# define PL_H_LEFT			"bg/match girl left bg hot.xpm"
-# define PL_H_RIGHT			"bg/match girl right bg hot.xpm"
-//# define PL_T_UP			"bg/match girl up bg turkey.xpm"
-//# define PL_T_DOWN			"bg/match girl down bg turkey.xpm"
-//# define PL_T_LEFT			"bg/match girl left bg turkey.xpm"
-//# define PL_T_RIGHT			"bg/match girl right bg turkey.xpm"
-//# define PL_T_R_UP			"bg/match girl up bg turkey ready.xpm"
-//# define PL_T_R_DOWN		"bg/match girl down bg turkey ready.xpm"
-//# define PL_T_R_LEFT		"bg/match girl left bg turkey ready.xpm"
-//# define PL_T_R_RIGHT		"bg/match girl right bg turkey ready.xpm"
+# define PL_C_UP			"bg/match girl up bg furnace cold.xpm"
+# define PL_C_DOWN			"bg/match girl down bg furnace cold.xpm"
+# define PL_C_LEFT			"bg/match girl left bg furnace cold.xpm"
+# define PL_C_RIGHT			"bg/match girl right bg furnace cold.xpm"
+# define PL_H_UP			"bg/match girl up bg furnace hot.xpm"
+# define PL_H_DOWN			"bg/match girl down bg furnace hot.xpm"
+# define PL_H_LEFT			"bg/match girl left bg furnace hot.xpm"
+# define PL_H_RIGHT			"bg/match girl right bg furnace hot.xpm"
+# define PL_T_UP			"bg/match girl up bg turkey.xpm"
+# define PL_T_DOWN			"bg/match girl down bg turkey.xpm"
+# define PL_T_LEFT			"bg/match girl left bg turkey.xpm"
+# define PL_T_RIGHT			"bg/match girl right bg turkey.xpm"
+# define PL_T_R_UP			"bg/match girl up bg turkey ready.xpm"
+# define PL_T_R_DOWN		"bg/match girl down bg turkey ready.xpm"
+# define PL_T_R_LEFT		"bg/match girl left bg turkey ready.xpm"
+# define PL_T_R_RIGHT		"bg/match girl right bg turkey ready.xpm"
+# define PL_T_M_UP			"bg/match girl up bg turkey match box.xpm"
+# define PL_T_M_DOWN		"bg/match girl down bg turkey match box.xpm"
+# define PL_T_M_LEFT		"bg/match girl left bg turkey match box.xpm"
+# define PL_T_M_RIGHT		"bg/match girl right bg turkey match box.xpm"
+# define PL_T_M_R_UP		"bg/match girl up bg turkey ready match box.xpm"
+# define PL_T_M_R_DOWN		"bg/match girl down bg turkey ready match box.xpm"
+# define PL_T_M_R_LEFT		"bg/match girl left bg turkey ready match box.xpm"
+# define PL_T_M_R_RIGHT		"bg/match girl right bg turkey ready match box.xpm"
 //# define PL_OVER			"bg/match girl over.xpm"
 
 typedef struct s_map_sprite
@@ -164,6 +190,8 @@ typedef struct s_sprite
 	t_pl_sprite		pl_h;
 	t_pl_sprite		pl_t;
 	t_pl_sprite		pl_t_r;
+	t_pl_sprite		pl_t_m;
+	t_pl_sprite		pl_t_m_r;
 	t_pt_sprite		pt;
 	t_pt_sprite		pt_s;
 	t_pt_sprite		pt_s_r;
@@ -235,14 +263,6 @@ typedef struct s_data
 	t_collect		*collect;
 	int				moves;
 	t_sprite		sprite;
-	//t_map_sprite	m;
-	//t_obj_sprite	o;
-	//t_pl_sprite		pl;
-	//t_pl_sprite		pl_s;
-	//t_pl_sprite		pl_b;
-	//t_pl_sprite		pl_m;
-	//t_pl_sprite		pl_c;
-	//t_pl_sprite		pl_h;
 }	t_data;
 
 //	X11 events 
@@ -336,7 +356,10 @@ int		flood_fill(t_data *data);
 // sprites.c
 void	*load_a_sprite(t_data *data, char *filename);
 void	load_sprites(t_data *data);
+
+// free_sprites.c
 void	free_pl_sprites(t_data *data);
+void	free_pt_sprites(t_data *data);
 void	free_sprites(t_data *data);
 
 // render.c

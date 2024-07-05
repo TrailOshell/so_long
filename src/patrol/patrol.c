@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/04 16:47:10 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/07/04 16:47:12 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/07/05 20:22:05 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,10 @@ void	patrol_move(t_data *data, t_patrol *patrol, int x, int y)
 	if (ispatrolable(*target_tile) && *target_tile != 'T')
 	{
 		if (*target_tile == 'P')
+		{
+			write_color("GAME OVER 💀\n", RED);
 			on_game_exit(data);
+		}
 		if (patrol->is_on_collect == 1)
 			data->map->grid[patrol->y][patrol->x] = 'C';
 		else

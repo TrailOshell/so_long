@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/19 19:50:58 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/06/19 21:45:52 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/07/05 20:23:36 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ int	on_keypress(int keysym, t_data *data)
 	if (keysym == KEY_DOWN || keysym == KEY_S)
 		player_move(0, 1, data);
 	if (keysym == KEY_Q || keysym == KEY_ESC)
+	{
+		write_color("Manually quit the game\n", YELLOW);
 		on_game_exit(data);
+	}
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/17 16:40:42 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/06/19 21:10:19 by tsomchan         ###   ########.fr       */
+/*   Updated: 2024/07/05 20:22:00 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ void	player_move(int x, int y, t_data *data)
 		if (*target_tile == 'C')
 			data->map->n_collect -= 1;
 		else if (*target_tile == 'E' && data->map->n_collect == 0)
+		{
+			write_color("Stage passed! 🎉\n", GREEN);
 			on_game_exit(data);
+		}
 		else if (*target_tile == 'E' && data->map->n_collect > 0)
 			return ;
 		update_move(data, x, y, target_tile);
@@ -47,7 +50,10 @@ void	player_move(int x, int y, t_data *data)
 			render_tile(data, data->exit->x, data->exit->y);
 	}
 	else if (*target_tile == 'T')
+	{
+		write_color("GAME OVER 💀\n", RED);
 		on_game_exit(data);
+	}
 	render_player(data, x, y);
 }
 

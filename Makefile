@@ -6,7 +6,7 @@
 #    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 16:46:54 by tsomchan          #+#    #+#              #
-#    Updated: 2024/06/19 22:21:48 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/07/05 20:24:19 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ SRC	+=	$(addprefix $(SRC_INIT_PTH), get_next_row.c line.c grid.c \
 		set_map.c check_map_input.c set_object.c flood_fill.c) \
 
 SRC_RENDER_PTH	=	render/
-SRC	+=	$(addprefix $(SRC_RENDER_PTH), sprites.c render.c)
+SRC	+=	$(addprefix $(SRC_RENDER_PTH), sprites.c free_sprites.c render.c)
 
 SRC_EVENT_PTH	=	event/
 SRC	+=	$(addprefix $(SRC_EVENT_PTH), mlx_events.c input.c)
