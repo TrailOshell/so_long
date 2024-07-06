@@ -27,7 +27,8 @@ void	output_move(t_data *data)
 	write_value("Moves", data->moves);
 	write(1, "\t", 1);
 	write_value("Collectibles Left", data->map->n_collect);
-	write(1, "\n", 1);
+	write(1, "\t", 1);
+	write_color("(H for Help)", GRAY);
 }
 
 void	player_move(int x, int y, t_data *data)
@@ -66,5 +67,5 @@ void	player_wait(t_data *data)
 
 void	show_help(void)
 {
-	write_color("WASD or ↑←↓→ to move, SPACE to wait, H for help\n", MAGENTA);
+	write_color("WASD or ↑←↓→ to move, SPACE to wait, H for help", MAGENTA);
 }
