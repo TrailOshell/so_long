@@ -60,7 +60,7 @@ void	patrol_move(t_data *data, t_patrol *patrol, int x, int y)
 	if (ispatrolable(*target_tile) && *target_tile != 'T')
 	{
 		if (*target_tile == 'P')
-			write_color_exit(data, "GAME OVER 💀\n", GREEN);
+			write_color_exit(data, "GAME OVER 💀\n", RED);
 		if (patrol->is_on_collect == 1)
 			data->map->grid[patrol->y][patrol->x] = 'C';
 		else

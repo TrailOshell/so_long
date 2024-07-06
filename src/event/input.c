@@ -28,7 +28,7 @@ void	output_move(t_data *data)
 	write(1, "\t", 1);
 	write_value("Collectibles Left", data->map->n_collect);
 	write(1, "\t", 1);
-	write_color("(H for Help)", GRAY);
+	write_color("(H for Help)\n", GRAY);
 }
 
 void	player_move(int x, int y, t_data *data)
