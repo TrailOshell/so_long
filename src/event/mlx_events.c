@@ -18,6 +18,7 @@ int	game_exit(t_data *data)
 	mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free_stuff(data);
+	write_color("Game now exit\n", YELLOW);
 	exit(1);
 	return (0);
 }
