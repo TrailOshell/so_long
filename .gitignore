@@ -5,6 +5,9 @@ mlx/*libmlx*.a
 valgrind.out
 settings.json
 
+# gnl
+gnl/get_next_line.a
+
 # vscode
 *.vscode
 
