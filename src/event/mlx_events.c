@@ -34,14 +34,14 @@ int	on_keypress(int keysym, t_data *data)
 		player_move(0, 1, data);
 	if (keysym == KEY_SPACE)
 		player_wait(data);
+	if (keysym == KEY_H)
+		show_help();
 	if (keysym == KEY_Q || keysym == KEY_ESC)
 		write_color_exit(data, "Manually quit the game\n", YELLOW);
 	return (0);
 }
 
 /*
-	if (keysym == KEY_H)
-		show_help(data);
 	if (keysym == KEY_F)
 		player_light_match(data);
 */

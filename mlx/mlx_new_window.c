@@ -2,8 +2,7 @@
 ** mlx_new_window.c for MiniLibX in 
 ** 
 ** Made by Charlie Root
-** Login   <ol@epitech.net>
-** 
+** Login   <ol@epitech.net> ** 
 ** Started on  Mon Jul 31 17:29:02 2000 Charlie Root
 ** Last update Thu Oct  4 15:44:43 2001 Charlie Root
 */
@@ -48,8 +47,7 @@ void	*mlx_new_window(t_xvar *xvar,int size_x,int size_y,char *title)
 	xgcv.plane_mask = AllPlanes;
 	new_win->gc = XCreateGC(xvar->display,new_win->window,
 				GCFunction|GCPlaneMask|GCForeground,&xgcv);
-	new_win->next = xvar->win_list;
-	xvar->win_list = new_win;
+	new_win->next = xvar->win_list; xvar->win_list = new_win;
 	/*
 	new_win->mouse_hook = mlx_int_do_nothing;
 	new_win->key_hook = mlx_int_do_nothing;

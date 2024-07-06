@@ -77,6 +77,7 @@ int	main(int argc, char **argv)
 	render_map(data);
 	render_patrol(data);
 	render_player(data, 0, 0);
+	show_help();
 	mlx_hook(data->win, KEYPRESS, (1L << 0), &on_keypress, data);
 	mlx_hook(data->win, DESTROYNOTIFY, (1L << 2), &game_exit, data);
 	mlx_loop(data->mlx);

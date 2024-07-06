@@ -63,3 +63,8 @@ void	player_wait(t_data *data)
 	output_move(data);
 	render_player(data, 0, 0);
 }
+
+void	show_help(void)
+{
+	write_color("WASD or ↑←↓→ to move, SPACE to wait, H for help\n", MAGENTA);
+}

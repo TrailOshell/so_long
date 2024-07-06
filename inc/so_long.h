@@ -34,7 +34,7 @@
 
 // tile size
 # ifndef SIZE
-#  define SIZE				128
+#  define SIZE				64
 # endif
 
 # define PTH_16				"sprites/16/"
@@ -247,6 +247,7 @@ typedef struct s_data
 # define KEY_RIGHT 			65363
 # define KEY_DOWN  			65364 
 # define KEY_SPACE 			32
+# define KEY_H				104
 # define KEY_Q				113
 # define KEY_ESC			65307
 
@@ -318,9 +319,10 @@ void	free_sprites(t_data *data);
 // render.c
 void	render_map(t_data *data);
 void	render_tile(t_data *data, int x, int y);
-void	render_objects(t_data *data);
+void	render_pl_direction(t_data *data, t_pl_sprite player, int x, int y);
 void	render_player(t_data *data, int x, int y);
 void	render_patrol(t_data *data);
+void	render_objects(t_data *data);
 // render_pl_front_of_pt.c
 void	render_pl_front_of_pt(t_data *data, int x, int y);
 
@@ -330,6 +332,7 @@ int		on_keypress(int keysym, t_data *data);
 // input.c
 void	player_move(int x, int y, t_data *data);
 void	player_wait(t_data *data);
+void	show_help(void);
 
 // patrol.c
 void	patroling(t_data *data);
