@@ -167,7 +167,7 @@ help:
 	@echo "$(D_YELLOW)Norminette\t\t: $(NC)n norm$(NC)"
 	@echo "$(D_YELLOW)Invalid tests\t\t: $(NC)i inv inv_file inv_size inv_line inv_layout inv_char inv_path inv_patrol$(NC)"
 	@echo "$(D_YELLOW)Valid tests\t\t: $(NC)v val 100 200 300$(NC)"
-	@echo "$(D_YELLOW)Patrol test\t\t: $(NC)p patrol$(NC)"
+	@echo "$(D_YELLOW)Patrol tests\t\t: $(NC)p patrol p1 p1t p2 p3c$(NC)"
 	@echo "$(D_YELLOW)Custom Map tests\t: $(NC)m map$(NC)"
 	@echo "$(D_YELLOW)\t\t\t+-> $(NC)make m m=[pth_to_map.ber]$(NC)"
 
