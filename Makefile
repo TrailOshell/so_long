@@ -299,6 +299,7 @@ inv: all
 	@-make --no-print-directory inv_layout
 	@-make --no-print-directory inv_char
 	@-make --no-print-directory inv_path
+	@-make --no-print-directory inv_patrol
 
 v: val
 
