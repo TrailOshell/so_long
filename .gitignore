@@ -5,8 +5,11 @@ mlx/*libmlx*.a
 valgrind.out
 settings.json
 
+# vscode
+*.vscode
+
 # from So_long-Tester by gemartin
-*So_long-Tester/
+So_long-Tester/
 *maps_err/
 *maps_valid/
 Tester_so_long.sh
