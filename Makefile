@@ -63,8 +63,8 @@ RM_RF	= 	rm -rf
 MLX_PTH		=	mlx
 MLX			=	$(MLX_PTH)/libmlx.a
 MLX_FLAGS	=	-L$(MLX_PTH) -l$(MLX_PTH) -L/usr/lib -I$(MLX_PTH) -lXext -lX11 -lm -lz
-#MLX_INC		=	-I/usr/include -I$(MLX_PTH) -O3
-MLX_INC		=	-I$(MLX_PTH) -O3
+#MLX_INC		=	-I/usr/include -I$(MLX_PTH)
+MLX_INC		=	-I$(MLX_PTH)
 
 all: $(MLX) $(GNL) $(NAME)
 
