@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+         #
+#    By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/05/04 16:46:54 by tsomchan          #+#    #+#              #
-#    Updated: 2024/07/06 01:44:28 by tsomchan         ###   ########.fr        #
+#    Updated: 2024/12/13 15:40:33 by tsomchan         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,8 +60,8 @@ CFLAGS	+=	-g
 RM		=	rm -f
 RM_RF	= 	rm -rf
 
-MLX_PTH		=	mlx
 MLX			=	$(MLX_PTH)/libmlx.a
+MLX_PTH		=	mlx
 MLX_FLAGS	=	-L$(MLX_PTH) -l$(MLX_PTH) -L/usr/lib -I$(MLX_PTH) -lXext -lX11 -lm -lz
 #MLX_INC		=	-I/usr/include -I$(MLX_PTH)
 MLX_INC		=	-I$(MLX_PTH)

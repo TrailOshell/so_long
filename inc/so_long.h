@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tsomchan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tsomchan <tsomchan@student.42bangkok.com>  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/16 16:32:03 by tsomchan          #+#    #+#             */
-/*   Updated: 2024/07/06 01:34:15 by tsomchan         ###   ########.fr       */
+/*   Updated: 2025/03/18 18:24:49 by tsomchan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 // tile size
 # ifndef SIZE
 #  define SIZE				64
+//#  define SIZE				128
 # endif
 
 # define PTH_16				"sprites/16/"
